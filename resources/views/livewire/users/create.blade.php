@@ -35,10 +35,21 @@
                 <select class="form-control" id="department" wire:model="department">
                     <option value="">-- Seleccione --</option>
                     @foreach($departments as $option)
-                        <option value="{{ $option->id }}">{{ $option->name }}</option>
+                        <option value="{{ $option->id }}">{{ $option->namedt }}</option>
                     @endforeach
                 </select>
                 @error('department') <span class="error text-danger">{{ $message }}</span> @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="select-option">Seleccione el grupo:</label>
+                <select class="form-control" id="grupo" wire:model="grupo">
+                    <option value="">-- Seleccione --</option>
+                    @foreach($groups as $option)
+                        <option value="{{ $option->id }}">{{ $option->name }}</option>
+                    @endforeach
+                </select>
+                @error('grupo') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
 
                 </form>

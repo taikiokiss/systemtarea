@@ -7,6 +7,7 @@ use Livewire\WithPagination;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use App\Models\Person;
+use App\Models\Group;
 use App\Models\Department;
 use DB;
 
@@ -16,13 +17,15 @@ class Users extends Component
     use WithPagination;
 
 	protected $paginationTheme = 'bootstrap';
-    public $selected_id, $keyWord, $email,$persona_id, $estado,$name,$last_name,$cedula,$direccion,$celular,$department;
+    public $selected_id, $keyWord, $email,$persona_id, $estado,$name,$last_name,$cedula,$direccion,$celular,$department,$grupo;
     public $updateMode = false;
 
     public function render()
     {
 		$keyWord = '%'.$this->keyWord .'%';
         $departmentt = Department::all();
+        $grup = Group::all();
+
         return view('livewire.users.view', [
 
             'users' => DB::table('users')
@@ -37,6 +40,7 @@ class Users extends Component
                 })
                 ->paginate(10),
             'departments' => $departmentt,
+            'groups' => $grup,
 
         ]);
     }
@@ -54,6 +58,7 @@ class Users extends Component
         $this->last_name = null;
         $this->cedula = null;
         $this->department = null;
+        $this->grupo = null;
 
     }
 
@@ -64,7 +69,8 @@ class Users extends Component
             'cedula' => 'required',
     		'email' => 'required',
             'last_name' => 'required',
-            'department' => 'required'
+            'department' => 'required',
+            'grupo' => 'required',
 
         ]);
 
@@ -79,6 +85,7 @@ class Users extends Component
             'password' => Hash::make($this-> cedula),
             'persona_id' => $pers->id,
             'deparment_id' => $this-> department,
+            'group_id' => $this-> grupo,
             'estado' => 'ACTIVO'
         ]);
 
