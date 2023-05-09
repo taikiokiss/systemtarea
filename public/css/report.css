@@ -1,0 +1,49 @@
+#tabla{
+    border:solid 2px black;
+    border-collapse: collapse;
+}
+
+.pre{
+    border:2px solid black; 
+}
+
+.borde{
+	border: 1px solid black;
+	border-collapse: collapse;
+	text-align:center;
+}
+
+
+table {
+    font-family: arial, sans-serif;
+    width: 100%;
+}
+
+body{
+	margin-top: 0.1cm;
+	margin-left: 0cm;
+	margin-right: 0cm;
+	margin-bottom: 0cm;
+}
+
+#header { 
+	position: fixed; 
+	left: 0px; 
+	right: 0px;
+	height: 50px;
+
+} 
+
+#footer { 
+	position: absolute; 
+	left: 0px; 
+	bottom: 0px; 
+	right: 0px; 
+	height: 1cm; 
+} 
+
+.page-break {
+    page-break-after: always;
+}
+
+.page:after{ content: counter(page, decimal); } 
