@@ -105,6 +105,18 @@
 
                         </div>
 
+                        <div class="form-group row">
+
+                            <div class="col-md-12">
+                                <label for="descripcion" class="col-form-label text-md-left">{{ __('Archivos Adjuntos') }}</label>
+                                <div class="container my-5">
+                                        <div id="uploader"></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
 
                         <div class="form-group row was-validated mt-3">
                             <div class="col-md-12 col-md-offset-4 text-md-left">

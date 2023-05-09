@@ -24,6 +24,12 @@
     <link rel="stylesheet" href="/css/sweetalert.min.css">
     <link rel="stylesheet" href="/css/src.css">
 
+
+
+        <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+
+
+
     <!-- PIVOT CSS -->
     <script src="/js/jquery-3.3.1.min.js"></script>
     <!-- Bootstrap CDN Plugin -->
@@ -237,7 +243,22 @@
     <script src="/js/bootstrap-show-password.js"></script>
     <script type="text/javascript" src="/js/toastr.min.js"></script>
     <!-- bs-custom-file-input -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
+        <script src="/dragdrop/dist/5x5jqpi.min.js"></script>
+
+        <script>
+
+            $(function(){
+
+                $("#uploader").initUploader({
+                    sizeLimit:15,
+                    fileLimit:10,
+                });
+            });
+
+        </script>
     <script type="text/javascript">
         window.livewire.on('closeModal', () => {
             $('#createDataModal').modal('hide');
