@@ -31,8 +31,6 @@
 								<td>#</td> 
 								<th>Name</th>
 								<th>Jefe Grupo</th>
-								<th>Miembro Grupo</th>
-
 								<td>Acciones</td>
 							</tr>
 						</thead>
@@ -40,17 +38,16 @@
 							@foreach($groups as $row)
 							<tr>
 								<td>{{ $loop->iteration }}</td> 
-								<td>{{ $row->name }}</td>
-								<td>{{ $row->jefe_grupo }}</td>
-								<td>{{ $row->miembro_grupo }}</td>
+								<td>{{ $row->nombregrupo }}</td>
+								<td>{{ $row->last_name }} {{ $row->name }}</td>
 								<td width="90">
 								<div class="btn-group">
 									<button type="button" class="btn btn-info btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Acciones
 									</button>
 									<div class="dropdown-menu dropdown-menu-right">
-									<a data-toggle="modal" data-target="#updateModal" class="dropdown-item" wire:click="edit({{$row->id}})"><i class="fa fa-edit"></i> Editar </a>							 
-									<a class="dropdown-item" onclick="confirm('Confirm Delete Group id {{$row->id}}? \nDeleted Groups cannot be recovered!')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})"><i class="fa fa-trash"></i> Eliminar </a>   
+									<a data-toggle="modal" data-target="#updateModal" class="dropdown-item" wire:click="edit({{$row->idg}})"><i class="fa fa-edit"></i> Editar </a>							 
+									<a class="dropdown-item" onclick="confirm('Confirm Delete Group id {{$row->idg}}? \nDeleted Groups cannot be recovered!')||event.stopImmediatePropagation()" wire:click="destroy({{$row->idg}})"><i class="fa fa-trash"></i> Eliminar </a>   
 									</div>
 								</div>
 								</td>

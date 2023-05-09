@@ -14,10 +14,20 @@
                 <label for="name"></label>
                 <input wire:model="name" type="text" class="form-control" id="name" placeholder="Name">@error('name') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
+
+
             <div class="form-group">
-                <label for="jefe_grupo"></label>
-                <input wire:model="jefe_grupo" type="text" class="form-control" id="jefe_grupo" placeholder="Jefe Grupo">@error('jefe_grupo') <span class="error text-danger">{{ $message }}</span> @enderror
+                <label for="select-option">Jefe de Grupo:</label>
+                <select class="form-control" id="jefe_grupo" wire:model="jefe_grupo">
+                    <option value="">-- Seleccione --</option>
+                    @foreach($users as $option)
+                        <option value="{{ $option->id }}">{{ $option->cedula }} | {{ $option->last_name }} {{ $option->name }}</option>
+                    @endforeach
+                </select>
+                @error('jefe_grupo') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
+
+
             <div class="form-group">
                 <label for="miembro_grupo"></label>
                 <input wire:model="miembro_grupo" type="text" class="form-control" id="miembro_grupo" placeholder="Miembro Grupo">@error('miembro_grupo') <span class="error text-danger">{{ $message }}</span> @enderror

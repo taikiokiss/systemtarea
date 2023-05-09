@@ -30,4 +30,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 	Route::view('roles', 'livewire.roles.index')->middleware('role:ADMINISTRADOR');
 	Route::view('users', 'livewire.users.index')->middleware('role:ADMINISTRADOR');
 
+require __DIR__ . '/task/task.php';
 

@@ -5,6 +5,8 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Group;
+use App\Models\User;
+use DB;
 
 class Groups extends Component
 {
@@ -17,12 +19,25 @@ class Groups extends Component
     public function render()
     {
 		$keyWord = '%'.$this->keyWord .'%';
+
+        $list_user = DB::table('users')
+            ->Join('persons', 'persons.id', 'users.persona_id')
+            ->where('users.estado','=','ACTIVO')
+                ->select('users.*','persons.*')
+                ->get(); 
+
         return view('livewire.groups.view', [
-            'groups' => Group::latest()
-						->orWhere('name', 'LIKE', $keyWord)
-						->orWhere('jefe_grupo', 'LIKE', $keyWord)
-						->orWhere('miembro_grupo', 'LIKE', $keyWord)
-						->paginate(10),
+            'groups' => DB::table('groups')
+                ->join('users', 'users.id', '=', 'groups.jefe_grupo')
+                ->join('persons', 'persons.id', '=', 'users.persona_id')
+                ->select('groups.id as idg','groups.name as nombregrupo','groups.miembro_grupo as miembrogrupo','persons.*')
+                ->where(function ($query) use ($keyWord) {
+                    $query->where('groups.name', 'LIKE', $keyWord)
+                          ->orWhere('groups.jefe_grupo', 'LIKE', $keyWord)
+                          ->orWhere('groups.miembro_grupo', 'LIKE', $keyWord);
+                })
+                ->paginate(10),
+            'users' => $list_user,
         ]);
     }
 	
