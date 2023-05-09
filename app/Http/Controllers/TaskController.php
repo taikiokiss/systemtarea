@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Task;
+use DB;
 class TaskController extends Controller
 {
     /**
@@ -13,7 +14,12 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks = DB::table('tasks')
+            ->select('tasks.*')
+            ->where('tasks.estado','=','ACTIVO')
+            ->get(); 
+
+        return view('tasks.index', compact('tasks'));
     }
 
     /**
