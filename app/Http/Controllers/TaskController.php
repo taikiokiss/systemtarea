@@ -19,8 +19,8 @@ class TaskController extends Controller
             ->select('tasks.*')
             ->where('tasks.estado','=','ACTIVO')
             ->get(); 
-
         return view('tasks.index', compact('tasks'));
+
     }
 
     /**
@@ -30,7 +30,17 @@ class TaskController extends Controller
      */
     public function create()
     {
-        return view('tasks.create');
+
+        $datos = [
+            'colores' => ['Rojo', 'Verde', 'Azul'],
+            'opciones' => [
+                'Rojo' => ['Manzana', 'Fresa', 'Cereza'],
+                'Verde' => ['Pera', 'Kiwi', 'Lima'],
+                'Azul' => ['Arándano', 'Uva', 'Moras'],
+            ],
+        ];
+
+        return view('tasks.create', compact('datos'));
     }
 
     /**

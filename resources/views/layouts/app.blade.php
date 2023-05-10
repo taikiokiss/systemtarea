@@ -25,8 +25,7 @@
     <link rel="stylesheet" href="/css/src.css">
 
 
-
-        <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+    <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 
 
 
@@ -201,7 +200,7 @@
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; @ 2023</span>
+                        <span>Copyright &copy; 2023</span>
                     </div>
                 </div>
             </footer>
