@@ -8,6 +8,7 @@ use App\Models\Department;
 use App\Models\User;
 use App\Models\Person;
 use App\Models\Group;
+use Auth;
 use DB;
 
 class TaskController extends Controller
@@ -20,8 +21,13 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = DB::table('tasks')
-            ->select('tasks.*')
+            ->join('users as usuarioAsig','usuarioAsig.id','tasks.asign_a')
+            ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
+            ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
+            ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
+            ->join('departments', 'departments.id', '=', 'tasks.department_id')
             ->where('tasks.estado','=','ACTIVO')
+            ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt',)
             ->get(); 
         return view('tasks.index', compact('tasks'));
 
@@ -48,7 +54,6 @@ class TaskController extends Controller
             'departma' => $departmentt,
             'opciones' => $userss,
         ];
-        //dd($datos['opciones']);
         return view('tasks.create', compact('datos'));
     }
 
@@ -60,7 +65,29 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+            $tasks = array();
+            $tasks = new Task;
+            $tasks->asunto          = $request->input('asunto');
+            $tasks->descripcion     = $request->input('descripcion');
+            $tasks->fecha_entrega   = $request->input('fecha_entrega');
+            $tasks->department_id   = $request->input('departamento');
+            $tasks->asign_a         = $request->input('asign_a');
+            $tasks->ciclo           = $request->input('rcada');
+            $tasks->usuario_solicitante     = Auth::user()->id;
+            $tasks->estado          = 'ACTIVO';
+            $tasks->save();
+
+
+
+
+        $notificationa=array(
+            'message' => 'Tarea ingresada con éxito',
+            'alert-type' => 'success'
+        );
+        return redirect()->route('tasks.index', $tasks->id)
+            ->with($notificationa);
+        
     }
 
     /**

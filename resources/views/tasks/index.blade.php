@@ -36,9 +36,9 @@
                         <tr>
                             <th width="10px" style="text-align: center">ID</th>
                             <th width="500px" style="text-align: center">Asunto</th>
-                            <th width="300px" style="text-align: center">Usuario Solicitante</th>
-                            <th width="40px" style="text-align: center">Departamento</th>
-                            <th width="500px" style="text-align: center">Fecha de Solucitud</th>
+                            <th width="120px" style="text-align: center">Fecha de Solucitud</th>
+                            <th width="200px" style="text-align: center">Departamento</th>
+                            <th width="500px" style="text-align: center">Usuario Solicitante</th>
                             <th style="text-align: center">Estado</th>
                             <th style="text-align: center">&nbsp;</th>
                         </tr>
@@ -48,11 +48,13 @@
                         @foreach($tasks as $prodc)
                         <tr>
                             <td>{{ $prodc->id }}</td>
-                            <td>{{ $prodc->antena }}</td>
-                            <td>{{ $prodc->marca }}</td>
-                            <td>{{ $prodc->modelo }}</td>
-                            <td>{{ $prodc->codigoserie }}</td>   
+                            <td>{{ $prodc->asunto }}</td>
+                            <td>{{ $prodc->fecha_entrega }}</td>
+                            <td>{{ $prodc->namedt }}</td>
+                            <td>{{ $prodc->ApellidoSoli }} {{ $prodc->NombreSoli }}</td>   
                             <td>{{$prodc->estado }}</td> 
+
+
                             <td width="5px">
                               <div class="text-center">
                                 <div class="btn-group">

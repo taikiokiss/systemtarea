@@ -11,12 +11,13 @@ class Task extends Model
         'descripcion',
         'fecha_entrega',
         'department_id',
+        'asign_a',
         'ciclo',
         'usuario_solicitante'
     ];
 
     protected $primaryKey = 'id';
-    protected $table = 'taks';
+    protected $table = 'tasks';
 }
 
 
