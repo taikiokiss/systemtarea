@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
+use App\Models\Department;
+use App\Models\User;
+use App\Models\Person;
+use App\Models\Group;
 use DB;
 
 class TaskController extends Controller
@@ -31,15 +35,20 @@ class TaskController extends Controller
     public function create()
     {
 
-        $datos = [
-            'colores' => ['Rojo', 'Verde', 'Azul'],
-            'opciones' => [
-                'Rojo' => ['Manzana', 'Fresa', 'Cereza'],
-                'Verde' => ['Pera', 'Kiwi', 'Lima'],
-                'Azul' => ['Arándano', 'Uva', 'Moras'],
-            ],
-        ];
+        $departmentt = Department::all();
 
+        $userss = DB::table('users')
+            ->join('persons', 'persons.id', '=', 'users.persona_id')
+            ->join('departments', 'departments.id', '=', 'users.deparment_id')
+            ->where('users.estado','=','ACTIVO')
+            ->select('persons.*','departments.*')
+            ->get();
+
+        $datos = [
+            'departma' => $departmentt,
+            'opciones' => $userss,
+        ];
+        //dd($datos['opciones']);
         return view('tasks.create', compact('datos'));
     }
 

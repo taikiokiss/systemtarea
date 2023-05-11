@@ -29,43 +29,22 @@
 
                         <div class="form-group row">
 
-
-<div>
-    <label for="color">Seleccione un color:</label>
-    <select id="color" name="color">
-        <option value="">Seleccione un color</option>
-        @foreach ($datos['colores'] as $color)
-            <option value="{{ $color }}">{{ $color }}</option>
-        @endforeach
-    </select>
-</div>
-
-<div>
-    <label for="opcion">Seleccione una opción:</label>
-    <select id="opcion" name="opcion" disabled>
-        <option value="">Seleccione una opción</option>
-    </select>
-</div>
-
                             <div class="col-md-6">
-                            <label for="asunto" class="col-form-label text-md-left">{{ __('Departamento') }}</label>
-                                <input id="asunto" type="text" class="form-control @error('asunto') is-invalid @enderror" name="asunto" onkeyup="this.value = this.value.toUpperCase();" value="{{ old('asunto') }}"  autocomplete="asunto" autofocus >
-                                @error('asunto')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <label for="departamento" class="col-form-label text-md-left">{{ __('Departamento') }}</label>
+                                <select id="departamento" class="form-control" name="departamento">
+                                    <option value="">Seleccione un departamento</option>
+                                    @foreach ($datos['departma'] as $departm)
+                                        <option value="{{ $departm->id }}">{{ $departm->namedt }}</option>
+                                    @endforeach
+                                </select>
                             </div>
 
 
                             <div class="col-md-6">
-                            <label for="fecha_entrega" class="col-form-label text-md-left">{{ __('Asignar a') }}</label>
-                                <input id="fecha_entrega" type="date" class="form-control @error('fecha_entrega') is-invalid @enderror" name="fecha_entrega" onkeyup="this.value = this.value.toUpperCase();" value="{{ old('fecha_entrega') }}"  autocomplete="fecha_entrega" autofocus >
-                                @error('fecha_entrega')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <label for="asign_a" class="col-form-label text-md-left">{{ __('Asignar a') }}</label>
+                                <select id="asign_a" class="form-control" name="asign_a" disabled>
+                                    <option value="">Seleccione a quien va asignada la tarea</option>
+                                </select>
                             </div>
 
                         </div>
@@ -166,26 +145,28 @@
 <script>
     $(document).ready(function() {
         // Al cargar la página, el segundo select estará desactivado
-        $('#opcion').prop('disabled', true);
+        $('#asign_a').prop('disabled', true);
 
         // Cuando se seleccione un valor en el primer select, se activará el segundo select y se llenará con los valores correspondientes
-        $('#color').change(function() {
-            var color = $(this).val();
-            if (color !== '') {
-                $('#opcion').prop('disabled', false);
-                $('#opcion').html('<option value="">Cargando...</option>');
+        $('#departamento').change(function() {
+            var departamento = $(this).val();
+            if (departamento !== '') {
+                $('#asign_a').prop('disabled', false);
+                $('#asign_a').html('<option value="">Cargando...</option>');
                 var opciones = @json($datos['opciones']);
-                var opcionesColor = opciones[color];
                 var options = '<option value="">Seleccione una opción</option>';
-                for (var i = 0; i < opcionesColor.length; i++) {
-                    options += '<option value="' + opcionesColor[i] + '">' + opcionesColor[i] + '</option>';
-                }
-                $('#opcion').html(options);
+                opciones.forEach(function(opcion) {
+                    if (opcion.id == departamento) { // <--- aquí se hace la comparación por id de departamento
+                        options += '<option value="' + opcion.id + '">' + opcion.name + '</option>'; // <--- se utiliza id y nombre del usuario
+                    }
+                });
+                $('#asign_a').html(options);
             } else {
-                $('#opcion').prop('disabled', true);
-                $('#opcion').html('<option value="">Seleccione una opción</option>');
+                $('#asign_a').prop('disabled', true);
+                $('#asign_a').html('<option value="">Seleccione una opción</option>');
             }
         });
+
     });
 </script>
 
