@@ -36,10 +36,10 @@
                         <tr>
                             <th width="10px" style="text-align: center">ID</th>
                             <th width="500px" style="text-align: center">Asunto</th>
-                            <th width="120px" style="text-align: center">Fecha de Solucitud</th>
+                            <th width="120px" style="text-align: center">Fecha de Solicitud</th>
                             <th width="200px" style="text-align: center">Departamento</th>
                             <th width="500px" style="text-align: center">Usuario Solicitante</th>
-                            <th style="text-align: center">Estado</th>
+                            <th width="350px" style="text-align: center">Estado</th>
                             <th style="text-align: center">&nbsp;</th>
                         </tr>
                     </thead>
