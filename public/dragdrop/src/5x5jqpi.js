@@ -40,7 +40,7 @@ import '/dragdrop/src/ul.scss'
         $ulObj.on('click change', 'input[value]', (e) => {
             if (e.currentTarget.attributes['value'].nodeValue == 'Remove') {
                 dequeueFiles(e.currentTarget);
-            }else if (e.currentTarget.attributes['value'].nodeValue == 'Upload') {
+            }else if (e.currentTarget.attributes['value'].nodeValue == 'Crear') {
                 sendFiles();
             }else{ // browse
                 if (e.type == 'change'){

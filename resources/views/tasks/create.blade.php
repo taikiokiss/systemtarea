@@ -106,15 +106,21 @@
 
                             <div class="col-md-12">
                                 <label for="descripcion" class="col-form-label text-md-left">{{ __('Archivos Adjuntos') }}</label>
-                                <div class="container ">
-                                        <div id="uploader"></div>
+                                <div class="container col-md-12">
+
+                                        <input   class="form-control" id="file-input" type="file" name="files[]" multiple>
+
+                                            <div  id="file-list"></div>
+
                                 </div>
-
                             </div>
-
                         </div>
 
 
+
+
+                        <hr>
+  
                         <div class="form-group row was-validated mt-3">
                             <div class="col-md-12 col-md-offset-4 text-md-left">
                                 <button type="submit" class="btn btn-primary btn-block">
@@ -122,6 +128,9 @@
                                 </button>
                             </div>
                         </div>
+
+
+                       
 
                 </form>
 
@@ -169,7 +178,71 @@
 
     });
 </script>
+    <script>
 
+const fileInput = document.getElementById("file-input");
+const fileList = document.getElementById("file-list");
+let files = [];
+
+// Función para agregar un archivo a la lista
+function addFileToList(file) {
+    // Crea un objeto con información del archivo
+    const fileInfo = {
+        name: file.name,
+        data: file
+    };
+    
+    // Agrega el archivo a la lista de archivos
+    files.push(fileInfo);
+
+    // Crea un elemento de tabla
+    const fileItem = document.createElement("div");
+    fileItem.classList.add("file-item");
+    
+    // Agrega el nombre del archivo y el botón de eliminar
+    const fileName = document.createElement("span");
+    fileName.textContent = fileInfo.name;
+    fileItem.appendChild(fileName);
+
+    const deleteButton = document.createElement("button");
+    deleteButton.classList.add("delete-button");
+    deleteButton.textContent = "Eliminar";
+    deleteButton.addEventListener("click", () => {
+        // Elimina el archivo de la lista de archivos
+        files = files.filter((f) => f !== fileInfo);
+        // Actualiza la lista de archivos
+        updateFileList();
+    });
+    fileItem.appendChild(deleteButton);
+
+    // Agrega el elemento de archivo a la lista
+    fileList.appendChild(fileItem);
+}
+
+// Función para actualizar la lista de archivos
+function updateFileList() {
+    fileList.innerHTML = "";
+    files.forEach((fileInfo) => {
+        const fileItem = document.createElement("div");
+        fileItem.classList.add("file-item");
+        
+        const fileName = document.createElement("span");
+        fileName.textContent = fileInfo.name;
+        fileItem.appendChild(fileName);
+
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("delete-button");
+        deleteButton.textContent = "Eliminar";
+        deleteButton.addEventListener("click", () => {
+            files = files.filter((f) => f !== fileInfo);
+            updateFileList();
+        });
+        fileItem.appendChild(deleteButton);
+
+        fileList.appendChild(fileItem);
+    });
+}
+    </script>
 @endsection
 
 
