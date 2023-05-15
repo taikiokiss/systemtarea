@@ -67,7 +67,6 @@ class TaskController extends Controller
     public function store(Request $request)
     {
 
-
             $tasks = array();
             $tasks = new Task;
             $tasks->asunto          = $request->input('asunto');
