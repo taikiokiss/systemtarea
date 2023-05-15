@@ -82,12 +82,16 @@ class TaskController extends Controller
         $files = $request->file('file');
         if (!empty($files)) {
             for ($i = 0; $i < count($files); $i++) {
-                $file = $files[$i];
+        
+                $file   = $files[$i];
+                $nombre = $files[$i]->getClientOriginalName();
+                $path   = $file->storeAs('/public/archivos_adjuntos',$nombre);
+
 
                 if ($file !== null) {
                     $tasks_rl = new Tasks_users_rl;
                     $tasks_rl->id_tasks = $tasks->id;
-                    $tasks_rl->file = $file;
+                    $tasks_rl->file = $path;
                     $tasks_rl->id_users = Auth::user()->id;
                     $tasks_rl->save();
                 }
