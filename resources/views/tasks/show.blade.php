@@ -5,7 +5,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h4 style="display:inline;">Nueva Tarea</h4>
+            <h4 style="display:inline;">Consultar</h4>
                     <a href="{{ route('tasks.index') }}"
                     class="btn btn-sm btn-danger float-right">
                         <i class="fas fa-chevron-left"></i> Regresar
@@ -22,11 +22,6 @@
             <div class="card card-primary card-outline">
               <div class="card-body ">
                 <!-- inicio -->
-                {{ Form::open(['route' => 'tasks.store','enctype' =>'multipart/form-data', 'files'=>true]) }}
-                    <form method="POST" action="{{ route('tasks.index') }}">
-                    @csrf
-
-
                         <div class="form-group row">
 
                             <div class="col-md-6">
@@ -101,81 +96,14 @@
                             </div>
 
                         </div>
-
-                        <div class="form-group row">
-
-                            <div class="col-md-12">
-                                <label for="attachment" class="col-form-label text-md-left">{{ __('Archivos Adjuntos') }} 
-                                        <a class="btn btn-outline-primary btn-sm" role="button" aria-disabled="false">+ Agregar</a>
-                                </label>
-                                <div class="container col-md-12">
-                                    <input type="file" name="file[]"  id="attachment" style="visibility: hidden; position: absolute;" multiple/>
-                                    <p id="files-area">
-                                        <span id="filesList">
-                                            <span id="files-names"></span>
-                                        </span>
-                                    </p>
-
-
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="form-group row was-validated mt-3">
-                            <div class="col-md-12 col-md-offset-4 text-md-left">
-                                <button type="submit" class="btn btn-primary btn-block" value="Crear">
-                                    Crear
-                                </button>
-                            </div>
-                        </div>
-
-                </form>
-
-                {{ Form::close() }}
-
-
               </div>
             </div>
         </div>
     </div>
 </div>
-<script type="text/javascript">
-    function soloNumeros(e){
-        var keynum = window.event ? window.event.keyCode : e.which;
-        if ((keynum == 8) || (keynum == 46))
-            return true;
-        return /\d/.test(String.fromCharCode(keynum));
-    }
-</script>  
 
-<script>
-    $(document).ready(function() {
-        // Al cargar la página, el segundo select estará desactivado
-        $('#asign_a').prop('disabled', true);
 
-        // Cuando se seleccione un valor en el primer select, se activará el segundo select y se llenará con los valores correspondientes
-        $('#departamento').change(function() {
-            var departamento = $(this).val();
-            if (departamento !== '') {
-                $('#asign_a').prop('disabled', false);
-                $('#asign_a').html('<option value="">Cargando...</option>');
-                var opciones = @json($datos['opciones']);
-                var options = '<option value="">Seleccione una opción</option>';
-                opciones.forEach(function(opcion) {
-                    if (opcion.id == departamento) { // <--- aquí se hace la comparación por id de departamento
-                        options += '<option value="' + opcion.id + '">' + opcion.name + '</option>'; // <--- se utiliza id y nombre del usuario
-                    }
-                });
-                $('#asign_a').html(options);
-            } else {
-                $('#asign_a').prop('disabled', true);
-                $('#asign_a').html('<option value="">Seleccione una opción</option>');
-            }
-        });
 
-    });
-</script>
 
 <script type="text/javascript">
 const dt = new DataTransfer(); // Permet de manipuler les fichiers de l'input file

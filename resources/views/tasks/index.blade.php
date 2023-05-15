@@ -9,10 +9,6 @@
           <div class="col-sm-12">
             <h4 style="display:inline;">Gestión de Tareas</h4>
             <div class="btn-group float-right">
-              <a  href="{{ route('tasks.indexall') }}"
-                  class="btn btn-sm btn-success">
-                  <i class="fas fa-eye"></i> Tareas Inactivas
-              </a> 
               <a  href="{{ route('tasks.create') }}"
                   class="btn btn-sm btn-primary">
                   <i class="fas fa-plus"></i> Agregar
@@ -31,7 +27,7 @@
             <div class="card card-primary card-outline">
               <div class="card-body">        
               @if (count($tasks)) 
-                <table id="tableuser" class="table table-bordered table-striped table-sm" style="font-size:14px">
+                <table id="tableuser" class="table table-bordered table-striped table-sm" style="font-size:12px">
                     <thead>
                         <tr>
                             <th width="10px" style="text-align: center">ID</th>
@@ -58,14 +54,17 @@
                             <td width="5px">
                               <div class="text-center">
                                 <div class="btn-group">
-                                  <a href="{{ route('tasks.edit', $prodc->id) }}"
-                                  class="btn btn-sm btn-primary">
-                                      Editar
-                                  </a>
-                                  <a onclick="confirmation(event)" href="{{ route('tasks.desactiv', $prodc->id) }}"
-                                        class="btn btn-sm btn-danger">
-                                      Deshabilitar
-                                  </a>
+
+                                  @if()
+
+                                  @ifelse()
+
+                                  
+                                    <a href="{{ route('tasks.edit', $prodc->id) }}"
+                                    class="btn-sm btn btn-outline-primary">
+                                        Consultar
+                                    </a>
+
                                 </div>
                               </div>
                             </td>
