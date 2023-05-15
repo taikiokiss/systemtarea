@@ -23,138 +23,11 @@
     <link rel="stylesheet" href="/css/toastr.min.css">
     <link rel="stylesheet" href="/css/sweetalert.min.css">
     <link rel="stylesheet" href="/css/src.css">
+    <link rel="stylesheet" href="/css/ifile.scss">
 
 
     <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 
-<style type="text/css">
-    body {
-    font-family: Arial, sans-serif;
-}
-
-h1 {
-    text-align: center;
-    margin-top: 50px;
-}
-
-form {
-    text-align: center;
-    margin-top: 30px;
-}
-
-label {
-    display: block;
-    margin-bottom: 10px;
-}
-
-button {
-    margin-top: 10px;
-}
-
-#file-list {
-    margin-top: 30px;
-}
-
-.file-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.file-item img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-    object-fit: cover;
-}
-
-.file-item span {
-    flex: 1;
-}
-
-.delete-button {
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-.container {
-  margin-top: 50px;
-}
-
-.file-input-wrapper {
-  width: 100%;
-  height: 50px;
-  position: relative;
-  border: 1px solid #ced4da;
-  border-radius: .25rem;
-  overflow: hidden;
-}
-
-.file-input-wrapper > input[type="file"] {
-  font-size: 20px;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-}
-
-.file-input-text {
-  display: inline-block;
-  margin: 13px 0 0 10px;
-  font-size: 20px;
-  color: #6c757d;
-}
-
-.btn-upload {
-  width: 100%;
-  height: 50px;
-  border-radius: .25rem;
-  background-color: #007bff;
-  color: #fff;
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 1.5;
-}
-
-.btn-delete {
-  background-color: transparent;
-  color: #dc3545;
-  border: none;
-  cursor: pointer;
-}
-
-.table-responsive {
-  margin-top: 50px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-table td,
-table th {
-  padding: .75rem;
-  vertical-align: top;
-  border-top: 1px solid #dee2e6;
-}
-
-table th {
-  font-weight: 600;
-  background-color: #f8f9fa;
-  text-align: left;
-  border-bottom: 2px solid #dee2e6;
-}
-
-table td {
-  background-color: #fff;
-}
-
-
-</style>
     <!-- PIVOT CSS -->
     <script src="/js/jquery-3.3.1.min.js"></script>
     <!-- Bootstrap CDN Plugin -->
@@ -367,23 +240,7 @@ table td {
     <!--Datatable -->
     <script src="/js/bootstrap-show-password.js"></script>
     <script type="text/javascript" src="/js/toastr.min.js"></script>
-    <!-- bs-custom-file-input -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
 
-        <script src="/dragdrop/dist/5x5jqpi.min.js"></script>
-
-        <script>
-
-            $(function(){
-
-                $("#uploader").initUploader({
-                    sizeLimit:15,
-                    fileLimit:10,
-                });
-            });
-
-        </script>
     <script type="text/javascript">
         window.livewire.on('closeModal', () => {
             $('#createDataModal').modal('hide');

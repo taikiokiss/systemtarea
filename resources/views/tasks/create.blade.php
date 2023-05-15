@@ -105,32 +105,30 @@
                         <div class="form-group row">
 
                             <div class="col-md-12">
-                                <label for="descripcion" class="col-form-label text-md-left">{{ __('Archivos Adjuntos') }}</label>
+                                <label for="attachment" class="col-form-label text-md-left">{{ __('Archivos Adjuntos') }} 
+                                        <a class="btn btn-primary btn-sm text-light" role="button" aria-disabled="false">+ Agregar</a>
+                                </label>
                                 <div class="container col-md-12">
+                                    <input type="file" name="file[]"  id="attachment" style="visibility: hidden; position: absolute;" multiple/>
+                                    <p id="files-area">
+                                        <span id="filesList">
+                                            <span id="files-names"></span>
+                                        </span>
+                                    </p>
 
-                                        <input   class="form-control" id="file-input" type="file" name="files[]" multiple>
-
-                                            <div  id="file-list"></div>
 
                                 </div>
                             </div>
                         </div>
 
 
-
-
-                        <hr>
-  
                         <div class="form-group row was-validated mt-3">
                             <div class="col-md-12 col-md-offset-4 text-md-left">
-                                <button type="submit" class="btn btn-primary btn-block">
+                                <button type="submit" class="btn btn-success btn-block" value="Crear">
                                     Crear
                                 </button>
                             </div>
                         </div>
-
-
-                       
 
                 </form>
 
@@ -178,71 +176,45 @@
 
     });
 </script>
-    <script>
 
-const fileInput = document.getElementById("file-input");
-const fileList = document.getElementById("file-list");
-let files = [];
+<script type="text/javascript">
+const dt = new DataTransfer(); // Permet de manipuler les fichiers de l'input file
 
-// Función para agregar un archivo a la lista
-function addFileToList(file) {
-    // Crea un objeto con información del archivo
-    const fileInfo = {
-        name: file.name,
-        data: file
+$("#attachment").on('change', function(e){
+    for(var i = 0; i < this.files.length; i++){
+        let fileBloc = $('<span/>', {class: 'file-block'}),
+             fileName = $('<span/>', {class: 'name', text: this.files.item(i).name});
+        fileBloc.append('<span class="file-delete"><span>+</span></span>')
+            .append(fileName);
+        $("#filesList > #files-names").append(fileBloc);
     };
-    
-    // Agrega el archivo a la lista de archivos
-    files.push(fileInfo);
+    // Ajout des fichiers dans l'objet DataTransfer
+    for (let file of this.files) {
+        dt.items.add(file);
+    }
+    // Mise à jour des fichiers de l'input file après ajout
+    this.files = dt.files;
 
-    // Crea un elemento de tabla
-    const fileItem = document.createElement("div");
-    fileItem.classList.add("file-item");
-    
-    // Agrega el nombre del archivo y el botón de eliminar
-    const fileName = document.createElement("span");
-    fileName.textContent = fileInfo.name;
-    fileItem.appendChild(fileName);
-
-    const deleteButton = document.createElement("button");
-    deleteButton.classList.add("delete-button");
-    deleteButton.textContent = "Eliminar";
-    deleteButton.addEventListener("click", () => {
-        // Elimina el archivo de la lista de archivos
-        files = files.filter((f) => f !== fileInfo);
-        // Actualiza la lista de archivos
-        updateFileList();
+    // EventListener pour le bouton de suppression créé
+    $('span.file-delete').click(function(){
+        let name = $(this).next('span.name').text();
+        // Supprimer l'affichage du nom de fichier
+        $(this).parent().remove();
+        for(let i = 0; i < dt.items.length; i++){
+            // Correspondance du fichier et du nom
+            if(name === dt.items[i].getAsFile().name){
+                // Suppression du fichier dans l'objet DataTransfer
+                dt.items.remove(i);
+                continue;
+            }
+        }
+        // Mise à jour des fichiers de l'input file après suppression
+        document.getElementById('attachment').files = dt.files;
     });
-    fileItem.appendChild(deleteButton);
+});    
 
-    // Agrega el elemento de archivo a la lista
-    fileList.appendChild(fileItem);
-}
+</script>
 
-// Función para actualizar la lista de archivos
-function updateFileList() {
-    fileList.innerHTML = "";
-    files.forEach((fileInfo) => {
-        const fileItem = document.createElement("div");
-        fileItem.classList.add("file-item");
-        
-        const fileName = document.createElement("span");
-        fileName.textContent = fileInfo.name;
-        fileItem.appendChild(fileName);
-
-        const deleteButton = document.createElement("button");
-        deleteButton.classList.add("delete-button");
-        deleteButton.textContent = "Eliminar";
-        deleteButton.addEventListener("click", () => {
-            files = files.filter((f) => f !== fileInfo);
-            updateFileList();
-        });
-        fileItem.appendChild(deleteButton);
-
-        fileList.appendChild(fileItem);
-    });
-}
-    </script>
 @endsection
 
 

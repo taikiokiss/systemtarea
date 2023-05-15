@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
+use App\Tasks_users_rl;
 use App\Models\Department;
 use App\Models\User;
 use App\Models\Person;
@@ -66,7 +67,7 @@ class TaskController extends Controller
     public function store(Request $request)
     {
 
-        dd($request->all());
+
             $tasks = array();
             $tasks = new Task;
             $tasks->asunto          = $request->input('asunto');
@@ -79,8 +80,20 @@ class TaskController extends Controller
             $tasks->estado          = 'PENDIENTE POR APROBAR';
             $tasks->save();
 
+        $files = $request->file('file');
+        if (!empty($files)) {
+            for ($i = 0; $i < count($files); $i++) {
+                $file = $files[$i];
 
-
+                if ($file !== null) {
+                    $tasks_rl = new Tasks_users_rl;
+                    $tasks_rl->id_tasks = $tasks->id;
+                    $tasks_rl->file = $file;
+                    $tasks_rl->id_users = Auth::user()->id;
+                    $tasks_rl->save();
+                }
+            }
+        }
 
         $notificationa=array(
             'message' => 'Tarea ingresada con éxito',
