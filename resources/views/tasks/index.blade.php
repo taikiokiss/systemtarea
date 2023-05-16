@@ -36,7 +36,6 @@
                             <th width="200px" style="text-align: center">Departamento</th>
                             <th width="500px" style="text-align: center">Usuario Solicitante</th>
                             <th width="350px" style="text-align: center">Estado</th>
-                            <th style="text-align: center">&nbsp;</th>
                         </tr>
                     </thead>
 
@@ -48,26 +47,18 @@
                             <td>{{ $prodc->fecha_entrega }}</td>
                             <td>{{ $prodc->namedt }}</td>
                             <td>{{ $prodc->ApellidoSoli }} {{ $prodc->NombreSoli }}</td>   
-                            <td>{{$prodc->estado }}</td> 
-
-
-                            <td width="5px">
-                              <div class="text-center">
-                                <div class="btn-group">
-
-                                  @if()
-
-                                  @ifelse()
-
-                                  
-                                    <a href="{{ route('tasks.edit', $prodc->id) }}"
+                            <td>
+                              @if ($prodc->estado == 'PENDIENTE POR APROBAR')
+                                  <a href="{{ route('tasks.edit', $prodc->id) }}"
                                     class="btn-sm btn btn-outline-primary">
-                                        Consultar
-                                    </a>
+                                      PENDIENTE POR APROBAR
+                                  </a>
+                              @elseif($prodc->estado == 'PENDIENTE')
 
-                                </div>
-                              </div>
-                            </td>
+                              @elseif($prodc->estado == 'PENDIENTEA')
+                              
+                              @endif
+                            </td> 
                         </tr>
                         @endforeach
                     </tbody>

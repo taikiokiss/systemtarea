@@ -75,12 +75,12 @@
 
                             <div class="col-md-2">
                             <label for="rcada" class="col-form-label text-md-left">{{ __('Repetir cada') }}</label>
-                                <input id="rcada" type="text" class="form-control @error('rcada') is-invalid @enderror" name="rcada" onkeyup="this.value = this.value.toUpperCase();" value="{{ old('rcada') }}"  autocomplete="rcada" autofocus >
-                                @error('rcada')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <select  class="custom-select target form-control @error('rcada') is-invalid @enderror" id="rcada" name="rcada">
+                                    @foreach($opcion_rrp as $opc_v)
+                                        <option value="{{$opc_v->id}}">{{$opc_v->opcion}}</option>
+                                    @endforeach 
+                                </select>
+
                             </div>
 
                         </div>

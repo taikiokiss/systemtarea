@@ -44,6 +44,12 @@ class TaskController extends Controller
 
         $departmentt = Department::all();
 
+        $opcion_rrp = DB::table('option')
+            ->join('sub_option', 'sub_option.cabe_opcion', '=', 'option.id_subopcion')
+            ->where('option.nombre_opcion','=','REPETIR_CADA')
+            ->select('sub_option.*')
+            ->get();
+
         $userss = DB::table('users')
             ->join('persons', 'persons.id', '=', 'users.persona_id')
             ->join('departments', 'departments.id', '=', 'users.deparment_id')
@@ -55,7 +61,7 @@ class TaskController extends Controller
             'departma' => $departmentt,
             'opciones' => $userss,
         ];
-        return view('tasks.create', compact('datos'));
+        return view('tasks.create', compact('datos','opcion_rrp'));
     }
 
     /**
@@ -113,7 +119,7 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
         //
     }
