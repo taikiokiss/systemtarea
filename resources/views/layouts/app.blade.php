@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="/css/src.css">
     <link rel="stylesheet" href="/css/ifile.scss">
 
+    <link rel="stylesheet" href="/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 
     <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 
@@ -233,13 +234,16 @@
 
     <!--NUEVOS-->
     <script src="/js/sweetalert.min.js"></script>
+    <script src="/js/bootstrap-show-password.js"></script>
+    <script type="text/javascript" src="/js/toastr.min.js"></script>
     <!--SELECT 2-->
     <script src="/plugins/select2/js/select2.full.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
     <!--Datatable -->
-    <script src="/js/bootstrap-show-password.js"></script>
-    <script type="text/javascript" src="/js/toastr.min.js"></script>
+    <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
+    <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 
     <script type="text/javascript">
         window.livewire.on('closeModal', () => {
@@ -283,6 +287,48 @@
                 }
       @endif
     </script>
+
+<script>
+      
+      $(function () {
+
+        var idioma = {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ registros",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando del _START_ al _END_ de un total de _TOTAL_",
+            "sInfoEmpty":      "Mostrando del 0 al 0 de un total de 0",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "Primero",
+                "sLast":     "Último",
+                "sNext":     "Siguiente",
+                "sPrevious": "Anterior"
+            },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        $('#tableuser').DataTable({
+          "paging": true,
+          "lengthChange": true,
+          "searching": true,
+          "ordering": false,
+          "info": true,
+          "autoWidth": false,
+          "responsive": true,
+          "language": idioma,
+          
+        });
+      });
+</script>
 
 </body>
 

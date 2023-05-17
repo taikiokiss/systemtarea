@@ -13,7 +13,9 @@ class Task extends Model
         'department_id',
         'asign_a',
         'ciclo',
-        'usuario_solicitante'
+        'usuario_solicitante',
+        'estado',
+        'accion'
     ];
 
     protected $primaryKey = 'id';

@@ -64,7 +64,7 @@
 
                             <div class="col-md-2">
                             <label for="fecha_entrega" class="col-form-label text-md-left">{{ __('Fecha de entrega') }}</label>
-                                <input id="fecha_entrega" type="date" class="form-control @error('fecha_entrega') is-invalid @enderror" name="fecha_entrega" onkeyup="this.value = this.value.toUpperCase();" value="{{ old('fecha_entrega') }}"  autocomplete="fecha_entrega" autofocus >
+                                <input id="fecha_entrega" type="date" class="form-control" max="<?php echo date('d/m/Y')?>" placeholder="DD/MM/AAAA" value="<?php echo date('d/m/Y')?>" name="fecha_entrega" value="{{ old('fecha_entrega') }}"  autocomplete="fecha_entrega" autofocus >
                                 @error('fecha_entrega')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

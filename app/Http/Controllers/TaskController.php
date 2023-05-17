@@ -28,7 +28,8 @@ class TaskController extends Controller
             ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
             ->join('departments', 'departments.id', '=', 'tasks.department_id')
             ->where('tasks.usuario_solicitante','=',Auth::user()->id)
-            ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt',)
+            ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt')
+            ->orderBy('tasks.created_at', 'desc')
             ->get(); 
         return view('tasks.index', compact('tasks'));
 
@@ -82,7 +83,8 @@ class TaskController extends Controller
             $tasks->asign_a         = $request->input('asign_a');
             $tasks->ciclo           = $request->input('rcada');
             $tasks->usuario_solicitante     = Auth::user()->id;
-            $tasks->estado          = 'PENDIENTE POR APROBAR';
+            $tasks->estado          = 'POR APROBAR';
+            $tasks->accion          = 'APROBAR';
             $tasks->save();
 
         $files = $request->file('file');
