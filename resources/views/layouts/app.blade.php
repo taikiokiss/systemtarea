@@ -99,7 +99,7 @@
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="{{route('tasks.index')}}">Adm. Tareas</a> 
-                            <a class="collapse-item" href="#">Tareas Asignadas</a>
+                            <a class="collapse-item" href="{{route('tasks.asignadas')}}">Tareas Asignadas</a>
                             <a class="collapse-item" href="#">Tareas Realizadas</a>  
                         </div>
                     </div>

@@ -28,7 +28,7 @@ class TaskController extends Controller
             ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
             ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
             ->join('departments', 'departments.id', '=', 'tasks.department_id')
-            ->where('tasks.usuario_solicitante','=',Auth::user()->id)
+            ->where('tasks.usuario_solicitante','=',Auth::user()->id,'AND')
             ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt')
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 
@@ -36,11 +36,24 @@ class TaskController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function asignadas()
+    {
+        $tasks = DB::table('tasks')
+            ->join('users as usuarioAsig','usuarioAsig.id','tasks.asign_a')
+            ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
+            ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
+            ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
+            ->join('departments', 'departments.id', '=', 'tasks.department_id')
+            ->where('tasks.asign_a','=',Auth::user()->id)
+            ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt')
+            ->orderBy('tasks.created_at', 'desc')
+            ->get(); 
+        return view('tasks.asignadas', compact('tasks'));
+
+    }
+
+
+
     public function create()
     {
 
@@ -84,7 +97,7 @@ class TaskController extends Controller
             $tasks->asign_a         = $request->input('asign_a');
             $tasks->ciclo           = $request->input('rcada');
             $tasks->usuario_solicitante     = Auth::user()->id;
-            $tasks->estado          = 'ASIGNADA';
+            $tasks->estado          = 'EN PROCESO';
             $tasks->accion          = 'APROBAR';
             $tasks->save();
 
@@ -94,7 +107,9 @@ class TaskController extends Controller
             
                     $file   = $files[$i];
                     $nombre = $files[$i]->getClientOriginalName();
-                    $path   = $file->storeAs('/public/archivos_adjuntos',$nombre);
+                    $var = rand(0,9999999);
+                    $ced = Auth::user()->person->cedula;
+                    $path   = $file->storeAs('/public/archivos_adjuntos',$ced.$var.$nombre);
 
 
                     if ($file !== null) {
@@ -111,7 +126,7 @@ class TaskController extends Controller
                 'id_tarea'          => $tasks->id,
                 'observacion'       => $tasks->descripcion,
                 'fecha_act'         => $tasks->created_at,
-                'estado_id_tarea'   => $tasks->estado                
+                'estado_id_tarea'   => 'ASIGNADA'                
             ]);
             
 

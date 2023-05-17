@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h4 style="display:inline;">Gestión de Tareas</h4>
+            <h4 style="display:inline;">Gestión de Tareas | Asignadas</h4>
             <div class="btn-group float-right">
               <a  href="{{ route('tasks.create') }}"
                   class="btn btn-sm btn-primary">
@@ -18,7 +18,6 @@
         </div>
     </div>
 </section>
-
 
 <!-- TABLA DE CONTENIDO -->
 <div class="container-fluid">
@@ -52,24 +51,6 @@
                             <td>{{ $prodc->ApellidoSoli }} {{ $prodc->NombreSoli }}</td>   
                             <td>{{ $prodc->estado }}</td>   
                             <td>
-                              @if($prodc->usuario_solicitante == Auth::user()->id)
-                              <div class="text-center">
-                                <div class="btn-group">
-                                  <a  href="#" 
-                                      class="btn btn-sm btn-secondary">
-                                      Cerrar
-                                  </a>
-                                  <a  href="#" 
-                                      class="btn btn-sm btn-primary">
-                                      Modificar
-                                  </a>
-                                  <a  href="#" 
-                                      class="btn btn-sm btn-danger">
-                                      Anular
-                                  </a>
-                                </div>
-                              </div>
-                              @else
                                 @if ($prodc->estado == 'EN PROCESO' && $prodc->accion == 'APROBAR')
                                     <a href="{{ route('tasks.edit', $prodc->id) }}"
                                       class="btn-sm btn btn-outline-primary">
@@ -96,7 +77,6 @@
                                         {{ $prodc->accion }}
                                     </a>
                                 @endif
-                              @endif
                             </td> 
                         </tr>
                         @endforeach
