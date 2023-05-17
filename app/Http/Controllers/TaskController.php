@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Task;
 use App\Tasks_users_rl;
+use App\Historico_mov_tarea;
 use App\Models\Department;
 use App\Models\User;
 use App\Models\Person;
@@ -83,31 +84,39 @@ class TaskController extends Controller
             $tasks->asign_a         = $request->input('asign_a');
             $tasks->ciclo           = $request->input('rcada');
             $tasks->usuario_solicitante     = Auth::user()->id;
-            $tasks->estado          = 'POR APROBAR';
+            $tasks->estado          = 'ASIGNADA';
             $tasks->accion          = 'APROBAR';
             $tasks->save();
 
-        $files = $request->file('file');
-        if (!empty($files)) {
-            for ($i = 0; $i < count($files); $i++) {
-        
-                $file   = $files[$i];
-                $nombre = $files[$i]->getClientOriginalName();
-                $path   = $file->storeAs('/public/archivos_adjuntos',$nombre);
+            $files = $request->file('file');
+            if (!empty($files)) {
+                for ($i = 0; $i < count($files); $i++) {
+            
+                    $file   = $files[$i];
+                    $nombre = $files[$i]->getClientOriginalName();
+                    $path   = $file->storeAs('/public/archivos_adjuntos',$nombre);
 
 
-                if ($file !== null) {
-                    $tasks_rl = new Tasks_users_rl;
-                    $tasks_rl->id_tasks = $tasks->id;
-                    $tasks_rl->file = $path;
-                    $tasks_rl->id_users = Auth::user()->id;
-                    $tasks_rl->save();
+                    if ($file !== null) {
+                        $tasks_rl = new Tasks_users_rl;
+                        $tasks_rl->id_tasks = $tasks->id;
+                        $tasks_rl->file = $path;
+                        $tasks_rl->id_users = Auth::user()->id;
+                        $tasks_rl->save();
+                    }
                 }
             }
-        }
+
+            Historico_mov_tarea::create([
+                'id_tarea'          => $tasks->id,
+                'observacion'       => $tasks->descripcion,
+                'fecha_act'         => $tasks->created_at,
+                'estado_id_tarea'   => $tasks->estado                
+            ]);
+            
 
         $notificationa=array(
-            'message' => 'Tarea ingresada con éxito',
+            'message' => 'Tarea creada con éxito',
             'alert-type' => 'success'
         );
         return redirect()->route('tasks.index', $tasks->id)

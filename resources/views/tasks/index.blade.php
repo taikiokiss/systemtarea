@@ -50,12 +50,12 @@
                             <td>{{ $prodc->ApellidoSoli }} {{ $prodc->NombreSoli }}</td>   
                             <td>{{ $prodc->estado }}</td>   
                             <td>
-                              @if ($prodc->estado == 'POR APROBAR')
+                              @if ($prodc->estado == 'EN PROCESO' && $prodc->accion == 'APROBAR')
                                   <a href="{{ route('tasks.edit', $prodc->id) }}"
                                     class="btn-sm btn btn-outline-primary">
                                       {{ $prodc->accion }}
                                   </a>
-                              @elseif($prodc->estado == 'APROBADA')
+                              @elseif($prodc->estado == 'VENCIDA' && $prodc->accion == 'APROBAR')
                                   <a href="{{ route('tasks.edit', $prodc->id) }}"
                                     class="btn-sm btn btn-outline-primary">
                                       {{ $prodc->accion }}
