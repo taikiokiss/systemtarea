@@ -12,11 +12,6 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/tareas-asignadas', 'TaskController@asignadas')
 		->name('tasks.asignadas')
 		->middleware('role:ADMINISTRADOR|USUARIO');
-		
-	Route::get('/all-tareas', 'TaskController@indexall')
-		->name('tasks.indexall')
-		->middleware('role:ADMINISTRADOR|USUARIO');
-
 
 	Route::get('/tareas/create', 'TaskController@create')
 		->name('tasks.create')

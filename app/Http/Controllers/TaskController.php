@@ -181,6 +181,14 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Task::select(DB::table('tasks'))
+            ->where('id', $id)
+            ->update(['estado' => 'ANULADA']);
+
+        $notification=array(
+            'message' => 'Tarea anulada con éxito.',
+            'alert-type' => 'success'
+        );
+        return back()->with($notification);
     }
 }

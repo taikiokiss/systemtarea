@@ -64,8 +64,9 @@
                                       class="btn btn-sm btn-primary">
                                       Modificar
                                   </a>
-                                  <a  href="#" 
-                                      class="btn btn-sm btn-danger">
+                                  <a  onclick="confirmation(event)" 
+                                      href="{{ route('tasks.destroy', $prodc->id) }}"
+                                      class="btn btn-danger">
                                       Anular
                                   </a>
                                 </div>
@@ -120,7 +121,7 @@ function confirmation(ev) {
   console.log(urlToRedirect); 
   swal({
     title: "¿Estás seguro?",
-    text: "Desactivar este registro.",
+    text: "Estás a punto de anular está tarea.",
     icon: "warning",
     buttons: true,
     dangerMode: true,
@@ -128,12 +129,12 @@ function confirmation(ev) {
   .then((willDelete) => {
     if (willDelete) {
       swal(
-        "Registro Desactivado Correctamente!", {
+        "Tarea anulada correctamente!", {
         icon: "success",
       });
       window.location.href = urlToRedirect;
           } else {
-      swal("Cancelando Acción", {
+      swal("Cancelando acción", {
         icon: "warning",
       });
     }
