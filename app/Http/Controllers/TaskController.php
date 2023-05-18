@@ -145,7 +145,7 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id, Request $request)
+    public function cerrar($id, Request $request)
     {
         //
     }
@@ -156,9 +156,45 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
-        //
+
+        $departmentt = Department::all();
+
+        $opcion_rrp = DB::table('option')
+            ->join('sub_option', 'sub_option.cabe_opcion', '=', 'option.id_subopcion')
+            ->where('option.nombre_opcion','=','REPETIR_CADA')
+            ->select('sub_option.*')
+            ->get();
+
+        $userss = DB::table('users')
+            ->join('persons', 'persons.id', '=', 'users.persona_id')
+            ->join('departments', 'departments.id', '=', 'users.deparment_id')
+            ->where('users.estado','=','ACTIVO')
+            ->select('persons.*','departments.*')
+            ->get();
+
+        $datos = [
+            'departma' => $departmentt,
+            'opciones' => $userss,
+        ];
+
+        $tasks = Task::find($id);
+
+        $tasks1 = DB::table('tasks')
+            ->join('users as usuarioAsig','usuarioAsig.id','tasks.asign_a')
+            ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
+            ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
+            ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
+            ->join('departments', 'departments.id', '=', 'tasks.department_id')
+            ->where('tasks.id','=',$id)
+            ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt')
+            ->orderBy('tasks.created_at', 'desc')
+            ->get(); 
+
+        //dd($tasks1[0]->descripcion);
+
+        return view('tasks.edit', compact('tasks1','tasks','datos','opcion_rrp'));
     }
 
     /**

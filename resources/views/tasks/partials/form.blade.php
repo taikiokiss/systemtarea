@@ -1,95 +1,125 @@
-<div class="form-group">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card card-primary card-outline">
+              <div class="card-body ">
+                <!-- inicio -->
+                        <div class="form-group row">
 
-
-	{{ Form::label('name', 'Antena', ['class' => 'col-form-label text-md-right mt-3']) }}
-    {{ Form::text('antena', null, ['class' => 'form-control col-sm-12 mt-3', 'id' => 'antena']) }}
-
-	{{ Form::label('marca', 'Marca', ['class' => 'col-form-label text-md-right mt-3']) }}
-    {{ Form::text('marca', null, ['class' => 'form-control col-sm-12 mt-3', 'id' => 'marca']) }}
-
-	{{ Form::label('modelo', 'Modelo', ['class' => 'col-form-label text-md-right mt-3']) }}
-    {{ Form::text('modelo', null, ['class' => 'form-control col-sm-12 mt-3', 'id' => 'modelo']) }}
-
-	{{ Form::label('codigoserie', 'Codigo de serie', ['class' => 'col-form-label text-md-right mt-3']) }}
-    {{ Form::text('codigoserie', null, ['class' => 'form-control col-sm-12 mt-3', 'id' => 'codigoserie']) }}    
-
-	{{ Form::label('p_radiacion', 'P radiación', ['class' => 'col-form-label text-md-right mt-3']) }}
-    {{ Form::text('p_radiacion', null, ['class' => 'form-control col-sm-12 mt-3', 'id' => 'p_radiacion']) }}
-
-	{{ Form::label('directividad', 'Directividad', ['class' => 'col-form-label text-md-right mt-3']) }}
-    {{ Form::text('directividad', null, ['class' => 'form-control col-sm-12 mt-3', 'id' => 'directividad']) }}
-
-	{{ Form::label('ganancia', 'Ganancia', ['class' => 'col-form-label text-md-right mt-3']) }}
-    {{ Form::text('ganancia', null, ['class' => 'form-control col-sm-12 mt-3', 'id' => 'ganancia']) }}
-
-	{{ Form::label('eficiencia', 'Eficiencia', ['class' => 'col-form-label text-md-right mt-3']) }}
-    {{ Form::text('eficiencia', null, ['class' => 'form-control col-sm-12 mt-3', 'id' => 'eficiencia']) }}    
-
-	{{ Form::label('frecuencia', 'Frecuencia', ['class' => 'col-form-label text-md-right mt-3']) }}
-    {{ Form::text('frecuencia', null, ['class' => 'form-control col-sm-12 mt-3', 'id' => 'frecuencia']) }}
-
-	{{ Form::label('polarizacion', 'Polarización', ['class' => 'col-form-label text-md-right mt-3']) }}
-    {{ Form::text('polarizacion', null, ['class' => 'form-control col-sm-12 mt-3', 'id' => 'polarizacion']) }}
-
-	<br>
-
-		{{ Form::label('foto_antena', 'Foto') }}
-
-		<div class="row">
-            <div class="input-group">
-                <div class="custom-file mt-3">
-                    <input type="file" class="form-control mt-3 custom-file-input" id="foto_antena" accept="image/x-png,image/gif,image/jpeg" enctype="multipart/form-data" name="foto_antena">
-                    <label class="custom-file-label" for="foto_antena" data-browse="Examinar">Selecciona una imagen</label>
-                </div>
-            </div>
-
-
-		 	<br><br>
-		 	<div class="col-md-12 text-center">
-			 	<a target="_blank" href="{{ asset('storage/'.$antenas->foto_antena) }}">  
-			 		<img id="foto_antena_s" name="foto_antena_s" class="col-sm-12 group list-group-image" src="{{ asset('storage/'.$antenas->foto_antena) }}" style="width:20%;" />
-			 	</a>
-			</div>
-
-                        <div class="form-group row ">
-                            <div class="col-md-12">
-                                <img id="imagenPrevisualizacion" class="responsiveimag_pr" width="600" height="400">
+                            <div class="col-md-6">
+                            <label for="departamento" class="col-form-label text-md-left">{{ __('Departamento') }}</label>
+                                <select id="departamento" class="form-control" name="departamento">
+                                    <option value="">Seleccione un departamento</option>
+                                    @foreach ($datos['departma'] as $departm)
+                                        <option value="{{ $departm->id }}">{{ $departm->namedt }}</option>
+                                    @endforeach
+                                </select>
                             </div>
+
+
+                            <div class="col-md-6">
+                            <label for="asign_a" class="col-form-label text-md-left">{{ __('Asignar a') }}</label>
+                                <select id="asign_a" class="form-control" name="asign_a" disabled>
+                                    <option value="">Seleccione a quien va asignada la tarea</option>
+                                </select>
+                            </div>
+
                         </div>
 
-			
-		</div>
-<br>
-<div class="form-group">
-	{{ Form::submit('Guardar', ['class' => 'btn btn-sm btn-outline-primary']) }}
+                        <div class="form-group row">
+
+                            <div class="col-md-8">
+                            <label for="asunto" class="col-form-label text-md-left">{{ __('Asunto') }}</label>
+                                <input id="asunto" type="text" class="form-control @error('asunto') is-invalid @enderror" name="asunto" onkeyup="this.value = this.value.toUpperCase();" value="{{ old('asunto') }}"  autocomplete="asunto" autofocus >
+                                @error('asunto')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+
+                            <div class="col-md-2">
+                            <label for="fecha_entrega" class="col-form-label text-md-left">{{ __('Fecha de entrega') }}</label>
+                                <input id="fecha_entrega" type="date" class="form-control @error('fecha_entrega') is-invalid @enderror" name="fecha_entrega" onkeyup="this.value = this.value.toUpperCase();" value="{{ old('fecha_entrega') }}"  autocomplete="fecha_entrega" autofocus >
+                                @error('fecha_entrega')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+
+                            <div class="col-md-2">
+                            <label for="rcada" class="col-form-label text-md-left">{{ __('Repetir cada') }}</label>
+                                <input id="rcada" type="text" class="form-control @error('rcada') is-invalid @enderror" name="rcada" onkeyup="this.value = this.value.toUpperCase();" value="{{ old('rcada') }}"  autocomplete="rcada" autofocus >
+                                @error('rcada')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group row">
+
+                            <div class="col-md-12">
+                            <label for="descripcion" class="col-form-label text-md-left">{{ __('Detalle') }}</label>
+                                <textarea id="descripcion" class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" onkeyup="this.value = this.value.toUpperCase();" rows="5" cols="50"  autocomplete="descripcion" autofocus >
+                                </textarea>
+
+                                @error('descripcion')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                        </div>
+              </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+
 <script type="text/javascript">
-    function soloNumeros(e){
-        var keynum = window.event ? window.event.keyCode : e.which;
-        if ((keynum == 8) || (keynum == 46))
-            return true;
-        return /\d/.test(String.fromCharCode(keynum));
+const dt = new DataTransfer(); // Permet de manipuler les fichiers de l'input file
+
+$("#attachment").on('change', function(e){
+    for(var i = 0; i < this.files.length; i++){
+        let fileBloc = $('<span/>', {class: 'file-block'}),
+             fileName = $('<span/>', {class: 'name', text: this.files.item(i).name});
+        fileBloc.append('<span class="file-delete"><span>+</span></span>')
+            .append(fileName);
+        $("#filesList > #files-names").append(fileBloc);
+    };
+    // Ajout des fichiers dans l'objet DataTransfer
+    for (let file of this.files) {
+        dt.items.add(file);
     }
-</script>  
+    // Mise à jour des fichiers de l'input file après ajout
+    this.files = dt.files;
 
-<script type="text/javascript">
-    const $seleccionArchivos = document.querySelector("#foto_antena"),
-      $imagenPrevisualizacion = document.querySelector("#imagenPrevisualizacion");
-
-    // Escuchar cuando cambie
-    $seleccionArchivos.addEventListener("change", () => {
-      // Los archivos seleccionados, pueden ser muchos o uno
-      const archivos = $seleccionArchivos.files;
-      // Si no hay archivos salimos de la función y quitamos la imagen
-      if (!archivos || !archivos.length) {
-        $imagenPrevisualizacion.src = "";
-        return;
-      }
-      // Ahora tomamos el primer archivo, el cual vamos a previsualizar
-      const primerArchivo = archivos[0];
-      // Lo convertimos a un objeto de tipo objectURL
-      const objectURL = URL.createObjectURL(primerArchivo);
-      // Y a la fuente de la imagen le ponemos el objectURL
-      $imagenPrevisualizacion.src = objectURL;
+    // EventListener pour le bouton de suppression créé
+    $('span.file-delete').click(function(){
+        let name = $(this).next('span.name').text();
+        // Supprimer l'affichage du nom de fichier
+        $(this).parent().remove();
+        for(let i = 0; i < dt.items.length; i++){
+            // Correspondance du fichier et du nom
+            if(name === dt.items[i].getAsFile().name){
+                // Suppression du fichier dans l'objet DataTransfer
+                dt.items.remove(i);
+                continue;
+            }
+        }
+        // Mise à jour des fichiers de l'input file après suppression
+        document.getElementById('attachment').files = dt.files;
     });
+});    
+
 </script>
