@@ -62,17 +62,27 @@
                                       class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
-                                @elseif($prodc->estado == 'VENCIDA')
+                                @elseif($prodc->estado == 'APROBADA' && $prodc->accion == 'ENTREGAR')
                                     <a href="{{ route('tasks.edit', $prodc->id) }}"
                                       class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
-                                @elseif($prodc->estado == 'REALIZADA')
+                                @elseif($prodc->estado == 'VENCIDA' && $prodc->accion == 'ENTREGAR')
                                     <a href="{{ route('tasks.edit', $prodc->id) }}"
                                       class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
-                                @elseif($prodc->estado == 'ENTREGADA')
+                                @elseif($prodc->estado == 'REALIZADA' && $prodc->accion == 'CONSULTAR')
+                                    <a href="{{ route('tasks.edit', $prodc->id) }}"
+                                      class="btn-sm btn btn-outline-primary">
+                                        {{ $prodc->accion }}
+                                    </a>
+                                @elseif($prodc->estado == 'VENCIDA' && $prodc->accion == 'CONSULTAR')
+                                    <a href="{{ route('tasks.edit', $prodc->id) }}"
+                                      class="btn-sm btn btn-outline-primary">
+                                        {{ $prodc->accion }}
+                                    </a>
+                                @elseif($prodc->estado == 'ANULADA' && $prodc->accion == 'CONSULTAR')
                                     <a href="{{ route('tasks.edit', $prodc->id) }}"
                                       class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}

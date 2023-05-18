@@ -53,18 +53,18 @@
                             <td>{{ $prodc->ApellidoSoli }} {{ $prodc->NombreSoli }}</td>   
                             <td>{{ $prodc->estado }}</td>  
                             <td>
-                              @if($prodc->usuario_solicitante == Auth::user()->id)
+                              @if($prodc->usuario_solicitante == Auth::user()->id && ($prodc->estado == 'EN PROCESO' || $prodc->estado == 'VENCIDA' ) && $prodc->accion == 'APROBAR')
                               <div class="text-center">
                                 <div class="btn-group">
-                                  <a  href="#" 
+                                  <a  href="#"  style="font-size:12px"
                                       class="btn btn-sm btn-secondary">
                                       Cerrar
                                   </a>
-                                  <a  href="#" 
+                                  <a  href="#" style="font-size:12px"
                                       class="btn btn-sm btn-primary">
-                                      Modificar
+                                      Modificar 
                                   </a>
-                                  <a  onclick="confirmation(event)" 
+                                  <a  onclick="confirmation(event)" style="font-size:12px"
                                       href="{{ route('tasks.destroy', $prodc->id) }}"
                                       class="btn btn-danger">
                                       Anular
@@ -82,17 +82,27 @@
                                       class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
-                                @elseif($prodc->estado == 'VENCIDA')
+                                @elseif($prodc->estado == 'APROBADA' && $prodc->accion == 'ENTREGAR')
                                     <a href="{{ route('tasks.edit', $prodc->id) }}"
                                       class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
-                                @elseif($prodc->estado == 'REALIZADA')
+                                @elseif($prodc->estado == 'VENCIDA' && $prodc->accion == 'ENTREGAR')
                                     <a href="{{ route('tasks.edit', $prodc->id) }}"
                                       class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
-                                @elseif($prodc->estado == 'ENTREGADA')
+                                @elseif($prodc->estado == 'REALIZADA' && $prodc->accion == 'CONSULTAR')
+                                    <a href="{{ route('tasks.edit', $prodc->id) }}"
+                                      class="btn-sm btn btn-outline-primary">
+                                        {{ $prodc->accion }}
+                                    </a>
+                                @elseif($prodc->estado == 'VENCIDA' && $prodc->accion == 'CONSULTAR')
+                                    <a href="{{ route('tasks.edit', $prodc->id) }}"
+                                      class="btn-sm btn btn-outline-primary">
+                                        {{ $prodc->accion }}
+                                    </a>
+                                @elseif($prodc->estado == 'ANULADA' && $prodc->accion == 'CONSULTAR')
                                     <a href="{{ route('tasks.edit', $prodc->id) }}"
                                       class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}

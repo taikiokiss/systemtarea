@@ -183,7 +183,10 @@ class TaskController extends Controller
     {
         Task::select(DB::table('tasks'))
             ->where('id', $id)
-            ->update(['estado' => 'ANULADA']);
+            ->update([
+                'estado' => 'ANULADA',
+                'accion' => 'CONSULTAR',
+            ]);
 
         $notification=array(
             'message' => 'Tarea anulada con éxito.',
