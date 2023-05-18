@@ -33,7 +33,7 @@
                             <div class="col-md-6">
                             <label for="departamento" class="col-form-label text-md-left">{{ __('Departamento') }}</label>
                                 <select id="departamento" class="form-control" name="departamento">
-                                    <option value="">Seleccione un departamento</option>
+                                    <option selected disabled value="{{$tasks1[0]->depaid}}">{{$tasks1[0]->namedt}}</option>
                                     @foreach ($datos['departma'] as $departm)
                                         <option value="{{ $departm->id }}">{{ $departm->namedt }}</option>
                                     @endforeach
@@ -44,10 +44,9 @@
                             <div class="col-md-6">
                             <label for="asign_a" class="col-form-label text-md-left">{{ __('Asignar a') }}</label>
                                 <select id="asign_a" class="form-control" name="asign_a" disabled>
-                                    <option value="">Seleccione a quien va asignada la tarea</option>
+                                    <option selected disabled value="{{$tasks1[0]->IdAsig}}">{{$tasks1[0]->ApellidoAsig}} {{$tasks1[0]->NombreAsig}}</option>
                                 </select>
                             </div>
-
                         </div>
 
                         <div class="form-group row">
@@ -65,7 +64,7 @@
 
                             <div class="col-md-2">
                             <label for="fecha_entrega" class="col-form-label text-md-left">{{ __('Fecha de entrega') }}</label>
-                                <input id="fecha_entrega" type="date" class="form-control" value="<?php echo date('d/m/Y',strtotime($tasks1[0]->fecha_entrega));?>" name="fecha_entrega" >
+                                <input id="fecha_entrega" type="date" class="form-control" value="<?php echo date('Y-m-d',strtotime($tasks1[0]->fecha_entrega));?>" name="fecha_entrega" >
                                 @error('fecha_entrega')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -77,6 +76,7 @@
                             <div class="col-md-2">
                             <label for="rcada" class="col-form-label text-md-left">{{ __('Repetir cada') }}</label>
                                 <select  class="custom-select target form-control @error('rcada') is-invalid @enderror" id="rcada" name="rcada">
+                                    <option selected disabled value="{{$ciclo[0]->id}}">{{$ciclo[0]->opcion}}</option>
                                     @foreach($opcion_rrp as $opc_v)
                                         <option value="{{$opc_v->id}}">{{$opc_v->opcion}}</option>
                                     @endforeach 
@@ -92,9 +92,7 @@
 
                             <div class="col-md-12">
                             <label for="descripcion" class="col-form-label text-md-left">{{ __('Detalle') }}</label>
-                                <textarea id="descripcion" class="form-control" name="descripcion" onkeyup="this.value = this.value.toUpperCase();" rows="5">
-                                        {{ $tasks1[0]->descripcion }}
-                                </textarea>
+                                <textarea id="descripcion" class="form-control" name="descripcion" onkeyup="this.value = this.value.toUpperCase();" rows="5">{{ $tasks1[0]->descripcion }}</textarea>
                             </div>
 
                         </div>
@@ -120,7 +118,7 @@
                 var options = '<option value="">Seleccione una opción</option>';
                 opciones.forEach(function(opcion) {
                     if (opcion.id == departamento) { // <--- aquí se hace la comparación por id de departamento
-                        options += '<option value="' + opcion.id + '">' + opcion.name + '</option>'; // <--- se utiliza id y nombre del usuario
+                        options += '<option value="' + opcion.id + '">' + opcion.last_name +' '+ opcion.name +  '</option>'; // <--- se utiliza id y nombre del usuario
                     }
                 });
                 $('#asign_a').html(options);

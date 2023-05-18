@@ -90,8 +90,7 @@
 
                             <div class="col-md-12">
                             <label for="descripcion" class="col-form-label text-md-left">{{ __('Detalle') }}</label>
-                                <textarea id="descripcion" class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" onkeyup="this.value = this.value.toUpperCase();" rows="5" cols="50"  autocomplete="descripcion" autofocus >
-                                </textarea>
+                                <textarea id="descripcion" class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" onkeyup="this.value = this.value.toUpperCase();" rows="5" cols="50"  autocomplete="descripcion" autofocus ></textarea>
 
                                 @error('descripcion')
                                     <span class="invalid-feedback" role="alert">
@@ -164,7 +163,7 @@
                 var options = '<option value="">Seleccione una opción</option>';
                 opciones.forEach(function(opcion) {
                     if (opcion.id == departamento) { // <--- aquí se hace la comparación por id de departamento
-                        options += '<option value="' + opcion.id + '">' + opcion.name + '</option>'; // <--- se utiliza id y nombre del usuario
+                        options += '<option value="' + opcion.id + '">' + opcion.last_name +' '+ opcion.name +  '</option>'; // <--- se utiliza id y nombre del usuario
                     }
                 });
                 $('#asign_a').html(options);

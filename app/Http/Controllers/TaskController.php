@@ -181,6 +181,12 @@ class TaskController extends Controller
 
         $tasks = Task::find($id);
 
+        $ciclo = DB::table('option')
+            ->join('sub_option','sub_option.cabe_opcion','option.id_subopcion')
+            ->where('option.nombre_opcion','=','REPETIR_CADA','AND')
+            ->where('sub_option.id','=',$tasks->ciclo)
+            ->get();
+
         $tasks1 = DB::table('tasks')
             ->join('users as usuarioAsig','usuarioAsig.id','tasks.asign_a')
             ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
@@ -188,13 +194,13 @@ class TaskController extends Controller
             ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
             ->join('departments', 'departments.id', '=', 'tasks.department_id')
             ->where('tasks.id','=',$id)
-            ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt')
+            ->select('tasks.*','perAsig.id as IdAsig','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments.id as depaid')
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 
 
-        //dd($tasks1[0]->descripcion);
+        //dd($tasks1[0]);
 
-        return view('tasks.edit', compact('tasks1','tasks','datos','opcion_rrp'));
+        return view('tasks.edit', compact('tasks1','tasks','datos','opcion_rrp','ciclo'));
     }
 
     /**
