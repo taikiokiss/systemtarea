@@ -108,8 +108,35 @@
       </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
-      <div class="tab-pane fade" id="nav-adjuntos" role="tabpanel" aria-labelledby="nav-adjuntos-tab">1</div>
-      <div class="tab-pane fade show active" id="nav-historico" role="tabpanel" aria-labelledby="nav-historico-tab">2</div>
+        <div class="tab-pane fade" id="nav-adjuntos" role="tabpanel" aria-labelledby="nav-adjuntos-tab">
+            1
+        </div>
+        
+        <div class="tab-pane fade show active" id="nav-historico" role="tabpanel" aria-labelledby="nav-historico-tab">
+                <table class="table table-bordered table-striped table-sm" style="font-size:12px">
+                    <thead>
+                        <tr>
+                            <th width="80px" style="text-align: center"># Tarea</th>
+                            <th width="300px" style="text-align: center">Usuario</th>
+                            <th width="420px" style="text-align: center">Observación</th>
+                            <th width="120px" style="text-align: center">Fecha</th>
+                            <th width="250px" style="text-align: center">Estado</th>
+                        </tr>
+                    </thead>
+
+                    <tbody style="text-align: center">
+                        @foreach($historico_mov_tarea as $hsmovtar)
+                        <tr>
+                            <td>{{ $hsmovtar->id_tarea }}</td>
+                            <td>{{ $hsmovtar->cedula }}; {{ $hsmovtar->name }} {{ $hsmovtar->last_name }}</td>   
+                            <td>{{ $hsmovtar->observacion }}</td>
+                            <td> <?php echo date('d/m/Y', strtotime($hsmovtar->fecha_act)); ?></td>
+                            <td>{{ $hsmovtar->estado_id_tarea }}</td>  
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+        </div>
     </div>
 
 

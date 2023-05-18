@@ -125,6 +125,7 @@ class TaskController extends Controller
             Historico_mov_tarea::create([
                 'id_tarea'          => $tasks->id,
                 'observacion'       => $tasks->descripcion,
+                'usuario'           => Auth::user()->id,
                 'fecha_act'         => $tasks->created_at,
                 'estado_id_tarea'   => 'ASIGNADA'                
             ]);
@@ -145,9 +146,9 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function cerrar($id, Request $request)
+    public function show($id, Request $request)
     {
-        //
+        return view('tasks.show');
     }
 
     /**
@@ -181,6 +182,15 @@ class TaskController extends Controller
 
         $tasks = Task::find($id);
 
+
+        $historico_mov_tarea = DB::table('historico_mov_tarea')
+            ->join('users', 'users.id', '=', 'historico_mov_tarea.usuario')
+            ->join('persons', 'persons.id', '=', 'users.persona_id')
+            ->join('departments', 'departments.id', '=', 'users.deparment_id')
+            ->where('users.estado','=','ACTIVO')
+            ->select('persons.*','departments.*','historico_mov_tarea.*')
+            ->get();
+
         $ciclo = DB::table('option')
             ->join('sub_option','sub_option.cabe_opcion','option.id_subopcion')
             ->where('option.nombre_opcion','=','REPETIR_CADA','AND')
@@ -198,9 +208,8 @@ class TaskController extends Controller
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 
 
-        //dd($tasks1[0]);
 
-        return view('tasks.edit', compact('tasks1','tasks','datos','opcion_rrp','ciclo'));
+        return view('tasks.edit', compact('tasks1','tasks','datos','opcion_rrp','ciclo','historico_mov_tarea'));
     }
 
     /**
@@ -236,4 +245,8 @@ class TaskController extends Controller
         );
         return back()->with($notification);
     }
+
+
+
+
 }

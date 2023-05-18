@@ -9,6 +9,7 @@ class Historico_mov_tarea extends Model
     protected $fillable = [
         'id_tarea',
         'observacion',
+        'usuario',
         'fecha_act',
         'estado_id_tarea'
     ];

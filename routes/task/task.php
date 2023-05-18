@@ -27,6 +27,9 @@ Route::middleware(['auth'])->group(function () {
 		->name('tasks.edit')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
+	Route::get('/tareas/{tarea}/show', 'TaskController@show')
+		->name('tasks.show')
+		->middleware('role:ADMINISTRADOR|USUARIO');
 
 	Route::put('/tareas/{tarea}', 'TaskController@update')
 		->name('tasks.update')
@@ -46,6 +49,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/tarea/{tarea}', 'TaskController@desactiv')
 		->name('tasks.desactiv')
 		->middleware('role:ADMINISTRADOR|USUARIO');
+
 
 		
 });
