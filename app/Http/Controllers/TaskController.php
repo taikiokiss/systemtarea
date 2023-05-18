@@ -187,7 +187,8 @@ class TaskController extends Controller
             ->join('users', 'users.id', '=', 'historico_mov_tarea.usuario')
             ->join('persons', 'persons.id', '=', 'users.persona_id')
             ->join('departments', 'departments.id', '=', 'users.deparment_id')
-            ->where('users.estado','=','ACTIVO')
+            ->where('users.estado','=','ACTIVO','AND')
+            ->where('historico_mov_tarea.id_tarea','=',$id)
             ->select('persons.*','departments.*','historico_mov_tarea.*')
             ->get();
 
