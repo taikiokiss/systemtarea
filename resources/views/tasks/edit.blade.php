@@ -22,7 +22,7 @@
 
 
 {!! Form::model($tasks, ['route' => ['tasks.update', $tasks->id],'method' => 'PUT','enctype' =>'multipart/form-data', 'files'=>true]) !!}
-<div class="container-fluid">
+<div class="container-fluid" style="font-size: 12px;">
     <div class="row">
         <div class="col-12">
             <div class="card card-primary card-outline">
@@ -100,6 +100,22 @@
             </div>
         </div>
     </div>
+    <br>
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link" id="nav-adjuntos-tab" data-toggle="tab" href="#nav-adjuntos" role="tab" aria-controls="nav-adjuntos" aria-selected="true">Archivos adjuntos</a>
+        <a class="nav-item nav-link active" id="nav-historico-tab" data-toggle="tab" href="#nav-historico" role="tab" aria-controls="nav-historico" aria-selected="false">Histórico</a>
+      </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+      <div class="tab-pane fade" id="nav-adjuntos" role="tabpanel" aria-labelledby="nav-adjuntos-tab">1</div>
+      <div class="tab-pane fade show active" id="nav-historico" role="tabpanel" aria-labelledby="nav-historico-tab">2</div>
+    </div>
+
+
+
+
+
 </div>                        
 {!! Form::close() !!}
 
