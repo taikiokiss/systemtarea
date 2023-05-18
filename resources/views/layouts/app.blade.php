@@ -22,7 +22,6 @@
     <link rel="stylesheet" href="/css/checkbox.css">  
     <link rel="stylesheet" href="/css/toastr.min.css">
     <link rel="stylesheet" href="/css/sweetalert.min.css">
-    <link rel="stylesheet" href="/css/src.css">
     <link rel="stylesheet" href="/css/ifile.scss">
 
     <link rel="stylesheet" href="/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">

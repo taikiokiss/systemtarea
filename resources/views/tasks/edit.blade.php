@@ -65,7 +65,7 @@
 
                             <div class="col-md-2">
                             <label for="fecha_entrega" class="col-form-label text-md-left">{{ __('Fecha de entrega') }}</label>
-                                <input id="fecha_entrega" type="date" class="form-control @error('fecha_entrega') is-invalid @enderror" name="fecha_entrega" onkeyup="this.value = this.value.toUpperCase();" value="{{ old('fecha_entrega') }}"  autocomplete="fecha_entrega" autofocus >
+                                <input id="fecha_entrega" type="date" class="form-control" value="<?php echo date('d/m/Y',strtotime($tasks1[0]->fecha_entrega));?>" name="fecha_entrega" >
                                 @error('fecha_entrega')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -76,15 +76,16 @@
 
                             <div class="col-md-2">
                             <label for="rcada" class="col-form-label text-md-left">{{ __('Repetir cada') }}</label>
-                                <input id="rcada" type="text" class="form-control @error('rcada') is-invalid @enderror" name="rcada" onkeyup="this.value = this.value.toUpperCase();" value="{{ old('rcada') }}"  autocomplete="rcada" autofocus >
-                                @error('rcada')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <select  class="custom-select target form-control @error('rcada') is-invalid @enderror" id="rcada" name="rcada">
+                                    @foreach($opcion_rrp as $opc_v)
+                                        <option value="{{$opc_v->id}}">{{$opc_v->opcion}}</option>
+                                    @endforeach 
+                                </select>
+
                             </div>
 
                         </div>
+
 
 
                         <div class="form-group row">
