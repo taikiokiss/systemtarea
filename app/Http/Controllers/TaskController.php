@@ -267,10 +267,13 @@ class TaskController extends Controller
             $estado = '';
             $accion = '';
 
-            if ($variable == 'CONSULTAR' || $variable == 'CERRAR' || $variable == 'ENTREGAR') {
+            if ($variable == 'CONSULTAR' || $variable == 'CERRAR') {
                 $estado = 'REALIZADA';
                 $accion = 'CONSULTAR';
-            } elseif ($variable == 'APROBAR') {
+            }elseif ($variable == 'ENTREGAR') {
+                $estado = 'ENTREGADA';
+                $accion = 'APROBAR';
+            }elseif ($variable == 'APROBAR') {
                 $estado = 'APROBADA';
                 $accion = 'ENTREGAR';
             }

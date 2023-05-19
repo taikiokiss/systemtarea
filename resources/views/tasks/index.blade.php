@@ -84,6 +84,21 @@
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
+                                @elseif($prodc->estado == 'ENTREGADA' && $prodc->accion == 'APROBAR')
+                                      <div class="text-center">
+                                        <div class="btn-group">
+                                            <a  href="#"
+                                                style="font-size:12px"
+                                                class="btn-sm btn btn-outline-danger">
+                                                RECHAZAR
+                                            </a>
+                                            <a  href="#"
+                                                style="font-size:12px"
+                                                class="btn-sm btn btn-outline-primary">
+                                                {{ $prodc->accion }}
+                                            </a>
+                                        </div>
+                                      </div>
                                 @elseif($prodc->estado == 'APROBADA' && $prodc->accion == 'ENTREGAR')
                                     <a  href="{{ route('tasks.entregar_tarea_view', $prodc->id) }}"
                                         style="font-size:12px"
