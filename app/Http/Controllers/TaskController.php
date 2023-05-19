@@ -62,19 +62,19 @@ class TaskController extends Controller
             ->join('persons', 'persons.id', '=', 'users.persona_id')
             ->join('departments', 'departments.id', '=', 'users.deparment_id')
             ->where('users.estado','=','ACTIVO')
-            ->select('persons.*','departments.*')
+            ->select('persons.*','departments.*','persons.id as idperson')
             ->get();
 
         $datos = [
             'departma' => $departmentt,
             'opciones' => $userss,
         ];
+
         return view('tasks.create', compact('datos','opcion_rrp'));
     }
 
     public function store(Request $request)
     {
-
             $tasks = array();
             $tasks = new Task;
             $tasks->asunto          = $request->input('asunto');

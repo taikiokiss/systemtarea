@@ -32,7 +32,7 @@
                             <div class="col-md-6">
                             <label for="departamento" class="col-form-label text-md-left">{{ __('Departamento') }}</label>
                                 <select id="departamento" class="form-control" name="departamento">
-                                    <option value="">Seleccione un departamento</option>
+                                    <option value="" selected disabled >Seleccione un departamento</option>
                                     @foreach ($datos['departma'] as $departm)
                                         <option value="{{ $departm->id }}">{{ $departm->namedt }}</option>
                                     @endforeach
@@ -43,7 +43,7 @@
                             <div class="col-md-6">
                             <label for="asign_a" class="col-form-label text-md-left">{{ __('Asignar a') }}</label>
                                 <select id="asign_a" class="form-control" name="asign_a" disabled>
-                                    <option value="">Seleccione a quien va asignada la tarea</option>
+                                    <option value="" selected disabled>Seleccione a quien va asignada la tarea</option>
                                 </select>
                             </div>
 
@@ -163,7 +163,7 @@
                 var options = '<option value="">Seleccione una opción</option>';
                 opciones.forEach(function(opcion) {
                     if (opcion.id == departamento) { // <--- aquí se hace la comparación por id de departamento
-                        options += '<option value="' + opcion.id + '">' + opcion.last_name +' '+ opcion.name +  '</option>'; // <--- se utiliza id y nombre del usuario
+                        options += '<option value="' + opcion.idperson + '">' + opcion.last_name +' '+ opcion.name +  '</option>'; // <--- se utiliza id y nombre del usuario
                     }
                 });
                 $('#asign_a').html(options);

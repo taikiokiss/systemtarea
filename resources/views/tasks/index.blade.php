@@ -56,7 +56,7 @@
                               @if($prodc->usuario_solicitante == Auth::user()->id && ($prodc->estado == 'EN PROCESO' || $prodc->estado == 'VENCIDA' ) && $prodc->accion == 'APROBAR')
                               <div class="text-center">
                                 <div class="btn-group">
-                                  <a  href="{{ route('tasks.actualizar_estados_tareas', $prodc->id) }}"  style="font-size:12px"
+                                  <a  href="{{ route('tasks.cerrar_tarea_view', $prodc->id) }}"  style="font-size:12px"
                                       class="btn btn-sm btn-secondary">
                                       Cerrar
                                   </a>
