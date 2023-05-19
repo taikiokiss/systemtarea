@@ -85,7 +85,7 @@
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'APROBADA' && $prodc->accion == 'ENTREGAR')
-                                    <a  href="#"
+                                    <a  href="{{ route('tasks.entregar_tarea_view', $prodc->id) }}"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}

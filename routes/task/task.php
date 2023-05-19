@@ -41,6 +41,10 @@ Route::middleware(['auth'])->group(function () {
 		->name('tasks.aprobar_tarea_view')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
+	Route::get('/tareas/{tarea}entregar_tarea_view', 'TaskController@entregar_tarea_view')
+		->name('tasks.entregar_tarea_view')
+		->middleware('role:ADMINISTRADOR|USUARIO');
+
 	Route::put('/tareas/actualizar_estados_tareas/{tarea}/{variable}', 'TaskController@actualizar_estados_tareas')
 		->name('tasks.actualizar_estados_tareas')
 		->middleware('role:ADMINISTRADOR|USUARIO');
