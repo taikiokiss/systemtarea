@@ -27,7 +27,7 @@
             <div class="card card-primary card-outline">
               <div class="card-body">        
               @if (count($tasks)) 
-                <table id="tableuser" class="table table-bordered table-striped table-sm" style="font-size:12px">
+                <table id="tableuser" class="table table-bordered table-striped table-sm table-responsive" style="font-size:12px">
                     <thead>
                         <tr>
                             <th width="10px" style="text-align: center">ID</th>

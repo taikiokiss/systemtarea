@@ -86,8 +86,6 @@
 
                         </div>
 
-
-
                         <div class="form-group row">
 
                             <div class="col-md-12">
@@ -103,43 +101,54 @@
     <br>
     <nav>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link" id="nav-adjuntos-tab" data-toggle="tab" href="#nav-adjuntos" role="tab" aria-controls="nav-adjuntos" aria-selected="true">Archivos adjuntos</a>
-        <a class="nav-item nav-link active" id="nav-historico-tab" data-toggle="tab" href="#nav-historico" role="tab" aria-controls="nav-historico" aria-selected="false">Histórico</a>
+        <a class="nav-item nav-link active" id="nav-adjuntos-tab" data-toggle="tab" href="#nav-adjuntos" role="tab" aria-controls="nav-adjuntos" aria-selected="true">Archivos adjuntos</a>
       </div>
     </nav>
     <div class="tab-content" id="nav-tabContent">
-        <div class="tab-pane fade" id="nav-adjuntos" role="tabpanel" aria-labelledby="nav-adjuntos-tab">
-            1
-        </div>
-        
-        <div class="tab-pane fade show active" id="nav-historico" role="tabpanel" aria-labelledby="nav-historico-tab">
+        <div class="tab-pane fade show active" id="nav-adjuntos" role="tabpanel" aria-labelledby="nav-adjuntos-tab">
+
+            <div class="form-group row">
+                <div class="col-md-12 text-md-right">
+                    <label for="attachment" class="col-form-label">
+                            <a class="btn btn-outline-primary btn-sm " role="button" aria-disabled="false">+ Agregar</a>
+                    </label>
+                    <div class="container col-md-12">
+                        <input type="file" name="file[]"  id="attachment" style="visibility: hidden; position: absolute;" multiple/>
+                        <p id="files-area">
+                            <span id="filesList">
+                                <span id="files-names"></span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
                 <table class="table table-bordered table-striped table-sm" style="font-size:12px">
                     <thead>
                         <tr>
                             <th width="80px" style="text-align: center"># Tarea</th>
-                            <th width="300px" style="text-align: center">Usuario</th>
-                            <th width="420px" style="text-align: center">Observación</th>
+                            <th width="300px" style="text-align: center">Archivo</th>
                             <th width="120px" style="text-align: center">Fecha</th>
-                            <th width="250px" style="text-align: center">Estado</th>
                         </tr>
                     </thead>
 
                     <tbody style="text-align: center">
-                        @foreach($historico_mov_tarea as $hsmovtar)
+                        @foreach($tasks_users_rl as $fil_dt)
                         <tr>
-                            <td>{{ $hsmovtar->id_tarea }}</td>
-                            <td>{{ $hsmovtar->cedula }}; {{ $hsmovtar->name }} {{ $hsmovtar->last_name }}</td>   
-                            <td>{{ $hsmovtar->observacion }}</td>
-                            <td> <?php echo date('d/m/Y', strtotime($hsmovtar->fecha_act)); ?></td>
-                            <td>{{ $hsmovtar->estado_id_tarea }}</td>  
+                            <td>{{ $fil_dt->id_tasks }}</td>
+                            <td>
+                                <a href="{{ route('tasks.download', $fil_dt->file) }}">
+                                    <i class="fa fa-download"></i> Descargar
+                                </a>                            
+                            </td>
+                            <td> <?php echo date('d/m/Y', strtotime($fil_dt->created_at)); ?></td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
         </div>
     </div>
-
-
 
 
 

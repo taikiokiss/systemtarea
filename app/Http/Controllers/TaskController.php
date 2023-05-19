@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
 use App\Task;
@@ -109,7 +110,7 @@ class TaskController extends Controller
                     $nombre = $files[$i]->getClientOriginalName();
                     $var = rand(0,9999999);
                     $ced = Auth::user()->person->cedula;
-                    $path   = $file->storeAs('/public/archivos_adjuntos',$ced.$var.$nombre);
+                    $path   = $file->storeAs('/archivos_adjuntos',$ced.$var.$nombre);
 
 
                     if ($file !== null) {
@@ -183,13 +184,13 @@ class TaskController extends Controller
         $tasks = Task::find($id);
 
 
-        $historico_mov_tarea = DB::table('historico_mov_tarea')
-            ->join('users', 'users.id', '=', 'historico_mov_tarea.usuario')
+        $tasks_users_rl = DB::table('tasks_users_rl')
+            ->join('users', 'users.id', '=', 'tasks_users_rl.id_users')
             ->join('persons', 'persons.id', '=', 'users.persona_id')
             ->join('departments', 'departments.id', '=', 'users.deparment_id')
             ->where('users.estado','=','ACTIVO','AND')
-            ->where('historico_mov_tarea.id_tarea','=',$id)
-            ->select('persons.*','departments.*','historico_mov_tarea.*')
+            ->where('tasks_users_rl.id_tasks','=',$id)
+            ->select('persons.*','departments.*','tasks_users_rl.*')
             ->get();
 
         $ciclo = DB::table('option')
@@ -210,7 +211,7 @@ class TaskController extends Controller
             ->get(); 
 
 
-        return view('tasks.edit', compact('tasks1','tasks','datos','opcion_rrp','ciclo','historico_mov_tarea'));
+        return view('tasks.edit', compact('tasks1','tasks','datos','opcion_rrp','ciclo','tasks_users_rl'));
     }
 
     /**
@@ -220,6 +221,18 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function descargarArchivo($archivo)
+    {
+        
+        //$rutaArchivo = public_path('storage/' . $archivo);
+
+        //return Storage::download('storage/', $archivo);
+
+        //return response()->download($rutaArchivo);
+    }
+
+
     public function update(Request $request, $id)
     {
         //

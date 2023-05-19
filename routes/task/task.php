@@ -17,11 +17,13 @@ Route::middleware(['auth'])->group(function () {
 		->name('tasks.create')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
+	Route::get('/tareas/descargar/{archivo}', 'TaskController@descargarArchivo')
+		->name('tasks.download')
+		->middleware('role:ADMINISTRADOR|USUARIO');
 
 	Route::post('/tareas/store', 'TaskController@store')
 		->name('tasks.store')
 		->middleware('role:ADMINISTRADOR|USUARIO');
-
 
 	Route::get('/tareas/{tarea}/edit', 'TaskController@edit')
 		->name('tasks.edit')

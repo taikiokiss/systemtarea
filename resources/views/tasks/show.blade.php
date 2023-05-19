@@ -1,22 +1,28 @@
 @extends('layouts.app')
 
 @section('content')
+
+
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h4 style="display:inline;">Consultar</h4>
-                    <a href="{{ route('tasks.index') }}"
-                    class="btn btn-sm btn-danger float-right">
-                        <i class="fas fa-chevron-left"></i> Regresar
-                    </a> 
-
+            <h4 style="display:inline;">Modificar Tarea</h4>
+            <div class="btn-group float-right">
+              <a  href="{{ route('tasks.index') }}"
+                  class="btn btn-sm btn-danger">
+                  <i class="fas fa-arrow-left"></i> Atras
+              </a>
+            </div>
           </div>
         </div>
     </div>
 </section>
-<!-- CREACION  -->
-<div class="container-fluid">
+
+
+
+{!! Form::model($tasks, ['route' => ['tasks.update', $tasks->id],'method' => 'PUT','enctype' =>'multipart/form-data', 'files'=>true]) !!}
+<div class="container-fluid" style="font-size: 12px;">
     <div class="row">
         <div class="col-12">
             <div class="card card-primary card-outline">
@@ -27,7 +33,7 @@
                             <div class="col-md-6">
                             <label for="departamento" class="col-form-label text-md-left">{{ __('Departamento') }}</label>
                                 <select id="departamento" class="form-control" name="departamento">
-                                    <option value="">Seleccione un departamento</option>
+                                    <option selected disabled value="{{$tasks1[0]->depaid}}">{{$tasks1[0]->namedt}}</option>
                                     @foreach ($datos['departma'] as $departm)
                                         <option value="{{ $departm->id }}">{{ $departm->namedt }}</option>
                                     @endforeach
@@ -38,17 +44,16 @@
                             <div class="col-md-6">
                             <label for="asign_a" class="col-form-label text-md-left">{{ __('Asignar a') }}</label>
                                 <select id="asign_a" class="form-control" name="asign_a" disabled>
-                                    <option value="">Seleccione a quien va asignada la tarea</option>
+                                    <option selected disabled value="{{$tasks1[0]->IdAsig}}">{{$tasks1[0]->ApellidoAsig}} {{$tasks1[0]->NombreAsig}}</option>
                                 </select>
                             </div>
-
                         </div>
 
                         <div class="form-group row">
 
                             <div class="col-md-8">
                             <label for="asunto" class="col-form-label text-md-left">{{ __('Asunto') }}</label>
-                                <input id="asunto" type="text" class="form-control @error('asunto') is-invalid @enderror" name="asunto" onkeyup="this.value = this.value.toUpperCase();" value="{{ old('asunto') }}"  autocomplete="asunto" autofocus >
+                                <input id="asunto" type="text" class="form-control @error('asunto') is-invalid @enderror" name="asunto" onkeyup="this.value = this.value.toUpperCase();" value="{{ $tasks1[0]->asunto }}"  autocomplete="asunto" autofocus >
                                 @error('asunto')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -59,7 +64,7 @@
 
                             <div class="col-md-2">
                             <label for="fecha_entrega" class="col-form-label text-md-left">{{ __('Fecha de entrega') }}</label>
-                                <input id="fecha_entrega" type="date" class="form-control @error('fecha_entrega') is-invalid @enderror" name="fecha_entrega" onkeyup="this.value = this.value.toUpperCase();" value="{{ old('fecha_entrega') }}"  autocomplete="fecha_entrega" autofocus >
+                                <input id="fecha_entrega" type="date" class="form-control" value="<?php echo date('Y-m-d',strtotime($tasks1[0]->fecha_entrega));?>" name="fecha_entrega" >
                                 @error('fecha_entrega')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -70,29 +75,24 @@
 
                             <div class="col-md-2">
                             <label for="rcada" class="col-form-label text-md-left">{{ __('Repetir cada') }}</label>
-                                <input id="rcada" type="text" class="form-control @error('rcada') is-invalid @enderror" name="rcada" onkeyup="this.value = this.value.toUpperCase();" value="{{ old('rcada') }}"  autocomplete="rcada" autofocus >
-                                @error('rcada')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <select  class="custom-select target form-control @error('rcada') is-invalid @enderror" id="rcada" name="rcada">
+                                    <option selected disabled value="{{$ciclo[0]->id}}">{{$ciclo[0]->opcion}}</option>
+                                    @foreach($opcion_rrp as $opc_v)
+                                        <option value="{{$opc_v->id}}">{{$opc_v->opcion}}</option>
+                                    @endforeach 
+                                </select>
+
                             </div>
 
                         </div>
+
 
 
                         <div class="form-group row">
 
                             <div class="col-md-12">
                             <label for="descripcion" class="col-form-label text-md-left">{{ __('Detalle') }}</label>
-                                <textarea id="descripcion" class="form-control @error('descripcion') is-invalid @enderror" name="descripcion" onkeyup="this.value = this.value.toUpperCase();" rows="5" cols="50"  autocomplete="descripcion" autofocus >
-                                </textarea>
-
-                                @error('descripcion')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                                <textarea id="descripcion" class="form-control" name="descripcion" onkeyup="this.value = this.value.toUpperCase();" rows="5">{{ $tasks1[0]->descripcion }}</textarea>
                             </div>
 
                         </div>
@@ -100,10 +100,79 @@
             </div>
         </div>
     </div>
-</div>
+    <br>
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link" id="nav-adjuntos-tab" data-toggle="tab" href="#nav-adjuntos" role="tab" aria-controls="nav-adjuntos" aria-selected="true">Archivos adjuntos</a>
+        <a class="nav-item nav-link active" id="nav-historico-tab" data-toggle="tab" href="#nav-historico" role="tab" aria-controls="nav-historico" aria-selected="false">Histórico</a>
+      </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade" id="nav-adjuntos" role="tabpanel" aria-labelledby="nav-adjuntos-tab">
+            1
+        </div>
+        
+        <div class="tab-pane fade show active" id="nav-historico" role="tabpanel" aria-labelledby="nav-historico-tab">
+                <table class="table table-bordered table-striped table-sm" style="font-size:12px">
+                    <thead>
+                        <tr>
+                            <th width="80px" style="text-align: center"># Tarea</th>
+                            <th width="300px" style="text-align: center">Usuario</th>
+                            <th width="420px" style="text-align: center">Observación</th>
+                            <th width="120px" style="text-align: center">Fecha</th>
+                            <th width="250px" style="text-align: center">Estado</th>
+                        </tr>
+                    </thead>
+
+                    <tbody style="text-align: center">
+                        @foreach($historico_mov_tarea as $hsmovtar)
+                        <tr>
+                            <td>{{ $hsmovtar->id_tarea }}</td>
+                            <td>{{ $hsmovtar->cedula }}; {{ $hsmovtar->name }} {{ $hsmovtar->last_name }}</td>   
+                            <td>{{ $hsmovtar->observacion }}</td>
+                            <td> <?php echo date('d/m/Y', strtotime($hsmovtar->fecha_act)); ?></td>
+                            <td>{{ $hsmovtar->estado_id_tarea }}</td>  
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+        </div>
+    </div>
 
 
 
+
+
+</div>                        
+{!! Form::close() !!}
+
+<script>
+    $(document).ready(function() {
+        // Al cargar la página, el segundo select estará desactivado
+        $('#asign_a').prop('disabled', true);
+
+        // Cuando se seleccione un valor en el primer select, se activará el segundo select y se llenará con los valores correspondientes
+        $('#departamento').change(function() {
+            var departamento = $(this).val();
+            if (departamento !== '') {
+                $('#asign_a').prop('disabled', false);
+                $('#asign_a').html('<option value="">Cargando...</option>');
+                var opciones = @json($datos['opciones']);
+                var options = '<option value="">Seleccione una opción</option>';
+                opciones.forEach(function(opcion) {
+                    if (opcion.id == departamento) { // <--- aquí se hace la comparación por id de departamento
+                        options += '<option value="' + opcion.id + '">' + opcion.last_name +' '+ opcion.name +  '</option>'; // <--- se utiliza id y nombre del usuario
+                    }
+                });
+                $('#asign_a').html(options);
+            } else {
+                $('#asign_a').prop('disabled', true);
+                $('#asign_a').html('<option value="">Seleccione una opción</option>');
+            }
+        });
+
+    });
+</script>
 
 <script type="text/javascript">
 const dt = new DataTransfer(); // Permet de manipuler les fichiers de l'input file
@@ -144,5 +213,3 @@ $("#attachment").on('change', function(e){
 </script>
 
 @endsection
-
-
