@@ -199,7 +199,7 @@ class TaskController extends Controller
     {
 
         $tasks = Task::find($id);
-        $campos = ['asunto', 'descripcion', 'fecha_entrega', 'departamento', 'asign_a', 'rcada'];
+        $campos = ['asunto', 'descripcion','fecha_entrega', 'departamento', 'asign_a', 'rcada'];
         $actualizacion = [];
 
         foreach ($campos as $campo) {
@@ -244,6 +244,108 @@ class TaskController extends Controller
         return redirect()->route('tasks.index', $tasks->id)
             ->with($notificationa);
     }
+
+    public function cerrar_tarea(Request $request, $id)
+    {
+
+        $tasks = Task::find($id);
+        $campos = ['asunto', 'descripcion','observacion','fecha_entrega', 'departamento', 'asign_a', 'rcada'];
+        $actualizacion = [];
+
+        foreach ($campos as $campo) {
+            if (isset($request->$campo)) {
+                $actualizacion[$campo] = $request->$campo;
+            }
+        }
+
+        if (!empty($actualizacion)) {
+            $files = $request->file('file');
+
+            Task::where('id', $id)->update($actualizacion);
+            
+            if (!empty($files)) {
+                for ($i = 0; $i < count($files); $i++) {
+            
+                    $file   = $files[$i];
+                    $nombre = $files[$i]->getClientOriginalName();
+                    $var = rand(0,9999999);
+                    $ced = Auth::user()->person->cedula;
+                    $path   = $file->storeAs('',$ced.$var.$nombre);
+
+
+                    if ($file !== null) {
+                        $tasks_rl = new Tasks_users_rl;
+                        $tasks_rl->id_tasks = $tasks->id;
+                        $tasks_rl->file = $path;
+                        $tasks_rl->id_users = Auth::user()->id;
+                        $tasks_rl->save();
+                    }
+                }
+            }
+        }
+
+
+
+        $notificationa=array(
+            'message' => 'Tarea actualizada con éxito.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('tasks.index', $tasks->id)
+            ->with($notificationa);
+    }
+
+    public function cerrar_tarea_view($id, Request $request)
+    {
+
+
+        $opcion_rrp = DB::table('option')
+            ->join('sub_option', 'sub_option.cabe_opcion', '=', 'option.id_subopcion')
+            ->where('option.nombre_opcion','=','REPETIR_CADA')
+            ->select('sub_option.*')
+            ->get();
+
+        $tasks = Task::find($id);
+
+        $tasks_users_rl = DB::table('tasks_users_rl')
+            ->join('users', 'users.id', '=', 'tasks_users_rl.id_users')
+            ->join('persons', 'persons.id', '=', 'users.persona_id')
+            ->join('departments', 'departments.id', '=', 'users.deparment_id')
+            ->where('users.estado','=','ACTIVO','AND')
+            ->where('tasks_users_rl.id_tasks','=',$id)
+            ->select('persons.*','departments.*','tasks_users_rl.*')
+            ->get();
+
+        $ciclo = DB::table('option')
+            ->join('sub_option','sub_option.cabe_opcion','option.id_subopcion')
+            ->where('option.nombre_opcion','=','REPETIR_CADA','AND')
+            ->where('sub_option.id','=',$tasks->ciclo)
+            ->get();
+
+        $historico_mov_tarea = DB::table('historico_mov_tarea')
+            ->join('users', 'users.id', '=', 'historico_mov_tarea.usuario')
+            ->join('persons', 'persons.id', '=', 'users.persona_id')
+            ->join('departments', 'departments.id', '=', 'users.deparment_id')
+            ->where('users.estado','=','ACTIVO','AND')
+            ->where('historico_mov_tarea.id_tarea','=',$id)
+            ->select('persons.*','departments.*','historico_mov_tarea.*')
+            ->get();
+
+        $tasks1 = DB::table('tasks')
+            ->join('users as usuarioAsig','usuarioAsig.id','tasks.asign_a')
+            ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
+            ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
+            ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
+            ->join('departments', 'departments.id', '=', 'tasks.department_id')
+            ->where('tasks.id','=',$id)
+            ->select('tasks.*','perAsig.id as IdAsig','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments.id as depaid')
+            ->orderBy('tasks.created_at', 'desc')
+            ->get(); 
+
+
+        return view('tasks.cerrar_tarea', compact('tasks1','tasks','opcion_rrp','ciclo','tasks_users_rl','historico_mov_tarea'));
+    }
+
 
     public function destroy($id)
     {

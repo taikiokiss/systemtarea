@@ -37,6 +37,13 @@ Route::middleware(['auth'])->group(function () {
 		->name('tasks.update')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
+	Route::get('/tareas/{tarea}/cerrar_tarea', 'TaskController@cerrar_tarea_view')
+		->name('tasks.cerrar_tarea')
+		->middleware('role:ADMINISTRADOR|USUARIO');
+
+	Route::put('/tareas/cerrar_tarea_up/{tarea}', 'TaskController@cerrar_tarea_up')
+		->name('tasks.cerrar_tarea_up')
+		->middleware('role:ADMINISTRADOR|USUARIO');
 
 	Route::get('/tareas/{tarea}', 'TaskController@destroy')
 		->name('tasks.destroy')
