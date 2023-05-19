@@ -124,7 +124,7 @@
             </div>
 
 
-                <table class="table table-bordered table-striped table-sm" style="font-size:12px">
+                <table class="table table-bordered table-striped table-sm" style="font-size:12px; color: black">
                     <thead>
                         <tr>
                             <th width="80px" style="text-align: center"># Tarea</th>

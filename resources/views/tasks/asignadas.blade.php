@@ -26,7 +26,7 @@
             <div class="card card-primary card-outline">
               <div class="card-body">        
               @if (count($tasks)) 
-                <table id="tableuser" class="table table-bordered table-striped table-sm" style="font-size:12px">
+                <table id="tableuser" class="table table-bordered table-striped table-sm" style="font-size:12px; color: black;">
                     <thead>
                         <tr>
                             <th width="10px" style="text-align: center">ID</th>
@@ -48,43 +48,50 @@
                             <td>{{ $prodc->asunto }}</td>
                             <td> <?php echo date('d/m/Y', strtotime($prodc->created_at)); ?></td>
                             <td> <?php echo date('d/m/Y', strtotime($prodc->fecha_entrega)); ?></td>
-                            <td>{{ $prodc->namedt }} - {{ $prodc->ApellidoAsig }} {{ $prodc->NombreAsig }}</td>
+                            <td>[{{ $prodc->namedt }}] - {{ $prodc->ApellidoAsig }} {{ $prodc->NombreAsig }}</td>
                             <td>{{ $prodc->ApellidoSoli }} {{ $prodc->NombreSoli }}</td>   
                             <td>{{ $prodc->estado }}</td>   
                             <td>
                                 @if ($prodc->estado == 'EN PROCESO' && $prodc->accion == 'APROBAR')
-                                    <a href="{{ route('tasks.edit', $prodc->id) }}"
-                                      class="btn-sm btn btn-outline-primary">
+                                    <a  href="{{ route('tasks.edit', $prodc->id) }}"
+                                        style="font-size:12px"
+                                        class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'VENCIDA' && $prodc->accion == 'APROBAR')
-                                    <a href="{{ route('tasks.edit', $prodc->id) }}"
-                                      class="btn-sm btn btn-outline-primary">
+                                    <a  href="{{ route('tasks.edit', $prodc->id) }}"
+                                        style="font-size:12px"
+                                        class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'APROBADA' && $prodc->accion == 'ENTREGAR')
-                                    <a href="{{ route('tasks.edit', $prodc->id) }}"
-                                      class="btn-sm btn btn-outline-primary">
+                                    <a  href="{{ route('tasks.edit', $prodc->id) }}"
+                                        style="font-size:12px"
+                                        class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'VENCIDA' && $prodc->accion == 'ENTREGAR')
-                                    <a href="{{ route('tasks.edit', $prodc->id) }}"
-                                      class="btn-sm btn btn-outline-primary">
+                                    <a  href="{{ route('tasks.edit', $prodc->id) }}"
+                                        style="font-size:12px"
+                                        class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'REALIZADA' && $prodc->accion == 'CONSULTAR')
-                                    <a href="{{ route('tasks.edit', $prodc->id) }}"
-                                      class="btn-sm btn btn-outline-primary">
+                                    <a  href="{{ route('tasks.edit', $prodc->id) }}"
+                                        style="font-size:12px"
+                                        class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'VENCIDA' && $prodc->accion == 'CONSULTAR')
-                                    <a href="{{ route('tasks.edit', $prodc->id) }}"
-                                      class="btn-sm btn btn-outline-primary">
+                                    <a  href="{{ route('tasks.edit', $prodc->id) }}"
+                                        style="font-size:12px"
+                                        class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'ANULADA' && $prodc->accion == 'CONSULTAR')
-                                    <a href="{{ route('tasks.edit', $prodc->id) }}"
-                                      class="btn-sm btn btn-outline-primary">
+                                    <a  href="{{ route('tasks.edit', $prodc->id) }}"
+                                        style="font-size:12px"
+                                        class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
                                 @endif

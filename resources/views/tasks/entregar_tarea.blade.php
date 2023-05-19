@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h4 style="display:inline;">Cerrar Tarea</h4>
+            <h4 style="display:inline;">Entregar Tarea</h4>
             <div class="btn-group float-right">
               <a  href="{{ route('tasks.index') }}"
                   class="btn btn-sm btn-danger">
