@@ -20,7 +20,9 @@
 </section>
 
 
-{!! Form::model($tasks, ['route' => ['tasks.cerrar_tarea_up', $tasks->id],'method' => 'PUT','enctype' =>'multipart/form-data', 'files'=>true]) !!}
+{!! Form::model($tasks, ['route' => ['tasks.actualizar_estados_tareas', $tasks->id, 'CERRAR'],'method' => 'PUT','enctype' =>'multipart/form-data', 'files'=>true]) !!}
+
+
 <div class="container-fluid" style="font-size: 12px;">
     <div class="row">
         <div class="col-12">

@@ -248,7 +248,7 @@ class TaskController extends Controller
             ->with($notificationa);
     }
 
-    public function cerrar_tarea_up(Request $request, $id)
+    public function actualizar_estados_tareas(Request $request, $id, $variable)
     {
 
         $tasks = Task::find($id);
@@ -264,8 +264,29 @@ class TaskController extends Controller
         if (!empty($actualizacion)) {
 
             $files = $request->file('file');
-            $actualizacion['estado'] = 'REALIZADA';
-            $actualizacion['accion'] = 'CONSULTAR';
+            $estado = '';
+            $accion = '';
+
+            if ($variable == 'CONSULTAR' || $variable == 'CERRAR' || $variable == 'ENTREGAR') {
+                $estado = 'REALIZADA';
+                $accion = 'CONSULTAR';
+            } elseif ($variable == 'APROBAR') {
+                $estado = 'APROBADA';
+                $accion = 'ENTREGAR';
+            }
+
+            if (!empty($estado) && !empty($accion)) {
+                $actualizacion['estado'] = $estado;
+                $actualizacion['accion'] = $accion;
+
+                Historico_mov_tarea::create([
+                    'id_tarea' => $tasks->id,
+                    'observacion' => $request->get('observacion'),
+                    'usuario' => Auth::user()->id,
+                    'fecha_act' => $tasks->created_at,
+                    'estado_id_tarea' => $estado
+                ]);
+            }
 
             Task::where('id', $id)->update($actualizacion);
             
@@ -289,14 +310,6 @@ class TaskController extends Controller
                 }
             }
         }
-
-            Historico_mov_tarea::create([
-                'id_tarea'          => $tasks->id,
-                'observacion'       => $request->get('observacion'),
-                'usuario'           => Auth::user()->id,
-                'fecha_act'         => $tasks->created_at,
-                'estado_id_tarea'   => 'REALIZADA'                
-            ]);
 
 
         $notificationa=array(

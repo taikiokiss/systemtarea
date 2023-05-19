@@ -37,11 +37,11 @@ Route::middleware(['auth'])->group(function () {
 		->name('tasks.update')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
-	Route::get('/tareas/{tarea}/cerrar_tarea', 'TaskController@cerrar_tarea_view')
-		->name('tasks.cerrar_tarea')
+	Route::get('/tareas/{tarea}/actualizar_estados_tareas', 'TaskController@actualizar_estados_tareas')
+		->name('tasks.actualizar_estados_tareas')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
-	Route::put('/tareas/cerrar_tarea_up/{tarea}', 'TaskController@cerrar_tarea_up')
+	Route::put('/tareas/cerrar_tarea_up/{tarea}/{variable}', 'TaskController@cerrar_tarea_up')
 		->name('tasks.cerrar_tarea_up')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
