@@ -128,7 +128,8 @@
                     <thead>
                         <tr>
                             <th width="80px" style="text-align: center"># Tarea</th>
-                            <th width="300px" style="text-align: center">Archivo</th>
+                            <th width="300px" style="text-align: center">Nombre de Archivo</th>
+                            <th width="30px" style="text-align: center">Archivo</th>
                             <th width="120px" style="text-align: center">Fecha</th>
                         </tr>
                     </thead>
@@ -137,6 +138,7 @@
                         @foreach($tasks_users_rl as $fil_dt)
                         <tr>
                             <td>{{ $fil_dt->id_tasks }}</td>
+                            <td>{{ $fil_dt->file }}</td>
                             <td>
                                 <a href="{{ route('tasks.download', $fil_dt->file) }}">
                                     <i class="fa fa-download"></i> Descargar

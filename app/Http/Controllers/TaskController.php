@@ -233,10 +233,29 @@ class TaskController extends Controller
 
     public function update(Request $request, $id)
     {
-        dd($request->all());
 
+        $tasks = Task::find($id);
+        $campos = ['asunto', 'descripcion', 'fecha_entrega', 'departamento', 'asign_a', 'rcada'];
+        $actualizacion = [];
+
+        foreach ($campos as $campo) {
+            if (isset($request->$campo)) {
+                $actualizacion[$campo] = $request->$campo;
+            }
+        }
+
+        if (!empty($actualizacion)) {
+            Task::where('id', $id)->update($actualizacion);
+        }
+
+        $notificationa=array(
+            'message' => 'Tarea actualizada con éxito.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('tasks.index', $tasks->id)
+            ->with($notificationa);
     }
-
     /**
      * Remove the specified resource from storage.
      *
