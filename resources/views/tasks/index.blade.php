@@ -73,43 +73,43 @@
                               </div>
                               @else
                                 @if ($prodc->estado == 'EN PROCESO' && $prodc->accion == 'APROBAR')
-                                    <a  href="{{ route('tasks.edit', $prodc->id) }}"
+                                    <a  href="{{ route('tasks.aprobar_tarea_view', $prodc->id) }}"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'VENCIDA' && $prodc->accion == 'APROBAR')
-                                    <a  href="{{ route('tasks.edit', $prodc->id) }}"
+                                    <a  href="#"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'APROBADA' && $prodc->accion == 'ENTREGAR')
-                                    <a  href="{{ route('tasks.edit', $prodc->id) }}"
+                                    <a  href="#"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'VENCIDA' && $prodc->accion == 'ENTREGAR')
-                                    <a  href="{{ route('tasks.edit', $prodc->id) }}"
+                                    <a  href="#"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'REALIZADA' && $prodc->accion == 'CONSULTAR')
-                                    <a  href="{{ route('tasks.edit', $prodc->id) }}"
+                                    <a  href="#"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'VENCIDA' && $prodc->accion == 'CONSULTAR')
-                                    <a  href="{{ route('tasks.edit', $prodc->id) }}"
+                                    <a  href="#"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'ANULADA' && $prodc->accion == 'CONSULTAR')
-                                    <a  href="{{ route('tasks.edit', $prodc->id) }}"
+                                    <a  href="#"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
