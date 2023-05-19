@@ -177,7 +177,7 @@
     <div class="form-group row was-validated mt-3">
         <div class="col-md-12 col-md-offset-4 text-md-left">
             <button type="submit" class="btn btn-primary btn-block" value="Crear">
-                Cerrar
+                Entregar
             </button>
         </div>
     </div>
