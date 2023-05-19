@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\Support\Facades\Storage;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Task;
 use App\Tasks_users_rl;
 use App\Historico_mov_tarea;
@@ -16,11 +16,7 @@ use DB;
 
 class TaskController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $tasks = DB::table('tasks')
@@ -34,7 +30,6 @@ class TaskController extends Controller
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 
         return view('tasks.index', compact('tasks'));
-
     }
 
     public function asignadas()
@@ -50,10 +45,7 @@ class TaskController extends Controller
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 
         return view('tasks.asignadas', compact('tasks'));
-
     }
-
-
 
     public function create()
     {
@@ -80,12 +72,6 @@ class TaskController extends Controller
         return view('tasks.create', compact('datos','opcion_rrp'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
 
@@ -137,27 +123,14 @@ class TaskController extends Controller
             'alert-type' => 'success'
         );
         return redirect()->route('tasks.index', $tasks->id)
-            ->with($notificationa);
-        
+            ->with($notificationa);        
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id, Request $request)
     {
         return view('tasks.show');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id, Request $request)
     {
 
@@ -214,14 +187,6 @@ class TaskController extends Controller
         return view('tasks.edit', compact('tasks1','tasks','datos','opcion_rrp','ciclo','tasks_users_rl'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-
     public function descargarArchivo($archivo)
     {
         
@@ -229,7 +194,6 @@ class TaskController extends Controller
 
         return response()->download($rutaArchivo);
     }
-
 
     public function update(Request $request, $id)
     {
@@ -245,8 +209,32 @@ class TaskController extends Controller
         }
 
         if (!empty($actualizacion)) {
+            $files = $request->file('file');
+
             Task::where('id', $id)->update($actualizacion);
+            
+            if (!empty($files)) {
+                for ($i = 0; $i < count($files); $i++) {
+            
+                    $file   = $files[$i];
+                    $nombre = $files[$i]->getClientOriginalName();
+                    $var = rand(0,9999999);
+                    $ced = Auth::user()->person->cedula;
+                    $path   = $file->storeAs('',$ced.$var.$nombre);
+
+
+                    if ($file !== null) {
+                        $tasks_rl = new Tasks_users_rl;
+                        $tasks_rl->id_tasks = $tasks->id;
+                        $tasks_rl->file = $path;
+                        $tasks_rl->id_users = Auth::user()->id;
+                        $tasks_rl->save();
+                    }
+                }
+            }
         }
+
+
 
         $notificationa=array(
             'message' => 'Tarea actualizada con éxito.',
@@ -256,12 +244,7 @@ class TaskController extends Controller
         return redirect()->route('tasks.index', $tasks->id)
             ->with($notificationa);
     }
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy($id)
     {
         Task::select(DB::table('tasks'))
@@ -277,8 +260,6 @@ class TaskController extends Controller
         );
         return back()->with($notification);
     }
-
-
 
 
 }
