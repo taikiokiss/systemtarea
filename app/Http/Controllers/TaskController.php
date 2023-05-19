@@ -245,7 +245,7 @@ class TaskController extends Controller
             ->with($notificationa);
     }
 
-    public function cerrar_tarea(Request $request, $id)
+    public function cerrar_tarea_up(Request $request, $id)
     {
 
         $tasks = Task::find($id);
@@ -259,7 +259,10 @@ class TaskController extends Controller
         }
 
         if (!empty($actualizacion)) {
+
             $files = $request->file('file');
+            $actualizacion['estado'] = 'REALIZADA';
+            $actualizacion['accion'] = 'CONSULTAR';
 
             Task::where('id', $id)->update($actualizacion);
             
@@ -284,11 +287,18 @@ class TaskController extends Controller
             }
         }
 
+            Historico_mov_tarea::create([
+                'id_tarea'          => $tasks->id,
+                'observacion'       => $request->get('observacion'),
+                'usuario'           => Auth::user()->id,
+                'fecha_act'         => $tasks->created_at,
+                'estado_id_tarea'   => 'REALIZADA'                
+            ]);
 
 
         $notificationa=array(
-            'message' => 'Tarea actualizada con éxito.',
-            'alert-type' => 'success'
+            'message' => 'Tarea cerrada con éxito.',
+            'alert-type' => 'error'
         );
 
         return redirect()->route('tasks.index', $tasks->id)
