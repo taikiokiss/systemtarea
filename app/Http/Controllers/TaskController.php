@@ -227,15 +227,14 @@ class TaskController extends Controller
         
         $rutaArchivo = public_path('storage/archivos_adjuntos/' . $archivo);
 
-        //return Storage::download('storage/', $archivo);
-
         return response()->download($rutaArchivo);
     }
 
 
     public function update(Request $request, $id)
     {
-        //
+        dd($request->all());
+
     }
 
     /**
