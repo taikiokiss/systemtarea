@@ -35,7 +35,11 @@
     <script src="/js/jquery-1.11.4.min.js"></script>
     <script src="/js/loader.js"></script>  
      @livewireStyles
-
+     <style type="text/css">
+         body{
+            color: black;
+         }
+     </style>
 </head>
 
 <body id="page-top">

@@ -45,14 +45,14 @@ return [
 
         'local' => [
             'driver' => 'local',
-            'root' => public_path().'/storage',
+            'root' => public_path().'/storage/archivos_adjuntos/',
             //'root' => storage_path('app'),
         ],
 
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'url' => env('APP_URL').'/storage/archivos_adjuntos/',
             'visibility' => 'public',
         ],
 
@@ -80,7 +80,7 @@ return [
     */
 
     'links' => [
-        public_path('storage') => storage_path('app/public'),
+        public_path('storage/archivos_adjuntos') => storage_path('app/public'),
     ],
 
 ];

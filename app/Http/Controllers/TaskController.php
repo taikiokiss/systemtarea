@@ -110,7 +110,7 @@ class TaskController extends Controller
                     $nombre = $files[$i]->getClientOriginalName();
                     $var = rand(0,9999999);
                     $ced = Auth::user()->person->cedula;
-                    $path   = $file->storeAs('/archivos_adjuntos',$ced.$var.$nombre);
+                    $path   = $file->storeAs('',$ced.$var.$nombre);
 
 
                     if ($file !== null) {
@@ -225,11 +225,11 @@ class TaskController extends Controller
     public function descargarArchivo($archivo)
     {
         
-        //$rutaArchivo = public_path('storage/' . $archivo);
+        $rutaArchivo = public_path('storage/archivos_adjuntos/' . $archivo);
 
         //return Storage::download('storage/', $archivo);
 
-        //return response()->download($rutaArchivo);
+        return response()->download($rutaArchivo);
     }
 
 
