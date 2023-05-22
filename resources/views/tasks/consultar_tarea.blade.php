@@ -121,6 +121,7 @@
                 <table class="table table-bordered table-striped table-sm table-responsive" style="font-size:12px;color: black;">
                     <thead>
                         <tr>
+                            <th width="80px" style="text-align: center">#</th>
                             <th width="80px" style="text-align: center"># Tarea</th>
                             <th width="300px" style="text-align: center">Usuario</th>
                             <th width="420px" style="text-align: center">Observación</th>
@@ -130,12 +131,14 @@
                     </thead>
 
                     <tbody style="text-align: center">
+                        @php $i=1; @endphp
                         @foreach($historico_mov_tarea as $hsmovtar)
                         <tr>
+                            <td>{{ $i++ }}</td>
                             <td>{{ $hsmovtar->id_tarea }}</td>
                             <td>{{ $hsmovtar->cedula }}; {{ $hsmovtar->name }} {{ $hsmovtar->last_name }}</td>   
                             <td>{{ $hsmovtar->observacion }}</td>
-                            <td> <?php echo date('d/m/Y h:s', strtotime($hsmovtar->fecha_act)); ?></td>
+                            <td> <?php echo date('d/m/Y h:i:s A', strtotime($hsmovtar->created_at)); ?></td>
                             <td>{{ $hsmovtar->estado_id_tarea }}</td>  
                         </tr>
                         @endforeach

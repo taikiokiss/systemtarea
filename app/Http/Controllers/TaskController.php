@@ -362,6 +362,7 @@ class TaskController extends Controller
                 ->where('users.estado','=','ACTIVO','AND')
                 ->where('historico_mov_tarea.id_tarea','=',$id)
                 ->select('persons.*','departments.*','historico_mov_tarea.*')
+                ->orderBy('historico_mov_tarea.created_at', 'asc')
                 ->get();
 
             $tasks1 = DB::table('tasks')
@@ -415,6 +416,7 @@ class TaskController extends Controller
                 ->where('users.estado','=','ACTIVO','AND')
                 ->where('historico_mov_tarea.id_tarea','=',$id)
                 ->select('persons.*','departments.*','historico_mov_tarea.*')
+                ->orderBy('historico_mov_tarea.created_at', 'asc')
                 ->get();
 
             $tasks1 = DB::table('tasks')
@@ -468,6 +470,7 @@ class TaskController extends Controller
                 ->where('users.estado','=','ACTIVO','AND')
                 ->where('historico_mov_tarea.id_tarea','=',$id)
                 ->select('persons.*','departments.*','historico_mov_tarea.*')
+                ->orderBy('historico_mov_tarea.created_at', 'asc')
                 ->get();
 
             $tasks1 = DB::table('tasks')
@@ -521,6 +524,7 @@ class TaskController extends Controller
                 ->where('users.estado','=','ACTIVO','AND')
                 ->where('historico_mov_tarea.id_tarea','=',$id)
                 ->select('persons.*','departments.*','historico_mov_tarea.*')
+                ->orderBy('historico_mov_tarea.created_at', 'asc')
                 ->get();
 
             $tasks1 = DB::table('tasks')
@@ -574,6 +578,7 @@ class TaskController extends Controller
                 ->where('users.estado','=','ACTIVO','AND')
                 ->where('historico_mov_tarea.id_tarea','=',$id)
                 ->select('persons.*','departments.*','historico_mov_tarea.*')
+                ->orderBy('historico_mov_tarea.created_at', 'asc')
                 ->get();
 
             $tasks1 = DB::table('tasks')
@@ -627,6 +632,7 @@ class TaskController extends Controller
                 ->where('users.estado','=','ACTIVO','AND')
                 ->where('historico_mov_tarea.id_tarea','=',$id)
                 ->select('persons.*','departments.*','historico_mov_tarea.*')
+                ->orderBy('historico_mov_tarea.created_at', 'asc')
                 ->get();
 
             $tasks1 = DB::table('tasks')

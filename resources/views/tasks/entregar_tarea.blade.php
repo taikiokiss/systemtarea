@@ -164,7 +164,7 @@
                             <td>{{ $hsmovtar->id_tarea }}</td>
                             <td>{{ $hsmovtar->cedula }}; {{ $hsmovtar->name }} {{ $hsmovtar->last_name }}</td>   
                             <td>{{ $hsmovtar->observacion }}</td>
-                            <td> <?php echo date('d/m/Y h:s', strtotime($hsmovtar->fecha_act)); ?></td>
+                            <td> <?php echo date('d/m/Y h:i:s A', strtotime($hsmovtar->created_at)); ?></td>
                             <td>{{ $hsmovtar->estado_id_tarea }}</td>  
                         </tr>
                         @endforeach
