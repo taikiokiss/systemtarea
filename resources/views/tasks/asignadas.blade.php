@@ -70,7 +70,7 @@
                                         class="btn-sm btn btn-outline-primary">
                                         Consultar
                                     </a>
-                                @elseif($prodc->estado == 'EN PROCESO' && $prodc->accion == 'ENTREGAR')
+                                @elseif($prodc->estado == 'RECHAZADA' && $prodc->accion == 'ENTREGAR')
                                     <a  href="{{ route('tasks.entregar_tarea_view', $prodc->id) }}"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
@@ -84,6 +84,12 @@
                                     </a>
                                 @elseif($prodc->estado == 'VENCIDA' && $prodc->accion == 'ENTREGAR')
                                     <a  href="#"
+                                        style="font-size:12px"
+                                        class="btn-sm btn btn-outline-primary">
+                                        {{ $prodc->accion }}
+                                    </a>
+                                @elseif($prodc->estado == 'APROBADA' && $prodc->accion == 'CONSULTAR')
+                                    <a  href=""
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}

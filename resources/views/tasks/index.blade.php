@@ -71,6 +71,24 @@
                                   </a>
                                 </div>
                               </div>
+                              @elseif($prodc->usuario_solicitante == Auth::user()->id && ($prodc->estado == 'RECHAZADA') && $prodc->accion == 'ENTREGAR')
+                              <div class="text-center">
+                                <div class="btn-group">
+                                  <a  href="{{ route('tasks.cerrar_tarea_view', $prodc->id) }}"  style="font-size:12px"
+                                      class="btn btn-sm btn-secondary">
+                                      Cerrar
+                                  </a>
+                                  <a  href="{{ route('tasks.edit', $prodc->id) }}" style="font-size:12px"
+                                      class="btn btn-sm btn-primary">
+                                      Modificar 
+                                  </a>
+                                  <a  onclick="confirmation(event)" style="font-size:12px"
+                                      href="{{ route('tasks.destroy', $prodc->id) }}"
+                                      class="btn btn-danger">
+                                      Anular
+                                  </a>
+                                </div>
+                              </div>
                               @else
                                 @if ($prodc->estado == 'EN PROCESO' && $prodc->accion == 'APROBAR')
                                     <a  href="{{ route('tasks.aprobar_tarea_view', $prodc->id) }}"
@@ -92,7 +110,7 @@
                                                 class="btn-sm btn btn-outline-danger">
                                                 RECHAZAR
                                             </a>
-                                            <a  href="{{ route('tasks.aprobar_tarea_view', $prodc->id) }}"
+                                            <a  href="{{ route('tasks.aprobarfinaltarea_view', $prodc->id) }}"
                                                 style="font-size:12px"
                                                 class="btn-sm btn btn-outline-primary">
                                                 {{ $prodc->accion }}
@@ -111,6 +129,12 @@
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
+                                    </a>
+                                @elseif($prodc->estado == 'APROBADA' && $prodc->accion == 'CONSULTAR')
+                                    <a  href="{{ route('tasks.cerrar_tarea_view', $prodc->id) }}"
+                                        style="font-size:12px"
+                                        class="btn-sm btn btn-outline-primary">
+                                        CERRAR
                                     </a>
                                 @elseif($prodc->estado == 'REALIZADA' && $prodc->accion == 'CONSULTAR')
                                     <a  href="#"
