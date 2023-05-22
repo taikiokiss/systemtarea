@@ -89,25 +89,25 @@
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'APROBADA' && $prodc->accion == 'CONSULTAR')
-                                    <a  href=""
+                                    <a  href="{{ route('tasks.consultar_tarea_view', $prodc->id) }}"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'REALIZADA' && $prodc->accion == 'CONSULTAR')
-                                    <a  href="#"
+                                    <a  href="{{ route('tasks.consultar_tarea_view', $prodc->id) }}"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'VENCIDA' && $prodc->accion == 'CONSULTAR')
-                                    <a  href="#"
+                                    <a  href="{{ route('tasks.consultar_tarea_view', $prodc->id) }}"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'ANULADA' && $prodc->accion == 'CONSULTAR')
-                                    <a  href="#"
+                                    <a  href="{{ route('tasks.consultar_tarea_view', $prodc->id) }}"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
