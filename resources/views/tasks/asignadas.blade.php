@@ -70,7 +70,12 @@
                                         class="btn-sm btn btn-outline-primary">
                                         Consultar
                                     </a>
-
+                                @elseif($prodc->estado == 'EN PROCESO' && $prodc->accion == 'ENTREGAR')
+                                    <a  href="{{ route('tasks.entregar_tarea_view', $prodc->id) }}"
+                                        style="font-size:12px"
+                                        class="btn-sm btn btn-outline-primary">
+                                        {{ $prodc->accion }}
+                                    </a>
                                 @elseif($prodc->estado == 'ENTREGADA' && $prodc->accion == 'ENTREGAR')
                                     <a  href="{{ route('tasks.entregar_tarea_view', $prodc->id) }}"
                                         style="font-size:12px"
