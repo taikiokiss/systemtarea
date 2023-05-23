@@ -9,7 +9,7 @@
           <div class="col-sm-12">
             <h4 style="display:inline;">Modificar Tarea</h4>
             <div class="btn-group float-right">
-              <a  href="{{ route('tasks.index') }}"
+              <a  href="{{ URL::previous() }}"
                   class="btn btn-sm btn-danger">
                   <i class="fas fa-arrow-left"></i> Atras
               </a>

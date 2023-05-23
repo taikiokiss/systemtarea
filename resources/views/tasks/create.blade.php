@@ -6,7 +6,7 @@
         <div class="row mb-2">
           <div class="col-sm-12">
             <h4 style="display:inline;">Nueva Tarea</h4>
-                    <a href="{{ route('tasks.index') }}"
+              <a  href="{{ URL::previous() }}"
                     class="btn btn-sm btn-danger float-right">
                         <i class="fas fa-chevron-left"></i> Regresar
                     </a> 
@@ -23,7 +23,7 @@
               <div class="card-body ">
                 <!-- inicio -->
                 {{ Form::open(['route' => 'tasks.store','enctype' =>'multipart/form-data', 'files'=>true]) }}
-                    <form method="POST" action="{{ route('tasks.index') }}">
+                    <form method="POST" action="{{ route('tasks.principales.index') }}">
                     @csrf
 
 

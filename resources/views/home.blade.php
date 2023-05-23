@@ -33,7 +33,7 @@
 					<div class="col-md-3">
 						<div class="card border-success mx-sm-1 p-3">
 							<div class="card border-success text-success p-3 my-card"><span class="text-center fa fa-check-square" aria-hidden="true"></span></div>
-							<a href="{{route('tasks.asignadas')}}" class="stretched-link"></a>
+							<a href="{{route('tasks.principales.asignadas')}}" class="stretched-link"></a>
 							<div class="text-success text-center mt-3"><h4>Resueltas</h4></div>
 							<div class="text-success text-center mt-2"><h1>{{count($REALIZADA)}}</h1></div>
 						</div>
@@ -41,7 +41,7 @@
 					<div class="col-md-3">
 						<div class="card border-info mx-sm-1 p-3 ">
 							<div class="card border-info text-info p-3" ><span class="text-center fa fa-cogs" aria-hidden="true"></span></div>
-							<a href="{{route('tasks.index')}}" class="stretched-link"></a>
+							<a href="{{route('tasks.principales.index')}}" class="stretched-link"></a>
 							<div class="text-info text-center mt-3"><h4>En proceso</h4></div>
 							<div class="text-info text-center mt-2"><h1>{{count($EN_PROCESO)}}</h1></div>
 						</div>
