@@ -112,7 +112,7 @@
                     <div id="collapseFooda7" class="collapse" aria-labelledby="headingUtilities"
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="#">Detallado</a> 
+                            <a class="collapse-item" href="{{route('reportes.report_resumido')}}">Resumido</a> 
                         </div>
                     </div>
                 </li>
