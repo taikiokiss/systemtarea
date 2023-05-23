@@ -4,7 +4,7 @@
         <tr >
             <td style="border-right:1px solid"  width="20%"><b> Consultado por: </b></td>
             <td  style="text-align:left;">
-                {{ Auth::user()->person[0]->last_name }} {{ Auth::user()->person[0]->name }}
+                {{ Auth::user()->person->last_name }} {{ Auth::user()->person->name }}
 			</td>
         </tr>
         <tr>

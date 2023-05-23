@@ -107,8 +107,8 @@
                               <div class="text-center">
                                 <div class="btn-group">
                                   <a  target="_blank" href="#"
-                                      class="btn btn-sm btn-warning">
-                                      <i class="fas fa-print"></i>  Det. Tarea
+                                      class="btn btn-sm btn-outline-warning">
+                                      <i class="fas fa-print"></i>  Detallado
                                   </a>
                                 </div>
                               </div>

@@ -33,12 +33,13 @@ class ReporteController extends Controller
             ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
             ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
             ->join('departments', 'departments.id', '=', 'tasks.department_id')
-            ->where('tasks.usuario_solicitante','=',Auth::user()->id)
+            //->where('tasks.usuario_solicitante','=',Auth::user()->id)
             ->Fechas($FechaInicio,$FechaFin)
             ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt')
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 
 
+        //dd($tasks);
 
         if($FechaFin < $FechaInicio ){
 
@@ -134,8 +135,7 @@ class ReporteController extends Controller
     //LISTADO DE MANTENIMIENTO
     public function imprimir_reporte_resumido(){
 
-        $factura = Session::get('report_resumido');
-
+        $tasks = Session::get('report_resumido');
         $fi = Session::get('FechaInicio');
         $ff = Session::get('FechaFin');
 
@@ -144,7 +144,7 @@ class ReporteController extends Controller
 
         $text_pdf = 'REPORTE_RESUMIDO'.'DESDE_'.$fecha_ini.'_HASTA_'.$fecha_fin;
 
-        $pdf = PDF::loadView('print.reporte_resumido', compact('factura','fi','ff'));
+        $pdf = PDF::loadView('print.reporte_resumido', compact('tasks','fi','ff'));
 
         $pdf->setPaper('A4', 'portrait');
 
