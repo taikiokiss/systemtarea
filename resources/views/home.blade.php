@@ -22,8 +22,6 @@
 						</div>
 					</div>
 
-
-
 					<div class="col-md-3">
 						<div class="card border-warning mx-sm-1 p-3">
 							<div class="card border-warning text-warning p-3 my-card" ><span class="text-center fa fa-hourglass-half" aria-hidden="true"></span></div>

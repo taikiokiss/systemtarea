@@ -118,7 +118,6 @@
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="#">Detallado</a> 
-                            <a class="collapse-item" href="#">Resumido</a> 
                         </div>
                     </div>
                 </li>
