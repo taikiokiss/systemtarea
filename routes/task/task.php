@@ -6,11 +6,15 @@ Route::middleware(['auth'])->group(function () {
 
 
 	Route::get('/tareas', 'TaskController@index')
-		->name('tasks.index')
+		->name('tasks.principales.index')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
 	Route::get('/tareas-asignadas', 'TaskController@asignadas')
-		->name('tasks.asignadas')
+		->name('tasks.principales.asignadas')
+		->middleware('role:ADMINISTRADOR|USUARIO');
+
+	Route::get('/tareas-resueltas', 'TaskController@resueltas')
+		->name('tasks.principales.resueltas')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
 	Route::get('/tareas/create', 'TaskController@create')
@@ -34,27 +38,27 @@ Route::middleware(['auth'])->group(function () {
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
 	Route::get('/tareas/{tarea}/cerrar_tarea_view', 'TaskController@cerrar_tarea_view')
-		->name('tasks.cerrar_tarea_view')
+		->name('tasks.acciones.cerrar_tarea_view')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
 	Route::get('/tareas/{tarea}/aprobar_tarea_view', 'TaskController@aprobar_tarea_view')
-		->name('tasks.aprobar_tarea_view')
+		->name('tasks.acciones.aprobar_tarea_view')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
 	Route::get('/tareas/{tarea}/aprobarfinaltarea_view', 'TaskController@aprobarfinaltarea_view')
-		->name('tasks.aprobarfinaltarea_view')
+		->name('tasks.acciones.aprobarfinaltarea_view')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
 	Route::get('/tareas/{tarea}/entregar_tarea_view', 'TaskController@entregar_tarea_view')
-		->name('tasks.entregar_tarea_view')
+		->name('tasks.acciones.entregar_tarea_view')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
 	Route::get('/tareas/{tarea}/rechazar_tarea_view', 'TaskController@rechazar_tarea_view')
-		->name('tasks.rechazar_tarea_view')
+		->name('tasks.acciones.rechazar_tarea_view')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
 	Route::get('/tareas/{tarea}/consultar_tarea_view', 'TaskController@consultar_tarea_view')
-		->name('tasks.consultar_tarea_view')
+		->name('tasks.acciones.consultar_tarea_view')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
 	Route::put('/tareas/actualizar_estados_tareas/{tarea}/{variable}', 'TaskController@actualizar_estados_tareas')
@@ -64,15 +68,6 @@ Route::middleware(['auth'])->group(function () {
 	Route::get('/tareas/{tarea}', 'TaskController@destroy')
 		->name('tasks.destroy')
 		->middleware('role:ADMINISTRADOR|USUARIO');
-
-	Route::get('/tareas/{tarea}/show', 'TaskController@show')
-		->name('tasks.show')
-		->middleware('role:ADMINISTRADOR|USUARIO');
-
-
-
-
-
 
 		
 });

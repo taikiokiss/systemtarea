@@ -29,7 +29,7 @@ class TaskController extends Controller
             ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt')
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 
-        return view('tasks.index', compact('tasks'));
+        return view('tasks.principales.index', compact('tasks'));
     }
 
     public function asignadas()
@@ -44,8 +44,26 @@ class TaskController extends Controller
             ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt')
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 
-        return view('tasks.asignadas', compact('tasks'));
+        return view('tasks.principales.asignadas', compact('tasks'));
     }
+
+    public function resueltas()
+    {
+        $tasks = DB::table('tasks')
+            ->join('users as usuarioAsig','usuarioAsig.id','tasks.asign_a')
+            ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
+            ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
+            ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
+            ->join('departments', 'departments.id', '=', 'tasks.department_id')
+            ->where('tasks.asign_a','=',Auth::user()->id)
+            ->where('tasks.estado','=','REALIZADA')
+            ->where('tasks.accion','=','CONSULTAR')
+            ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt')
+            ->orderBy('tasks.created_at', 'desc')
+            ->get(); 
+        return view('tasks.principales.resueltas', compact('tasks'));
+    }
+
 
     public function create()
     {
@@ -122,13 +140,8 @@ class TaskController extends Controller
             'message' => 'Tarea creada con éxito',
             'alert-type' => 'success'
         );
-        return redirect()->route('tasks.index', $tasks->id)
+        return redirect()->route('tasks.principales.index', $tasks->id)
             ->with($notificationa);        
-    }
-
-    public function show($id, Request $request)
-    {
-        return view('tasks.show');
     }
 
     public function edit($id, Request $request)
@@ -244,7 +257,7 @@ class TaskController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('tasks.index', $tasks->id)
+        return redirect()->route('tasks.principales.index', $tasks->id)
             ->with($notificationa);
     }
 
@@ -325,7 +338,7 @@ class TaskController extends Controller
             'alert-type' => 'success'
         );
 
-        return redirect()->route('tasks.index', $tasks->id)
+        return redirect()->route('tasks.principales.index', $tasks->id)
             ->with($notificationa);
     }
 
@@ -377,7 +390,7 @@ class TaskController extends Controller
                 ->get(); 
 
 
-            return view('tasks.cerrar_tarea', compact('tasks1','tasks','opcion_rrp','ciclo','tasks_users_rl','historico_mov_tarea'));
+            return view('tasks.acciones.cerrar_tarea', compact('tasks1','tasks','opcion_rrp','ciclo','tasks_users_rl','historico_mov_tarea'));
         } else {
             abort(403); 
         }
@@ -431,7 +444,7 @@ class TaskController extends Controller
                 ->get(); 
 
 
-            return view('tasks.aprobar_tarea', compact('tasks1','tasks','opcion_rrp','ciclo','tasks_users_rl','historico_mov_tarea'));
+            return view('tasks.acciones.aprobar_tarea', compact('tasks1','tasks','opcion_rrp','ciclo','tasks_users_rl','historico_mov_tarea'));
         } else {
             abort(403); 
         }
@@ -485,7 +498,7 @@ class TaskController extends Controller
                 ->get(); 
 
 
-            return view('tasks.aprobarfinal_tarea', compact('tasks1','tasks','opcion_rrp','ciclo','tasks_users_rl','historico_mov_tarea'));
+            return view('tasks.acciones.aprobarfinal_tarea', compact('tasks1','tasks','opcion_rrp','ciclo','tasks_users_rl','historico_mov_tarea'));
         } else {
             abort(403); 
         }
@@ -539,7 +552,7 @@ class TaskController extends Controller
                 ->get(); 
 
 
-            return view('tasks.entregar_tarea', compact('tasks1','tasks','opcion_rrp','ciclo','tasks_users_rl','historico_mov_tarea'));
+            return view('tasks.acciones.entregar_tarea', compact('tasks1','tasks','opcion_rrp','ciclo','tasks_users_rl','historico_mov_tarea'));
         } else {
             abort(403); 
         }
@@ -593,7 +606,7 @@ class TaskController extends Controller
                 ->get(); 
 
 
-            return view('tasks.rechazar_tarea', compact('tasks1','tasks','opcion_rrp','ciclo','tasks_users_rl','historico_mov_tarea'));
+            return view('tasks.acciones.rechazar_tarea', compact('tasks1','tasks','opcion_rrp','ciclo','tasks_users_rl','historico_mov_tarea'));
         } else {
             abort(403); 
         }
@@ -647,7 +660,7 @@ class TaskController extends Controller
                 ->get(); 
 
 
-            return view('tasks.consultar_tarea', compact('tasks1','tasks','opcion_rrp','ciclo','tasks_users_rl','historico_mov_tarea'));
+            return view('tasks.acciones.consultar_tarea', compact('tasks1','tasks','opcion_rrp','ciclo','tasks_users_rl','historico_mov_tarea'));
         } else {
             abort(403); 
         }
