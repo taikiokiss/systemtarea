@@ -56,7 +56,7 @@
                               @if($prodc->usuario_solicitante == Auth::user()->id && ($prodc->estado == 'EN PROCESO' || $prodc->estado == 'VENCIDA' ) && $prodc->accion == 'APROBAR')
                               <div class="text-center">
                                 <div class="btn-group">
-                                  <a  href="{{ route('tasks.cerrar_tarea_view', $prodc->id) }}"  style="font-size:12px"
+                                  <a  href="{{ route('tasks.acciones.cerrar_tarea_view', $prodc->id) }}"  style="font-size:12px"
                                       class="btn btn-sm btn-secondary">
                                       Cerrar
                                   </a>
@@ -74,7 +74,7 @@
                               @elseif($prodc->usuario_solicitante == Auth::user()->id && ($prodc->estado == 'RECHAZADA') && $prodc->accion == 'ENTREGAR')
                               <div class="text-center">
                                 <div class="btn-group">
-                                  <a  href="{{ route('tasks.cerrar_tarea_view', $prodc->id) }}"  style="font-size:12px"
+                                  <a  href="{{ route('tasks.acciones.cerrar_tarea_view', $prodc->id) }}"  style="font-size:12px"
                                       class="btn btn-sm btn-secondary">
                                       Cerrar
                                   </a>
@@ -91,7 +91,7 @@
                               </div>
                               @else
                                 @if ($prodc->estado == 'EN PROCESO' && $prodc->accion == 'APROBAR')
-                                    <a  href="{{ route('tasks.aprobar_tarea_view', $prodc->id) }}"
+                                    <a  href="{{ route('tasks.acciones.aprobar_tarea_view', $prodc->id) }}"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
@@ -105,12 +105,12 @@
                                 @elseif($prodc->estado == 'ENTREGADA' && $prodc->accion == 'APROBAR')
                                       <div class="text-center">
                                         <div class="btn-group">
-                                            <a  href="{{ route('tasks.rechazar_tarea_view', $prodc->id) }}"
+                                            <a  href="{{ route('tasks.acciones.rechazar_tarea_view', $prodc->id) }}"
                                                 style="font-size:12px"
                                                 class="btn-sm btn btn-outline-danger">
                                                 RECHAZAR
                                             </a>
-                                            <a  href="{{ route('tasks.aprobarfinaltarea_view', $prodc->id) }}"
+                                            <a  href="{{ route('tasks.acciones.aprobarfinaltarea_view', $prodc->id) }}"
                                                 style="font-size:12px"
                                                 class="btn-sm btn btn-outline-primary">
                                                 {{ $prodc->accion }}
@@ -119,7 +119,7 @@
                                       </div>
 
                                 @elseif($prodc->estado == 'APROBADA' && $prodc->accion == 'ENTREGAR')
-                                    <a  href="{{ route('tasks.entregar_tarea_view', $prodc->id) }}"
+                                    <a  href="{{ route('tasks.acciones.entregar_tarea_view', $prodc->id) }}"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
@@ -131,25 +131,25 @@
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'APROBADA' && $prodc->accion == 'CONSULTAR')
-                                    <a  href="{{ route('tasks.cerrar_tarea_view', $prodc->id) }}"
+                                    <a  href="{{ route('tasks.acciones.cerrar_tarea_view', $prodc->id) }}"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         CERRAR
                                     </a>
                                 @elseif($prodc->estado == 'REALIZADA' && $prodc->accion == 'CONSULTAR')
-                                    <a  href="{{ route('tasks.consultar_tarea_view', $prodc->id) }}"
+                                    <a  href="{{ route('tasks.acciones.consultar_tarea_view', $prodc->id) }}"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'VENCIDA' && $prodc->accion == 'CONSULTAR')
-                                    <a  href="{{ route('tasks.consultar_tarea_view', $prodc->id) }}"
+                                    <a  href="{{ route('tasks.acciones.consultar_tarea_view', $prodc->id) }}"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
                                     </a>
                                 @elseif($prodc->estado == 'ANULADA' && $prodc->accion == 'CONSULTAR')
-                                    <a  href="{{ route('tasks.consultar_tarea_view', $prodc->id) }}"
+                                    <a  href="{{ route('tasks.acciones.consultar_tarea_view', $prodc->id) }}"
                                         style="font-size:12px"
                                         class="btn-sm btn btn-outline-primary">
                                         {{ $prodc->accion }}
