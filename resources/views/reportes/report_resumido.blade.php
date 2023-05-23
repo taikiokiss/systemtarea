@@ -103,8 +103,17 @@
                             <td>[{{ $prodc->namedt }}] - {{ $prodc->ApellidoAsig }} {{ $prodc->NombreAsig }}</td>
                             <td>{{ $prodc->ApellidoSoli }} {{ $prodc->NombreSoli }}</td>   
                             <td>{{ $prodc->estado }}</td>  
-                            <td> </td> 
-                        </tr>
+                            <td width="200px">
+                              <div class="text-center">
+                                <div class="btn-group">
+                                  <a  target="_blank" href="#"
+                                      class="btn btn-sm btn-warning">
+                                      <i class="fas fa-print"></i>  Det. Tarea
+                                  </a>
+                                </div>
+                              </div>
+                            </td>                        
+                          </tr>
                         @endforeach
                     </tbody>
                 </table>

@@ -58,7 +58,7 @@ class ReporteController extends Controller
     }
 
     //DETALLE DE PRODUCTOS
-    public function imprimir_facturacion_individual($id){
+    public function imprimir_reporte_detallado($id){
 
 
         $sucursal = DB::table('sucursal')
@@ -132,19 +132,19 @@ class ReporteController extends Controller
     }
 
     //LISTADO DE MANTENIMIENTO
-    public function listado_mantenimiento(){
+    public function imprimir_reporte_resumido(){
 
-        $factura = Session::get('report_mantenimiento');
+        $factura = Session::get('report_resumido');
 
-        $fi = Session::get('FechaInicioMante');
-        $ff = Session::get('FechaFinMante');
+        $fi = Session::get('FechaInicio');
+        $ff = Session::get('FechaFin');
 
         $fecha_ini = date('d/m/Y', strtotime($fi));
         $fecha_fin = date('d/m/Y', strtotime($ff));  
 
-        $text_pdf = 'REPORTE_LISTADO_MANTENIMIENTO'.'DESDE_'.$fecha_ini.'_HASTA_'.$fecha_fin;
+        $text_pdf = 'REPORTE_RESUMIDO'.'DESDE_'.$fecha_ini.'_HASTA_'.$fecha_fin;
 
-        $pdf = PDF::loadView('print.listado_mantenimiento_content', compact('factura','fi','ff'));
+        $pdf = PDF::loadView('print.reporte_resumido', compact('factura','fi','ff'));
 
         $pdf->setPaper('A4', 'portrait');
 
