@@ -13,6 +13,12 @@
 	text-align:center;
 }
 
+#content{
+	margin-top: 2cm;
+	margin-left: 0cm;
+	margin-right: 0cm;
+	margin-bottom: 0cm;
+}
 
 table {
     font-family: arial, sans-serif;
@@ -27,11 +33,11 @@ body{
 }
 
 #header { 
-	position: fixed; 
-	left: 0px; 
-	right: 0px;
-	height: 50px;
-
+    position: fixed;
+    top: -10px;
+    left: 0px;
+    right: 0px;
+    height: 50px;
 } 
 
 #footer { 
