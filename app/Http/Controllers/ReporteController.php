@@ -95,6 +95,8 @@ class ReporteController extends Controller
         });
         
         $fi = Session::get('FechaInicio');
+        dd($fi);
+        
         $ff = Session::get('FechaFin');
 
         $fecha_ini = date('d/m/Y', strtotime($fi));
