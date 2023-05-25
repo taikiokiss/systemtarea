@@ -10,7 +10,7 @@ use App\Historico_mov_tarea;
 use App\Task;
 use App\Tasks_users_rl;
 use App\User;
-
+use App\Models\Person;
 use Session;
 use Auth;
 
@@ -39,7 +39,6 @@ class ReporteController extends Controller
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 
 
-        //dd($tasks);
 
         if($FechaFin < $FechaInicio ){
 
@@ -135,7 +134,19 @@ class ReporteController extends Controller
     //LISTADO DE MANTENIMIENTO
     public function imprimir_reporte_resumido(){
 
+
         $tasks = Session::get('report_resumido');
+
+        $registrosAgrupados = $tasks->groupBy('asign_a')->map(function ($items, $key) {
+            $nombreApellido = Person::find($key); 
+            
+            return [
+                'asign_a' => $key,
+                'nombre_apellido' => $nombreApellido->name.' '.$nombreApellido->last_name,
+                'registros' => $items
+            ];
+        });
+        
         $fi = Session::get('FechaInicio');
         $ff = Session::get('FechaFin');
 
@@ -144,7 +155,7 @@ class ReporteController extends Controller
 
         $text_pdf = 'REPORTE_RESUMIDO'.'DESDE_'.$fecha_ini.'_HASTA_'.$fecha_fin;
 
-        $pdf = PDF::loadView('print.reporte_resumido', compact('tasks','fi','ff'));
+        $pdf = PDF::loadView('print.reporte_resumido', compact('registrosAgrupados','fi','ff'));
 
         $pdf->setPaper('A4', 'portrait');
 

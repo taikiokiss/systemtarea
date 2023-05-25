@@ -8,6 +8,7 @@
 
         @include('print.src.header')
 
+
         <div id="content">
             <table id="tabla" class="borde responsive" style="font-size:10px;">
                     <thead style="background-color: #dddddd;">
@@ -22,33 +23,24 @@
                         </tr>
                     </thead>
 
-                    <tbody>
-                        @php
-                            $previousName = ''; // Variable de control para almacenar el nombre anterior
-                        @endphp
-
-                        @foreach($tasks as $prodc)
-                            @if($prodc->ApellidoAsig.' '.$prodc->NombreAsig !== $previousName)
-                                <tr>
-                                    <td colspan="7" style="text-align: left;font-size:12px;">
-                                        <b>{{ $prodc->ApellidoAsig }} {{ $prodc->NombreAsig }}</b>
-                                    </td>                          
-                                </tr>
-                            @endif
-
+                    <tbody >
+                        @foreach($registrosAgrupados as $tasks)
                             <tr>
-                                <td style="text-align: left;">{{ $prodc->ApellidoSoli }} {{ $prodc->NombreSoli }}</td>   
-                                <td style="text-align: center;">{{ $prodc->id }}</td>
-                                <td style="text-align: left;">{{ $prodc->asunto }}</td>
-                                <td style="text-align: center;">{{ date('d/m/Y', strtotime($prodc->fecha_entrega)) }}</td>
-                                <td style="text-align: center;">{{ date('d/m/Y', strtotime($prodc->created_at)) }}</td>
-                                <td style="text-align: center;">{{ $prodc->estado }}</td>  
-                                <td style="text-align: center;">{{ $prodc->id }}</td>                         
+                                <td colspan="7" style="text-align: left;font-size:12px;"> 
+                                  <b>{{ $tasks['nombre_apellido'] }}</b>
+                                </td>                          
                             </tr>
-
-                            @php
-                                $previousName = $prodc->ApellidoAsig.' '.$prodc->NombreAsig; // Actualizamos el valor del nombre anterior
-                            @endphp
+                            @foreach ($tasks['registros'] as $prodc)
+                              <tr>
+                                  <td style="text-align: left;">{{ $prodc->ApellidoSoli }} {{ $prodc->NombreSoli }}</td>   
+                                  <td style="text-align: center;">{{ $prodc->id }}</td>
+                                  <td style="text-align: left;">{{ $prodc->asunto }}</td>
+                                  <td style="text-align: center;"> <?php echo date('d/m/Y', strtotime($prodc->fecha_entrega)); ?></td>
+                                  <td style="text-align: center;"> <?php echo date('d/m/Y', strtotime($prodc->created_at)); ?></td>
+                                  <td style="text-align: center;">{{ $prodc->estado }}</td>  
+                                  <td style="text-align: center;">{{ $prodc->id }}</td>                         
+                              </tr>
+                            @endforeach
                         @endforeach
                     </tbody>
 
