@@ -10,12 +10,12 @@
 
 
         <div id="content">
-            <table id="tabla" class="borde responsive" style="font-size:10px;">
-                    <thead style="background-color: #dddddd;">
+            <table class="responsive" style="font-size:9px;">
+                    <thead class="borde">
                         <tr>
-                            <th width="50%" style="text-align: center">Usuario Solicitante</th>
-                            <th width="15%" style="text-align: center">Tarea</th>
-                            <th width="160%" style="text-align: center;">Asunto</th>
+                            <th width="100%" style="text-align: center">Usuario Solicitante</th>
+                            <th width="10%" style="text-align: center">Tarea</th>
+                            <th width="120%" style="text-align: center;">Asunto</th>
                             <th width="40%" style="text-align: center">Fecha Entrega</th>
                             <th width="40%" style="text-align: center">Entrega Real</th>
                             <th width="30%" style="text-align: center">Estado</th>
@@ -27,12 +27,12 @@
                         @foreach($registrosAgrupados as $tasks)
                             <tr>
                                 <td colspan="7" style="text-align: left;font-size:12px;"> 
-                                  <b>{{ $tasks['nombre_apellido'] }}</b>
+                                  <b>{{ strtoupper($tasks['nombre_apellido']) }}</b>
                                 </td>                          
                             </tr>
                             @foreach ($tasks['registros'] as $prodc)
                               <tr>
-                                  <td style="text-align: left;">{{ $prodc->ApellidoSoli }} {{ $prodc->NombreSoli }}</td>   
+                                  <td style="text-align: left;">{{ strtoupper($prodc->ApellidoSoli) }} {{ strtoupper($prodc->NombreSoli) }}</td>   
                                   <td style="text-align: center;">{{ $prodc->id }}</td>
                                   <td style="text-align: left;">{{ $prodc->asunto }}</td>
                                   <td style="text-align: center;"> <?php echo date('d/m/Y', strtotime($prodc->fecha_entrega)); ?></td>
@@ -52,7 +52,7 @@
                   $y = 790;
                   $text = "PAGINA {PAGE_NUM} DE {PAGE_COUNT}";
                   $font = null;
-                  $size = 10;
+                  $size = 8;
                   $color = array(0,0,0);
                   $word_space = 0.0;  //  default
                   $char_space = 0.0;  //  default

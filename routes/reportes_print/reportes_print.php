@@ -19,7 +19,7 @@ Route::middleware(['auth'])->group(function () {
 		->name('print.reporte_resumido')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
-	Route::get('tareas/print/reporte_detallado/', 'ReporteController@imprimir_reporte_detallado')
+	Route::get('tareas/print/reporte_detallado/{data}', 'ReporteController@imprimir_reporte_detallado')
 		->name('print.reporte_detallado')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 

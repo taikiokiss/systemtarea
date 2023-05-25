@@ -1,57 +1,43 @@
 <html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <title>REPORTE DE MANTENIMIENTO GENERAL</title>
+        <title>DETALLADO DE TAREA ESPECIFICA</title>
         <link href="{!! asset('css/report.css') !!}" rel="stylesheet">
     </head>
     <body>
 
-
-        @include('print.src.header')
-        <br><br>
-        <br><br>
-        <br><br><br>
-
-                    <div class="container"  style="text-align: center;">
-                      <span style="font-size:18px; font-family: arial, sans-serif;"> 
-                      <b> REPORTE DE LISTADO DE MANTENIMIENTO </b> </span>
-                    </div>
-
+        @include('print.src.header_detallado')
 
 
         <div id="content">
-            <!--CABECERA-->
-            <br>
-            <!--INSTRUMENTOS-->
-            <br>
-            <!--NOVEDADES-->
-                <table id="tabla" class="borde responsive" style="font-size:12px;">
-                  <thead style="background-color: #dddddd;">
-                    <tr>
-                      <th  colspan="6">INFORMACIÓN</th>
-                    </tr>                
-                    <tr>
-                      <th class="borde" width="15%" >N°</th>
-                      <th class="borde" width="40%">FECHA</th>
-                      <th class="borde" width="100%">CLIENTE</th>
-                      <th class="borde" width="20%">KM</th>
-                      <th class="borde" width="40%">SUCURSAL</th>
-                      <th class="borde" width="100%">RESPONSABLE</th>
-                    </tr>
-                  </thead>
-                  <tbody style="font-size:11px;">
-                    @foreach ($factura as $dat)
-                      <tr>
-                          <td class="borde">{{ $dat->MantCab_Id }}</td>
-                          <td class="borde">{{ $dat->Fecha_Mant }}</td>
-                          <td class="borde">{{ $dat->nombre_cliente }} {{ $dat->apellido_cliente }}</td>
-                          <td class="borde">{{ $dat->Kilometraje }}</td>
-                          <td class="borde">{{ $dat->Sucurs_Descrip }}</td>                 
-                          <td class="borde">{{ $dat->nombre_empleado }} {{ $dat->apellido_empleado }}</td>
-                      </tr>
-                    @endforeach
-                  </tbody>
-                </table>
+            <table class="responsive" style="font-size:9px;">
+                    <thead class="borde">
+                        <tr>
+                            <th width="10%" style="text-align: center">#</th>
+                            <th width="20%" style="text-align: center"># Tarea</th>
+                            <th width="70%" style="text-align: center">Usuario</th>
+                            <th width="140%" style="text-align: center">Observación</th>
+                            <th width="50%" style="text-align: center">Fecha</th>
+                            <th width="30%" style="text-align: center">Estado</th>
+                        </tr>
+                    </thead>
+
+                    <tbody style="text-align: center">
+                        @php $i=1; @endphp
+                        @foreach($historico_mov_tarea as $hsmovtar)
+                        <tr>
+                            <td>{{ $i++ }}</td>
+                            <td>{{ $hsmovtar->id_tarea }}</td>
+                            <td>{{ $hsmovtar->cedula }}; {{ $hsmovtar->name }} {{ $hsmovtar->last_name }}</td>   
+                            <td>{{ $hsmovtar->observacion }}</td>
+                            <td> <?php echo date('d/m/Y h:i:s A', strtotime($hsmovtar->created_at)); ?></td>
+                            <td>{{ $hsmovtar->estado_id_tarea }}</td>  
+                        </tr>
+                        @endforeach
+                    </tbody>
+
+
+            </table>
         </div>
           <script type="text/php">
               if (isset($pdf)) {
@@ -59,7 +45,7 @@
                   $y = 790;
                   $text = "PAGINA {PAGE_NUM} DE {PAGE_COUNT}";
                   $font = null;
-                  $size = 10;
+                  $size = 8;
                   $color = array(0,0,0);
                   $word_space = 0.0;  //  default
                   $char_space = 0.0;  //  default

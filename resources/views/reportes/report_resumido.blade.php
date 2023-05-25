@@ -93,7 +93,7 @@
                                   <td width="200px">
                                     <div class="text-center">
                                       <div class="btn-group">
-                                        <a  target="_blank" href="#"
+                                        <a  target="_blank" href="{{ route('print.reporte_detallado', $prodc->id) }}"
                                             class="btn btn-sm btn-outline-warning">
                                             <i class="fas fa-print"></i>  Detallado
                                         </a>

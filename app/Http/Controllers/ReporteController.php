@@ -57,72 +57,20 @@ class ReporteController extends Controller
 
     }
 
-    //DETALLE DE PRODUCTOS
     public function imprimir_reporte_detallado($id){
 
-
-        $sucursal = DB::table('sucursal')
-            ->join('company', 'company.Comp_Id','sucursal.Comp_Id')
-            ->leftjoin('factura_cabecera','factura_cabecera.Suc_Id','sucursal.Sucursal_Id')
-            ->select('sucursal.*','sucursal.Direccion as SDireccion','company.*', 'company.Direccion as CDireccion', 'company.Telefono as CTelefono' , 'company.Email as CEmail')
-            ->where('company.comp_Id','=',Auth::user()->company_id,'AND')
-            ->where('factura_cabecera.FacCab_Id','=',$id)
-            ->orderBy('sucursal.Sucurs_Descrip','ASC')
-            ->get(); 
-
-        $factura = Factura_cabecera::Join('users as a', 'a.id', 'factura_cabecera.Persona_Id')
-            ->Join('persona as c', 'c.Persona_Id','a.persona_id')
-            ->where('factura_cabecera.Estado','=','ACTIVO')
-            ->select(
-                    'factura_cabecera.*',
-                    'c.Persona_nombre as nombre_cliente',
-                    'c.Persona_apellido as apellido_cliente',
-                    'c.Email as CEmail'
-                )
-            ->where('factura_cabecera.FacCab_Id','=',$id)
-            ->orderBy('factura_cabecera.created_at','DESC')
-            ->get(); 
-
-        $factura_detalle = Factura_detalle::join('tipo_producto_servicio','tipo_producto_servicio.id','factura_detalle.Tipo_Prod_Servi')
-            ->select('factura_detalle.*',
-                    'tipo_producto_servicio.nombre')
-            ->where('factura_detalle.FacCab_Id','=',$id)
+        $historico_mov_tarea = DB::table('historico_mov_tarea')
+            ->join('users', 'users.id', '=', 'historico_mov_tarea.usuario')
+            ->join('persons', 'persons.id', '=', 'users.persona_id')
+            ->join('departments', 'departments.id', '=', 'users.deparment_id')
+            ->where('historico_mov_tarea.id_tarea','=',$id)
+            ->select('persons.*','departments.*','historico_mov_tarea.*')
+            ->orderBy('historico_mov_tarea.created_at', 'asc')
             ->get();
 
-        $factura_pago = Factura_pagos::join('forma_pago','forma_pago.FPago_Id','factura_pagos.FPago_Id')
-            ->leftjoin('institucion','institucion.Institucion_id','factura_pagos.Institucion_id')
-            ->leftjoin('banco','banco.Banco_Id','factura_pagos.Banco_Id')
-            ->leftjoin('tarjetas','tarjetas.Taj_Id','factura_pagos.Taj_Id')
-            ->select('factura_pagos.*',
-                    'forma_pago.FPago_Descripcion',
-                    'banco.Banco_Descripcion',
-                    'tarjetas.Tarjeta_Descripcion',
-                    'institucion.Institucion_Descripcion'
-                )
-            ->where('factura_pagos.FacCab_Id','=',$id)
-            ->get();
+        $text_pdf = 'REPORTE_DETALLADO';
 
-        $factura_pago_info = DB::table('factura_pagos')
-            ->select('factura_pagos.*')
-            ->where('factura_pagos.FacCab_Id','=',$id)
-            ->get();
-
-        $suma[] = 0;
-
-        foreach($factura_pago_info as $var){
-
-            $suma[] = $var->Valor;
-            
-        }
-
-        $suma_total_1 = array_sum($suma);
-
-        $suma_total = sprintf('%.2f', $suma_total_1);
-
-
-        $text_pdf = 'FACTURACION_INDIVIDUAL_DETALLE_PAGO';
-
-        $pdf = PDF::loadView('print.listado_facturacion_individual_content', compact('factura','factura_detalle','factura_pago','sucursal','suma_total'));
+        $pdf = PDF::loadView('print.reporte_detallado', compact('historico_mov_tarea'));
 
         $pdf->setPaper('A4', 'portrait');
 
@@ -131,7 +79,6 @@ class ReporteController extends Controller
         return $pdf->stream($text_pdf.'.pdf');
     }
 
-    //LISTADO DE MANTENIMIENTO
     public function imprimir_reporte_resumido(){
 
 
