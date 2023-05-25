@@ -16,7 +16,9 @@ class Task extends Model
         'ciclo',
         'usuario_solicitante',
         'estado',
-        'accion'
+        'accion',
+        'entrega_real',
+        'vencida'
     ];
 
     protected $primaryKey = 'id';
