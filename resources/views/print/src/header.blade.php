@@ -8,9 +8,9 @@
             </tr>
             <tr>
               <td style="width:30%; text-align: left;"><b>Fecha Inicio:</b></td>
-              <td style="width:20%"> --------</td>
+              <td style="width:20%;text-align: left;"> --------</td>
               <td style="width:30%;text-align: left";><b>Fecha Fin:</b></td>
-              <td style="width:20%"> --------</td>
+              <td style="width:20%;text-align: left;"> --------</td>
             </tr>
             <tr>
               <td style="width:30%;text-align: left";><b>Usuario:</b></td>

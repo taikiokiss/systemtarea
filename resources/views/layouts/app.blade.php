@@ -10,24 +10,22 @@
     <meta name="author" content="">
 
 
-  <title>{{ config('app.name') }}</title>
+    <title>{{ config('app.name') }}</title>
 
     <!-- Custom fonts for this template-->
     <link href="/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-
     <!-- Custom styles for this template-->
-
     <link href="/admin/css/sb-admin-2.css" rel="stylesheet">
-
     <link rel="stylesheet" href="/css/checkbox.css">  
     <link rel="stylesheet" href="/css/toastr.min.css">
     <link rel="stylesheet" href="/css/sweetalert.min.css">
     <link rel="stylesheet" href="/css/ifile.scss">
-
     <link rel="stylesheet" href="/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-
     <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
 
      @livewireStyles
      <style type="text/css">
@@ -208,15 +206,11 @@
     </a>
     <!-- AdminLTE App -->
     @livewireScripts
-    <!-- PIVOT CSS -->
-    <script src="/js/jquery-3.3.1.min.js"></script>
     <!-- Bootstrap CDN Plugin -->
-    <script src="/js/jquery.min.js"></script>
     <script src="/js/loader.js"></script>  
 
     <script src="/dist/js/adminlte.min.js"></script>
     <!-- Bootstrap core JavaScript-->
-    <script src="/admin/vendor/jquery/jquery.min.js"></script>
     <script src="/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
