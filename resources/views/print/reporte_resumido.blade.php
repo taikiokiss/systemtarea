@@ -14,8 +14,8 @@
                         <tr>
                             <th width="50%" style="text-align: center">Usuario Solicitante</th>
                             <th width="15%" style="text-align: center">Tarea</th>
-                            <th width="100%" style="text-align: left;">Asunto</th>
-                            <th width="40%" style="text-align: center">Fecha de Entrega</th>
+                            <th width="160%" style="text-align: center;">Asunto</th>
+                            <th width="40%" style="text-align: center">Fecha Entrega</th>
                             <th width="40%" style="text-align: center">Entrega Real</th>
                             <th width="30%" style="text-align: center">Estado</th>
                             <th width="15%" style="text-align: center">Vencida</th>
@@ -35,7 +35,7 @@
                                     </td>                          
                                 </tr>
                             @endif
-                            
+
                             <tr>
                                 <td style="text-align: left;">{{ $prodc->ApellidoSoli }} {{ $prodc->NombreSoli }}</td>   
                                 <td style="text-align: center;">{{ $prodc->id }}</td>
