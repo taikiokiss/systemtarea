@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function () {
 		->name('tasks.acciones.aprobar_tarea_view')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
-	Route::get('/tareas/{tarea}/aprobarfinaltarea_view', 'TaskController@aprobarfinaltarea_view')
+	Route::get('/tareas/{tarea}/aprobarfinaltarea_view', 'TaskController@aprobarfinal_tarea_view')
 		->name('tasks.acciones.aprobarfinaltarea_view')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
