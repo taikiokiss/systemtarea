@@ -131,7 +131,7 @@ class TaskController extends Controller
                 'id_tarea'          => $tasks->id,
                 'observacion'       => $tasks->descripcion,
                 'usuario'           => Auth::user()->id,
-                'fecha_act'         => $tasks->created_at,
+                'fecha_act'         => date("Y-m-d H:i:s"),
                 'estado_id_tarea'   => 'ASIGNADA'                
             ]);
             
@@ -304,7 +304,7 @@ class TaskController extends Controller
                     'id_tarea' => $tasks->id,
                     'observacion' => $request->get('observacion'),
                     'usuario' => Auth::user()->id,
-                    'fecha_act' => $tasks->created_at,
+                    'fecha_act' => date("Y-m-d H:i:s"),
                     'estado_id_tarea' => $estado
                 ]);
             }
