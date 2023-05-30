@@ -82,7 +82,7 @@ class TaskController extends Controller
             ->where('users.estado','=','ACTIVO')
             ->select('persons.*','departments.*','persons.id as idperson')
             ->get();
-
+            
         $datos = [
             'departma' => $departmentt,
             'opciones' => $userss,
