@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Task;
-
+use DB;
 
 class ActuaVencida extends Command
 {
@@ -39,7 +39,6 @@ class ActuaVencida extends Command
      */
     public function handle()
     {
-        \Log::info("Cron is working fine!");
 
         $registros = DB::table('tasks')->get();
 
@@ -53,10 +52,11 @@ class ActuaVencida extends Command
                     ->update([
                         'vencida' => 'SI'
                     ]);
-            } else {}
+            } else {
+                
+            }
 
         }
         
-        $this->info('ActuaVencida:Cron Command Run successfully!');
     }
 }

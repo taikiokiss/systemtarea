@@ -13,7 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\ActuaVencida::class,
+       //Commands\ActuaVencida::class,
+
     ];
 
     /**
@@ -24,8 +25,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('actuavencida:cron')
-                 ->everyMinute();
+       //$schedule->command('actuavencida:cron')->everyMinute();
     }
 
     /**
