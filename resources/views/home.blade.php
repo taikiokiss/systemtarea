@@ -17,7 +17,7 @@
 							<div class="card border-danger text-danger p-3 my-card" ><span class="text-center fa fa-hourglass" aria-hidden="true"></span></div>
 							<a href="#" class="stretched-link"></a>
 							<div class="text-danger text-center mt-3"><h4>Vencidas</h4></div>
-							<div class="text-danger text-center mt-2"><h1>{{count($VENCIDA)}}</h1></div>
+							<div class="text-danger text-center mt-2"><h1>0</h1></div>
 
 						</div>
 					</div>

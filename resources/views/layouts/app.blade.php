@@ -23,9 +23,9 @@
     <link rel="stylesheet" href="/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 
+    <script src="/js/jquery.min.js"></script>
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/admin/vendor/jquery/jquery.min.js"></script>
-    <script src="/js/jquery.min.js"></script>
 
      @livewireStyles
      <style type="text/css">

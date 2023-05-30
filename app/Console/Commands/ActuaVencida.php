@@ -20,7 +20,7 @@ class ActuaVencida extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Este comando funciona para verificar si la fecha de entrega no se ha vencido';
 
     /**
      * Create a new command instance.

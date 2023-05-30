@@ -13,8 +13,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-       //Commands\ActuaVencida::class,
-
+       Commands\ActuaVencida::class,
+       Commands\AprobarTarea::class,
     ];
 
     /**
@@ -25,8 +25,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-       //$schedule->command('actuavencida:cron')->everyMinute();
+       //TAREA ENCARGADA DE VERIFICAR SI SE ENCUENTRA VENCIDA LA FECHA O NO 
+            //$schedule->command('actuavencida:cron')->everyMinute();
+
+       //TAREA ENCARGADA DE APROBAR UNA TAREA SI NO LO HAN HECHO PASADO 4 DIAS 
+            //$schedule->command('aprobar:tarea')->everyMinute();
     }
+
 
     /**
      * Register the commands for the application.
