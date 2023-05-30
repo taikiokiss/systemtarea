@@ -21,18 +21,17 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        $estados = Task::whereIn('estado', ['REALIZADA', 'VENCIDA', 'ENTREGADA', 'APROBADA', 'RECHAZADA', 'EN PROCESO'],'AND')
+        $estados = Task::whereIn('estado', ['REALIZADA', 'ENTREGADA', 'APROBADA', 'RECHAZADA', 'EN PROCESO'],'AND')
             ->where('usuario_solicitante','=',Auth::user()->id)
             ->get()
             ->groupBy('estado');
             
         $REALIZADA = $estados->get('REALIZADA') ?? collect();
-        $VENCIDA = $estados->get('VENCIDA') ?? collect();
         $ENTREGADA = $estados->get('ENTREGADA') ?? collect();
         $APROBADA = $estados->get('APROBADA') ?? collect();
         $RECHAZADA = $estados->get('RECHAZADA') ?? collect();
         $EN_PROCESO = $estados->get('EN PROCESO') ?? collect();
 
-        return view('home',compact('REALIZADA','VENCIDA','ENTREGADA','APROBADA','RECHAZADA','EN_PROCESO'));
+        return view('home',compact('REALIZADA','ENTREGADA','APROBADA','RECHAZADA','EN_PROCESO'));
     }
 }
