@@ -29,6 +29,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 	Route::view('permissions', 'livewire.permissions.index')->middleware('role:ADMINISTRADOR');
 	Route::view('roles', 'livewire.roles.index')->middleware('role:ADMINISTRADOR');
 	Route::view('users', 'livewire.users.index')->middleware('role:ADMINISTRADOR');
+	Route::view('departments_descrip', 'livewire.departments_descrips.index')->middleware('role:ADMINISTRADOR');
 
 require __DIR__ . '/task/task.php';
 require __DIR__ . '/reportes_print/reportes_print.php';

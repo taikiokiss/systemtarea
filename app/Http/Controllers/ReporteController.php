@@ -33,7 +33,10 @@ class ReporteController extends Controller
             ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
             ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
             ->join('departments', 'departments.id', '=', 'tasks.department_id')
-            //->where('tasks.usuario_solicitante','=',Auth::user()->id)
+            ->where(function ($query) {
+                $query->orWhere('tasks.usuario_solicitante', '=', Auth::user()->id)
+                    ->orWhere('tasks.asign_a', '=', Auth::user()->id);
+            })
             ->Fechas($FechaInicio,$FechaFin)
             ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt')
             ->orderBy('tasks.created_at', 'desc')

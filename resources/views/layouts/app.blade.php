@@ -41,7 +41,7 @@
     <div id="wrapper">
 
         <!-- Sidebar -->
-        <ul class="navbar-nav bg-gradient-webpanel-c sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+        <ul class="navbar-nav bg-gradient-webpanel-c sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
             <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ route('home') }}">
@@ -70,12 +70,13 @@
                   <div id="collapseFooda" class="collapse" aria-labelledby="headingUtilities"
                       data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="{{url('/users')}}">Admi. Usuarios</a> 
+                            <a class="collapse-item" href="{{url('/users')}}">Usuarios</a> 
                             <!--a class="collapse-item" href="{{url('/roles')}}">Admi. Roles</a-->
                             <!--a class="collapse-item" href="{{url('/permissions')}}">Admi. Permisos</a-->
                             <!--Nav Bar Hooks - Do not delete!!-->
-                            <a href="{{ url('/groups') }}" class="collapse-item"> Admin. Grupos</a>
-                            <a href="{{ url('/departments') }}" class="collapse-item">Admin. Departamentos</a>
+                            <a href="{{ url('/departments_descrip') }}" class="collapse-item"> Departamentos - Tareas</a>
+                            <a href="{{ url('/groups') }}" class="collapse-item">Grupos</a>
+                            <a href="{{ url('/departments') }}" class="collapse-item">Departamentos</a>
                       </div>
                   </div>
                 </li>
