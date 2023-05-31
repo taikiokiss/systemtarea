@@ -21,17 +21,25 @@ class HomeController extends Controller
 
     public function index(Request $request)
     {
-        $estados = Task::whereIn('estado', ['REALIZADA', 'ENTREGADA', 'APROBADA', 'RECHAZADA', 'EN PROCESO'],'AND')
-            ->where('usuario_solicitante','=',Auth::user()->id)
+        $estados = Task::whereIn('estado', ['REALIZADA',  'APROBADA'],'AND')
+            ->where('asign_a','=',Auth::user()->id)
             ->get()
             ->groupBy('estado');
-            
-        $REALIZADA = $estados->get('REALIZADA') ?? collect();
-        $ENTREGADA = $estados->get('ENTREGADA') ?? collect();
-        $APROBADA = $estados->get('APROBADA') ?? collect();
-        $RECHAZADA = $estados->get('RECHAZADA') ?? collect();
-        $EN_PROCESO = $estados->get('EN PROCESO') ?? collect();
 
-        return view('home',compact('REALIZADA','ENTREGADA','APROBADA','RECHAZADA','EN_PROCESO'));
+        $estados_vencidos = Task::where('asign_a','=',Auth::user()->id)
+            ->where('vencida','=','SI')
+            ->get()
+            ->groupBy('estado');
+
+        $EN_PROCESO = Task::where('asign_a','=',Auth::user()->id)
+            ->where('estado','!=','REALIZADA')
+            ->get()
+            ->groupBy('estado');
+
+            
+        $REALIZADA  = $estados->get('REALIZADA') ?? collect();
+        $APROBADA   = $estados->get('APROBADA') ?? collect();
+
+        return view('home',compact('REALIZADA','APROBADA','EN_PROCESO','estados_vencidos'));
     }
 }

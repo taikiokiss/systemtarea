@@ -285,22 +285,28 @@ class TaskController extends Controller
             if ($variable == 'CONSULTAR' || $variable == 'CERRAR') {
                 $estado = 'REALIZADA';
                 $accion = 'CONSULTAR';
+                $entrega_real = date("Y-m-d H:i:s");
             }elseif ($variable == 'ENTREGAR') {
                 $estado = 'ENTREGADA';
                 $accion = 'APROBAR';
+                $entrega_real = NULL;
             }elseif ($variable == 'APROBAR') {
                 $estado = 'APROBADA';
                 $accion = 'ENTREGAR';
+                $entrega_real = NULL;
             }elseif ($variable == 'RECHAZAR') {
                 $estado = 'RECHAZADA';
                 $accion = 'ENTREGAR';
+                $entrega_real = NULL;
             }elseif ($variable == 'APROBAR_1') {
                 $estado = 'APROBADA';
                 $accion = 'CONSULTAR';
+                $entrega_real = NULL;
             }
             if (!empty($estado) && !empty($accion)) {
                 $actualizacion['estado'] = $estado;
                 $actualizacion['accion'] = $accion;
+                $actualizacion['entrega_real'] = $entrega_real;
 
                 Historico_mov_tarea::create([
                     'id_tarea' => $tasks->id,

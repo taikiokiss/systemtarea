@@ -9,44 +9,99 @@
 			<div class="card-body">
 				<hr>
 
+					<div class="row w-100">
 
-	
-				<div class="row w-100">
-					<div class="col-md-3">
-						<div class="card border-danger mx-sm-1 p-3 ">
-							<div class="card border-danger text-danger p-3 my-card" ><span class="text-center fa fa-hourglass" aria-hidden="true"></span></div>
-							<a href="#" class="stretched-link"></a>
-							<div class="text-danger text-center mt-3"><h4>Vencidas</h4></div>
-							<div class="text-danger text-center mt-2"><h1>0</h1></div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-danger shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                Tareas (Vencidas)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($estados_vencidos)}}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clock fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-						</div>
-					</div>
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Tareas (Pendientes por aprobar)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($APROBADA)}}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-hourglass-half fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-					<div class="col-md-3">
-						<div class="card border-warning mx-sm-1 p-3">
-							<div class="card border-warning text-warning p-3 my-card" ><span class="text-center fa fa-hourglass-half" aria-hidden="true"></span></div>
-							<a href="#" class="stretched-link"></a>
-							<div class="text-warning text-center mt-3"><h4>Pendientes</h4></div>
-							<div class="text-warning text-center mt-2"><h1>{{count($APROBADA)}}</h1></div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="card border-success mx-sm-1 p-3">
-							<div class="card border-success text-success p-3 my-card"><span class="text-center fa fa-check-square" aria-hidden="true"></span></div>
-							<a href="{{route('tasks.principales.asignadas')}}" class="stretched-link"></a>
-							<div class="text-success text-center mt-3"><h4>Resueltas</h4></div>
-							<div class="text-success text-center mt-2"><h1>{{count($REALIZADA)}}</h1></div>
-						</div>
-					</div>
-					<div class="col-md-3">
-						<div class="card border-info mx-sm-1 p-3 ">
-							<div class="card border-info text-info p-3" ><span class="text-center fa fa-cogs" aria-hidden="true"></span></div>
-							<a href="{{route('tasks.principales.index')}}" class="stretched-link"></a>
-							<div class="text-info text-center mt-3"><h4>En proceso</h4></div>
-							<div class="text-info text-center mt-2"><h1>{{count($EN_PROCESO)}}</h1></div>
-						</div>
-					</div>
-				</div>				
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Tareas (Resueltas)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($REALIZADA)}}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clipboard-check fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+										<a href="{{route('tasks.principales.asignadas')}}" class="stretched-link"></a>
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Tareas (En Proceso)</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($EN_PROCESO)}}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-cogs fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>			
+
+
+					<div class="row">
+                        <!-- Content Column -->
+                        <div class="col-lg-12 mb-4">
+
+                            <!-- Project Card Example -->
+                            <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+                                </div>
+                                <div class="card-body">
+                                    <h4 class="small font-weight-bold">CALIFICACIÓN DE EFICIENCIA <span class="float-right">20%</span></h4>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
 			</div>
 		</div>
 	</div>
