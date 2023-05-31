@@ -58,7 +58,6 @@ class Departments_descrips extends Component
 		$this->subtarea_descrip = null;
 		$this->usuario_asignado = null;
 		$this->tiempo_demora = null;
-		$this->estado = null;
     }
 
     public function store()
@@ -75,7 +74,7 @@ class Departments_descrips extends Component
 			'subtarea_descrip' => $this-> subtarea_descrip,
 			'usuario_asignado' => $this-> usuario_asignado,
 			'tiempo_demora' => $this-> tiempo_demora,
-			'estado' => $this-> estado
+			'estado' => 'ACTIVO'
         ]);
         
         $this->resetInput();
@@ -92,7 +91,6 @@ class Departments_descrips extends Component
 		$this->subtarea_descrip = $record-> subtarea_descrip;
 		$this->usuario_asignado = $record-> usuario_asignado;
 		$this->tiempo_demora = $record-> tiempo_demora;
-		$this->estado = $record-> estado;
 		
         $this->updateMode = true;
     }
@@ -112,8 +110,7 @@ class Departments_descrips extends Component
 			'departments_id' => $this-> departments_id,
 			'subtarea_descrip' => $this-> subtarea_descrip,
 			'usuario_asignado' => $this-> usuario_asignado,
-			'tiempo_demora' => $this-> tiempo_demora,
-			'estado' => $this-> estado
+			'tiempo_demora' => $this-> tiempo_demora
             ]);
 
             $this->resetInput();
