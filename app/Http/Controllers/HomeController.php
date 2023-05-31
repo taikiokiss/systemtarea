@@ -19,6 +19,8 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+
+ 
     public function index(Request $request)
     {
         $estados = Task::whereIn('estado', ['REALIZADA',  'APROBADA'],'AND')
@@ -36,10 +38,14 @@ class HomeController extends Controller
             ->get()
             ->groupBy('estado');
 
-            
         $REALIZADA  = $estados->get('REALIZADA') ?? collect();
         $APROBADA   = $estados->get('APROBADA') ?? collect();
 
-        return view('home',compact('REALIZADA','APROBADA','EN_PROCESO','estados_vencidos'));
+        $priresta = count($REALIZADA)+count($estados_vencidos);
+        $valor = ($priresta/count($REALIZADA))*100;
+
+        $valor_dos_deci = sprintf("%01.2f", $valor);
+
+        return view('home',compact('REALIZADA','APROBADA','EN_PROCESO','estados_vencidos','valor_dos_deci'));
     }
 }
