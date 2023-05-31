@@ -42,7 +42,13 @@ class HomeController extends Controller
         $APROBADA   = $estados->get('APROBADA') ?? collect();
 
         $priresta = count($REALIZADA)+count($estados_vencidos);
-        $valor = ($priresta/count($REALIZADA))*100;
+        $pricompr = $priresta+count($REALIZADA);
+        
+        if ($pricompr != 0 ) {
+            $valor = ($priresta/count($REALIZADA))*100;
+        }else{
+            $valor = 100;
+        }
 
         $valor_dos_deci = sprintf("%01.2f", $valor);
 
