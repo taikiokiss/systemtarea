@@ -46,7 +46,7 @@ class Departments extends Component
 
         Department::create([ 
 			'namedt' => $this-> namedt,
-			'estado' => 'INACTIVO'
+			'estado' => 'ACTIVO'
         ]);
         
         $this->resetInput();

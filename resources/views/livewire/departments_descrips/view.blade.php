@@ -7,7 +7,7 @@
 					<div style="display: flex; justify-content: space-between; align-items: center;">
 						<div class="float-left">
 							<h4><i class="fab fa-laravel text-info"></i>
-							Departments Descrip Listado </h4>
+							Departamento - Tarea (Listado) </h4>
 						</div>
 						@if (session()->has('message'))
 						<div wire:poll.4s class="btn btn-sm btn-success" style="margin-top:0px; margin-bottom:0px;"> {{ session('message') }} </div>
@@ -29,8 +29,8 @@
 						<thead class="thead">
 							<tr> 
 								<td>#</td> 
-								<th>Departments Id</th>
-								<th>Subtarea Descrip</th>
+								<th>Departamento</th>
+								<th>Descripcion de tarea</th>
 								<th>Usuario Asignado</th>
 								<th>Tiempo Demora</th>
 								<th>Estado</th>
@@ -42,10 +42,10 @@
 							@foreach($Departments_descrips as $row)
 							<tr>
 								<td>{{ $loop->iteration }}</td> 
-								<td>{{ $row->departments_id }}</td>
+								<td>{{ $row->nombredepartamento }}</td>
 								<td>{{ $row->subtarea_descrip }}</td>
-								<td>{{ $row->usuario_asignado }}</td>
-								<td>{{ $row->tiempo_demora }}</td>
+								<td>{{ $row->last_name }} {{ $row->name }}</td>
+								<td>{{ $row->tiempo_demora }} HORAS</td>
 								<td>{{ $row->estado }}</td>
 								<td width="90">
 								<div class="btn-group">

@@ -5,6 +5,9 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Departments_descrip;
+use App\Models\Group;
+use App\Models\User;
+use DB;
 
 class Departments_descrips extends Component
 {
@@ -17,14 +20,26 @@ class Departments_descrips extends Component
     public function render()
     {
 		$keyWord = '%'.$this->keyWord .'%';
+
+        $list_user = DB::table('users')
+            ->Join('persons', 'persons.id', 'users.persona_id')
+            ->where('users.estado','=','ACTIVO')
+                ->select('users.*','persons.*')
+                ->get(); 
+
         return view('livewire.departments_descrips.view', [
-            'Departments_descrips' => Departments_descrip::latest()
-						->orWhere('departments_id', 'LIKE', $keyWord)
-						->orWhere('subtarea_descrip', 'LIKE', $keyWord)
-						->orWhere('usuario_asignado', 'LIKE', $keyWord)
-						->orWhere('tiempo_demora', 'LIKE', $keyWord)
-						->orWhere('estado', 'LIKE', $keyWord)
-						->paginate(10),
+
+            'Departments_descrips' => DB::table('departments_descrip')
+                ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
+                ->join('users', 'users.id', '=', 'departments_descrip.usuario_asignado')
+                ->join('persons', 'persons.id', '=', 'users.persona_id')
+                ->select('departments.namedt as nombredepartamento','persons.*','departments_descrip.*')
+                ->where(function ($query) use ($keyWord) {
+                    $query->where('departments_descrip.subtarea_descrip', 'LIKE', $keyWord);
+                })
+                ->paginate(10),
+            'users' => $list_user,
+
         ]);
     }
 	

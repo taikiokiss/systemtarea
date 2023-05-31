@@ -31,7 +31,6 @@
 								<td>#</td> 
 								<th>Nombre</th>
 								<th>Estado</th>
-
 								<td>Acciones</td>
 							</tr>
 						</thead>
