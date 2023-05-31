@@ -15,6 +15,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
        Commands\ActuaVencida::class,
        Commands\AprobarTarea::class,
+       Commands\CerrarTarea::class,
     ];
 
     /**
@@ -26,10 +27,13 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
        //TAREA ENCARGADA DE VERIFICAR SI SE ENCUENTRA VENCIDA LA FECHA O NO 
-            $schedule->command('actuavencida:cron')->daily();
+            //$schedule->command('actuavencida:cron')->everyMinute();
 
        //TAREA ENCARGADA DE APROBAR UNA TAREA SI NO LO HAN HECHO PASADO 4 DIAS 
-            $schedule->command('aprobar:tarea')->daily();
+            //$schedule->command('aprobar:tarea')->everyMinute();
+
+       //TAREA ENCARGADA DE CERRAR UNA TAREA SI NO LO HAN HECHO PASADO 3 DIAS 
+            //$schedule->command('cerrar:tarea')->everyMinute();            
     }
 
 

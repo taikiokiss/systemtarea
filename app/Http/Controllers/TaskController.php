@@ -79,10 +79,11 @@ class TaskController extends Controller
         $userss = DB::table('users')
             ->join('persons', 'persons.id', '=', 'users.persona_id')
             ->join('departments', 'departments.id', '=', 'users.deparment_id')
-            ->where('users.estado','=','ACTIVO')
+            ->where('users.estado','=','ACTIVO','AND')
+            ->where('users.id','!=',4)
             ->select('persons.*','departments.*','persons.id as idperson')
             ->get();
-            
+
         $datos = [
             'departma' => $departmentt,
             'opciones' => $userss,
@@ -98,10 +99,12 @@ class TaskController extends Controller
             $tasks->asunto          = $request->input('asunto');
             $tasks->descripcion     = $request->input('descripcion');
             $tasks->fecha_entrega   = $request->input('fecha_entrega');
+            $tasks->fecha_creacion  = date("Y-m-d");
             $tasks->department_id   = $request->input('departamento');
             $tasks->asign_a         = $request->input('asign_a');
             $tasks->ciclo           = $request->input('rcada');
             $tasks->usuario_solicitante     = Auth::user()->id;
+            $tasks->vencida         = 'NO';
             $tasks->estado          = 'EN PROCESO';
             $tasks->accion          = 'APROBAR';
             $tasks->save();
@@ -163,7 +166,6 @@ class TaskController extends Controller
                     ->where('users.estado','=','ACTIVO')
                     ->select('persons.*','departments.*')
                     ->get();
-
                 $datos = [
                     'departma' => $departmentt,
                     'opciones' => $userss,

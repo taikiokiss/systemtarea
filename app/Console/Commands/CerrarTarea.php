@@ -3,6 +3,9 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Task;
+use App\Historico_mov_tarea;
+use DB;
 
 class CerrarTarea extends Command
 {
@@ -61,14 +64,14 @@ class CerrarTarea extends Command
                                 'id_tarea'          => $registro->id,
                                 'observacion'       => 'APROBADO AUTOMATICO',
                                 'usuario'           => 4,
-                                'fecha_act'         => date("Y-m-d H:i:s"),
+                                'fecha_act'         => date('Y-m-d H:i:s'),
                                 'estado_id_tarea'   => 'APROBADA'
                             ],
                             [
                                 'id_tarea'          => $registro->id,
                                 'observacion'       => 'CERRADO AUTOMATICO',
                                 'usuario'           => 4,
-                                'fecha_act'         => date("Y-m-d H:i:s"),
+                                'fecha_act'         => date('Y-m-d H:i:s'),
                                 'estado_id_tarea'   => 'REALIZADA'
                             ]
                         ];

@@ -4,7 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Task;
+use App\Historico_mov_tarea;
 use DB;
+
 
 class ActuaVencida extends Command
 {

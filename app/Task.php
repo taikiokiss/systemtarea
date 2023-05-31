@@ -11,6 +11,7 @@ class Task extends Model
         'descripcion',
         'observacion',
         'fecha_entrega',
+        'fecha_creacion',
         'department_id',
         'asign_a',
         'ciclo',
