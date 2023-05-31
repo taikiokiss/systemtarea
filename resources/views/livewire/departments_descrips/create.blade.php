@@ -10,26 +10,41 @@
             </div>
            <div class="modal-body">
 				<form>
-            <div class="form-group">
-                <label for="departments_id"></label>
-                <input wire:model="departments_id" type="text" class="form-control" id="departments_id" placeholder="Departments Id">@error('departments_id') <span class="error text-danger">{{ $message }}</span> @enderror
-            </div>
-            <div class="form-group">
-                <label for="subtarea_descrip"></label>
-                <input wire:model="subtarea_descrip" type="text" class="form-control" id="subtarea_descrip" placeholder="Subtarea Descrip">@error('subtarea_descrip') <span class="error text-danger">{{ $message }}</span> @enderror
-            </div>
-            <div class="form-group">
-                <label for="usuario_asignado"></label>
-                <input wire:model="usuario_asignado" type="text" class="form-control" id="usuario_asignado" placeholder="Usuario Asignado">@error('usuario_asignado') <span class="error text-danger">{{ $message }}</span> @enderror
-            </div>
-            <div class="form-group">
-                <label for="tiempo_demora"></label>
-                <input wire:model="tiempo_demora" type="text" class="form-control" id="tiempo_demora" placeholder="Tiempo Demora">@error('tiempo_demora') <span class="error text-danger">{{ $message }}</span> @enderror
-            </div>
-            <div class="form-group">
-                <label for="estado"></label>
-                <input wire:model="estado" type="text" class="form-control" id="estado" placeholder="Estado">@error('estado') <span class="error text-danger">{{ $message }}</span> @enderror
-            </div>
+
+                    <div class="form-group">
+                        <label for="select-option">Seleccione el departamento:</label>
+                        <select class="form-control" id="departments_id" wire:model="departments_id">
+                            <option value="">-- Seleccione --</option>
+                            @foreach($departamento as $option)
+                                <option value="{{ $option->id }}">{{ $option->namedt }}</option>
+                            @endforeach
+                        </select>
+                        @error('departments_id') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="subtarea_descrip"></label>
+                        <input wire:model="subtarea_descrip" type="text" class="form-control" id="subtarea_descrip" placeholder="Descripción de tarea">@error('subtarea_descrip') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="select-option">Usuario encargado:</label>
+                        <select class="form-control" id="usuario_asignado" wire:model="usuario_asignado">
+                            <option value="">-- Seleccione --</option>
+                            @foreach($users as $option)
+                                <option value="{{ $option->id }}">{{ $option->cedula }} | {{ $option->last_name }} {{ $option->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('usuario_asignado') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="tiempo_demora"></label>
+                        <input wire:model="tiempo_demora" type="text" class="form-control" id="tiempo_demora" placeholder="Tiempo Demora">@error('tiempo_demora') <span class="error text-danger">{{ $message }}</span> @enderror
+                    </div>
 
                 </form>
             </div>

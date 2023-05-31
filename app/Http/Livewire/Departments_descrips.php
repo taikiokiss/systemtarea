@@ -7,6 +7,7 @@ use Livewire\WithPagination;
 use App\Models\Departments_descrip;
 use App\Models\Group;
 use App\Models\User;
+use App\Models\Department;
 use DB;
 
 class Departments_descrips extends Component
@@ -26,6 +27,7 @@ class Departments_descrips extends Component
             ->where('users.estado','=','ACTIVO')
                 ->select('users.*','persons.*')
                 ->get(); 
+        $departamento = Department::all();
 
         return view('livewire.departments_descrips.view', [
 
@@ -39,6 +41,7 @@ class Departments_descrips extends Component
                 })
                 ->paginate(10),
             'users' => $list_user,
+            'departamento' => $departamento,
 
         ]);
     }
@@ -123,7 +126,10 @@ class Departments_descrips extends Component
     {
         if ($id) {
             $record = Departments_descrip::where('id', $id);
-            $record->delete();
+            $record->update([ 
+                'estado' => 'INACTIVO',
+            ]);
+
         }
     }
 }
