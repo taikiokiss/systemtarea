@@ -44,7 +44,7 @@ class AprobarTarea extends Command
         $registros = DB::table('tasks')->get();
 
         foreach ($registros as $registro) {
-            $fechaEntrega = date('Y-m-d', strtotime($registro->created_at));
+            $fechaEntrega = $registro->fecha_creacion;
             $fechaHoy = date("Y-m-d");
 
             $intervalo = date_diff(date_create($fechaHoy), date_create($fechaEntrega));
