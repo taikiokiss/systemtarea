@@ -88,17 +88,39 @@
                             <!-- Project Card Example -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">RENDIMIENTO</h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">CALIFICACIÓN DE EFICIENCIA </h6>
                                 </div>
                                 <div class="card-body">
-                                    <h4 class="small font-weight-bold">CALIFICACIÓN DE EFICIENCIA <span class="float-right">{{$valor_dos_deci}}%</span></h4>
-                                    <div class="progress mb-4">
-                                        <div class="progress-bar bg-success" role="progressbar" style="width: {{$valor_dos_deci}}%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <h4 class="small font-weight-bold"><span class="float-right">{{$valor_dos_deci}}%</span></h4>
+										@php
+										    $textClass = '';
+										    $barClass = '';
 
-                                    </div>
+										    if ($valor_dos_deci > 70) {
+										        $textClass = 'text-success';
+										        $barClass = 'bg-success';
+												$mensaje = "Felicidades, sigue asi!!"; 
+
+										    } elseif ($valor_dos_deci < 50) {
+										        $textClass = 'text-danger';
+										        $barClass = 'bg-danger';
+												$mensaje = "Debes mejorar!!"; 
+
+										    } else {
+										        $textClass = 'text-warning';
+										        $barClass = 'bg-warning';
+												$mensaje = "Se puede mejorar!!"; 
+										    }
+										@endphp
+
+
+										<div class="text-xs font-weight-bold {{ $textClass }} text-uppercase mb-1">{{$mensaje}}</div>
+										<div class="progress mb-4">
+										    <div class="progress-bar {{ $barClass }}" role="progressbar" style="width: {{ $valor_dos_deci }}%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+										</div>
+
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
