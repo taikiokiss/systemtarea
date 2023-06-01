@@ -24,11 +24,16 @@ class Departments_descrips extends Component
 
         $list_user = DB::table('users')
             ->Join('persons', 'persons.id', 'users.persona_id')
-            ->where('users.estado','=','ACTIVO')
+            ->where('users.estado','=','ACTIVO','AND')
+            ->where('users.id','!=',4)
                 ->select('users.*','persons.*')
                 ->get(); 
         $departamento = Department::all();
 
+        $datos = [
+            'departma' => $departamento,
+            'opciones' => $list_user,
+        ];
         return view('livewire.departments_descrips.view', [
 
             'Departments_descrips' => DB::table('departments_descrip')
@@ -40,8 +45,7 @@ class Departments_descrips extends Component
                     $query->where('departments_descrip.subtarea_descrip', 'LIKE', $keyWord);
                 })
                 ->paginate(10),
-            'users' => $list_user,
-            'departamento' => $departamento,
+            'datos' => $datos,
 
         ]);
     }
@@ -98,19 +102,19 @@ class Departments_descrips extends Component
     public function update()
     {
         $this->validate([
-		'departments_id' => 'required',
-		'subtarea_descrip' => 'required',
-		'usuario_asignado' => 'required',
-		'tiempo_demora' => 'required',
+    		'departments_id' => 'required',
+    		'subtarea_descrip' => 'required',
+    		'usuario_asignado' => 'required',
+    		'tiempo_demora' => 'required',
         ]);
 
         if ($this->selected_id) {
 			$record = Departments_descrip::find($this->selected_id);
             $record->update([ 
-			'departments_id' => $this-> departments_id,
-			'subtarea_descrip' => $this-> subtarea_descrip,
-			'usuario_asignado' => $this-> usuario_asignado,
-			'tiempo_demora' => $this-> tiempo_demora
+    			'departments_id' => $this-> departments_id,
+    			'subtarea_descrip' => $this-> subtarea_descrip,
+    			'usuario_asignado' => $this-> usuario_asignado,
+    			'tiempo_demora' => $this-> tiempo_demora
             ]);
 
             $this->resetInput();

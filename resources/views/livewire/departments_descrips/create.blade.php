@@ -11,15 +11,22 @@
            <div class="modal-body">
 				<form>
 
-                    <div class="form-group">
-                        <label for="select-option">Seleccione el departamento:</label>
-                        <select class="form-control" id="departments_id" wire:model="departments_id">
-                            <option value="">-- Seleccione --</option>
-                            @foreach($departamento as $option)
-                                <option value="{{ $option->id }}">{{ $option->namedt }}</option>
-                            @endforeach
-                        </select>
-                        @error('departments_id') <span class="error text-danger">{{ $message }}</span> @enderror
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                        <label for="departments_id" class="col-form-label text-md-left">{{ __('Departamento') }}</label>
+                            <select id="departments_id" class="form-control" name="departments_id">
+                                <option value="" selected disabled >Seleccione un departamento</option>
+                                @foreach ($datos['departma'] as $departm)
+                                    <option value="{{ $departm->id }}">{{ $departm->namedt }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                        <label for="usuario_asignado" class="col-form-label text-md-left">{{ __('Usuario encargado') }}</label>
+                            <select id="usuario_asignado" class="form-control" name="usuario_asignado" disabled>
+                                <option value="" selected disabled>Seleccione a quien va asignada la tarea</option>
+                            </select>
+                        </div>
                     </div>
 
 
@@ -28,22 +35,9 @@
                         <input wire:model="subtarea_descrip" type="text" class="form-control" id="subtarea_descrip" placeholder="Descripción de tarea">@error('subtarea_descrip') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
 
-
-                    <div class="form-group">
-                        <label for="select-option">Usuario encargado:</label>
-                        <select class="form-control" id="usuario_asignado" wire:model="usuario_asignado">
-                            <option value="">-- Seleccione --</option>
-                            @foreach($users as $option)
-                                <option value="{{ $option->id }}">{{ $option->cedula }} | {{ $option->last_name }} {{ $option->name }}</option>
-                            @endforeach
-                        </select>
-                        @error('usuario_asignado') <span class="error text-danger">{{ $message }}</span> @enderror
-                    </div>
-
-
                     <div class="form-group">
                         <label for="tiempo_demora"></label>
-                        <input wire:model="tiempo_demora" type="text" class="form-control" id="tiempo_demora" placeholder="Tiempo Demora">@error('tiempo_demora') <span class="error text-danger">{{ $message }}</span> @enderror
+                        <input wire:model="tiempo_demora" type="number" class="form-control" id="tiempo_demora" placeholder="Dias">@error('tiempo_demora') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
 
                 </form>
@@ -55,3 +49,32 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function() {
+        // Al cargar la página, el segundo select estará desactivado
+        $('#usuario_asignado').prop('disabled', true);
+
+        // Cuando se seleccione un valor en el primer select, se activará el segundo select y se llenará con los valores correspondientes
+        $('#departments_id').change(function() {
+            var departamento = $(this).val();
+            if (departamento !== '') {
+                $('#usuario_asignado').prop('disabled', false);
+                $('#usuario_asignado').html('<option value="">Cargando...</option>');
+                var opciones = @json($datos['opciones']);
+                var options = '<option value="">Seleccione una opción</option>';
+                opciones.forEach(function(opcion) {
+                    if (opcion.id == departamento) { // <--- aquí se hace la comparación por id de departamento
+                        options += '<option value="' + opcion.idperson + '">' + opcion.last_name +' '+ opcion.name +  '</option>'; // <--- se utiliza id y nombre del usuario
+                    }
+                });
+                $('#usuario_asignado').html(options);
+            } else {
+                $('#usuario_asignado').prop('disabled', true);
+                $('#usuario_asignado').html('<option value="">Seleccione una opción</option>');
+            }
+        });
+
+    });
+</script>

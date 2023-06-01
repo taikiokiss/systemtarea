@@ -45,7 +45,7 @@
 								<td>{{ $row->nombredepartamento }}</td>
 								<td>{{ $row->subtarea_descrip }}</td>
 								<td>{{ $row->last_name }} {{ $row->name }}</td>
-								<td>{{ $row->tiempo_demora }} HORAS</td>
+								<td>{{ $row->tiempo_demora }} DIAS</td>
 								<td>{{ $row->estado }}</td>
 								<td width="90">
 								<div class="btn-group">
