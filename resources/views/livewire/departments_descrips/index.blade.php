@@ -15,4 +15,5 @@
     </div>
 </section>
 @livewire('departments_descrips')
+
 @endsection

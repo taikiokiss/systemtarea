@@ -10,12 +10,11 @@
             </div>
            <div class="modal-body">
 				<form>
-
                     <div class="form-group row">
                         <div class="col-md-12">
                         <label class="col-form-label text-md-left">{{ __('Departamento') }}</label>
-                            <select  wire:model="departments_id" id="departments_id" class="form-control" name="departments_id">
-                                <option value="" selected disabled >Seleccione un departamento</option>
+                            <select  wire:model.defer="departments_id" id="departments_id" class="form-control" name="departments_id">
+                                
                                 @foreach ($datos['departma'] as $departm)
                                     <option value="{{ $departm->id }}">{{ $departm->namedt }}</option>
                                 @endforeach
@@ -23,19 +22,17 @@
                         </div>
                         <div class="col-md-12">
                         <label class="col-form-label text-md-left">{{ __('Usuario encargado') }}</label>
-                            <select  wire:model="usuario_asignado" id="usuario_asignado" class="form-control" name="usuario_asignado" disabled>
-                                <option value="" selected disabled>Seleccione a quien va asignada la tarea</option>
+                            <select  wire:model.defer="usuario_asignado" id="usuario_asignado" class="form-control" name="usuario_asignado" >
                             </select>
                         </div>
                     </div>
 
-
                     <div class="form-group">
-                        <input wire:model="subtarea_descrip" type="text" class="form-control" id="subtarea_descrip" placeholder="Descripción de tarea">@error('subtarea_descrip') <span class="error text-danger">{{ $message }}</span> @enderror
+                        <input wire:model.defer="subtarea_descrip" type="text" class="form-control" id="subtarea_descrip" placeholder="Descripción de tarea">@error('subtarea_descrip') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="form-group">
-                        <input wire:model="tiempo_demora" type="number" class="form-control" id="tiempo_demora" placeholder="Dias">@error('tiempo_demora') <span class="error text-danger">{{ $message }}</span> @enderror
+                        <input wire:model.defer="tiempo_demora" type="number" class="form-control" id="tiempo_demora" placeholder="Dias">@error('tiempo_demora') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
 
                 </form>
@@ -63,7 +60,7 @@
                 var opciones = @json($datos['opciones']);
                 var options = '<option value="">Seleccione una opción</option>';
                 opciones.forEach(function(opcion) {
-                    if (opcion.id == departamento) { // <--- aquí se hace la comparación por id de departamento
+                    if (opcion.idpersondepar == departamento) { // <--- aquí se hace la comparación por id de departamento
                         options += '<option value="' + opcion.idperson + '">' + opcion.last_name +' '+ opcion.name +  '</option>'; // <--- se utiliza id y nombre del usuario
                     }
                 });

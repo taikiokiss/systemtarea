@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Livewire;
-
+use Illuminate\Http\Request;
 use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\Departments_descrip;
@@ -22,18 +22,21 @@ class Departments_descrips extends Component
     {
 		$keyWord = '%'.$this->keyWord .'%';
 
-        $list_user = DB::table('users')
-            ->Join('persons', 'persons.id', 'users.persona_id')
+        $userss = DB::table('users')
+            ->join('persons', 'persons.id', '=', 'users.persona_id')
+            ->join('departments', 'departments.id', '=', 'users.deparment_id')
             ->where('users.estado','=','ACTIVO','AND')
             ->where('users.id','!=',4)
-                ->select('users.*','persons.*')
-                ->get(); 
+            ->select('persons.*','departments.*','persons.id as idperson','departments.id as idpersondepar')
+            ->get();
+
         $departamento = Department::all();
 
         $datos = [
             'departma' => $departamento,
-            'opciones' => $list_user,
+            'opciones' => $userss,
         ];
+
         return view('livewire.departments_descrips.view', [
 
             'Departments_descrips' => DB::table('departments_descrip')
@@ -41,6 +44,7 @@ class Departments_descrips extends Component
                 ->join('users', 'users.id', '=', 'departments_descrip.usuario_asignado')
                 ->join('persons', 'persons.id', '=', 'users.persona_id')
                 ->select('departments.namedt as nombredepartamento','persons.*','departments_descrip.*')
+                ->where('departments_descrip.estado','=','ACTIVO')
                 ->where(function ($query) use ($keyWord) {
                     $query->where('departments_descrip.subtarea_descrip', 'LIKE', $keyWord);
                 })
@@ -66,11 +70,12 @@ class Departments_descrips extends Component
 
     public function store()
     {
+
         $this->validate([
-		'departments_id' => 'required',
-		'subtarea_descrip' => 'required',
-		'usuario_asignado' => 'required',
-		'tiempo_demora' => 'required',
+    		'departments_id' => 'required',
+    		'subtarea_descrip' => 'required',
+    		'usuario_asignado' => 'required',
+    		'tiempo_demora' => 'required',
         ]);
 
         Departments_descrip::create([ 
