@@ -3,7 +3,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="createDataModalLabel">Create New Departments Descrip</h5>
+                <h5 class="modal-title" id="createDataModalLabel">Crear</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true close-btn">×</span>
                 </button>
@@ -13,8 +13,8 @@
 
                     <div class="form-group row">
                         <div class="col-md-12">
-                        <label for="departments_id" class="col-form-label text-md-left">{{ __('Departamento') }}</label>
-                            <select id="departments_id" class="form-control" name="departments_id">
+                        <label class="col-form-label text-md-left">{{ __('Departamento') }}</label>
+                            <select  wire:model="departments_id" id="departments_id" class="form-control" name="departments_id">
                                 <option value="" selected disabled >Seleccione un departamento</option>
                                 @foreach ($datos['departma'] as $departm)
                                     <option value="{{ $departm->id }}">{{ $departm->namedt }}</option>
@@ -22,8 +22,8 @@
                             </select>
                         </div>
                         <div class="col-md-12">
-                        <label for="usuario_asignado" class="col-form-label text-md-left">{{ __('Usuario encargado') }}</label>
-                            <select id="usuario_asignado" class="form-control" name="usuario_asignado" disabled>
+                        <label class="col-form-label text-md-left">{{ __('Usuario encargado') }}</label>
+                            <select  wire:model="usuario_asignado" id="usuario_asignado" class="form-control" name="usuario_asignado" disabled>
                                 <option value="" selected disabled>Seleccione a quien va asignada la tarea</option>
                             </select>
                         </div>
@@ -31,12 +31,10 @@
 
 
                     <div class="form-group">
-                        <label for="subtarea_descrip"></label>
                         <input wire:model="subtarea_descrip" type="text" class="form-control" id="subtarea_descrip" placeholder="Descripción de tarea">@error('subtarea_descrip') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="form-group">
-                        <label for="tiempo_demora"></label>
                         <input wire:model="tiempo_demora" type="number" class="form-control" id="tiempo_demora" placeholder="Dias">@error('tiempo_demora') <span class="error text-danger">{{ $message }}</span> @enderror
                     </div>
 
