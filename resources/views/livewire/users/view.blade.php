@@ -36,12 +36,13 @@
 				<div class="table-responsive">
 					<table class="table table-bordered table-striped table-sm" style="font-size:12px; color: black">
 						<thead class="thead">
-							<tr> 
-								<td>#</td> 
-								<th>Nombre</th>
-								<th>Email</th>
-								<th>Departamento</th>
-								<td>Acciones</td>
+							<tr>
+								<td width="20px">#</td> 
+								<th width="550px">Nombre</th>
+								<th width="550px">Email</th>
+								<th width="200px">Departamento</th>
+								<td width="200px"></td>
+
 							</tr>
 						</thead>
 						<tbody>
@@ -52,18 +53,18 @@
 								<td>{{ $row->email }}</td>
 								<td>{{ $row->namedt }}</td>
 									<td>
-		                              <div class="text-center">
-		                                <div class="btn-group">
-											<a data-toggle="modal" data-target="#updateModal" class="btn btn-sm btn-primary" wire:click="edit({{$row->id}})" style="font-size:12px;">
-												<i class="fa fa-edit"></i> 
-												Editar 
-											</a>
-											<a class="btn btn-sm btn-danger" onclick="confirm('¿Esta de acuerdo en eliminar este registro con id {{$row->id}}?')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})" style="font-size:12px;">
-												<i class="fa fa-trash"></i> 
-												Eliminar 
-											</a>
-		                                </div>
-		                              </div>
+										<div class="text-center">
+		                	<div class="btn-group">
+												<a data-toggle="modal" data-target="#updateModal" class="btn btn-sm btn-primary" wire:click="edit({{$row->id}})" style="font-size:12px;">
+													<i class="fa fa-edit"></i> 
+													Editar 
+												</a>
+												<a class="btn btn-sm btn-danger" onclick="confirm('¿Esta de acuerdo en eliminar este registro con id {{$row->id}}?')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})" style="font-size:12px;">
+													<i class="fa fa-trash"></i> 
+													Eliminar 
+												</a>
+		                   </div>
+		                </div>
 									</td>
 							@endforeach
 						</tbody>

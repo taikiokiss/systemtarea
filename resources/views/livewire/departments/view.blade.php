@@ -36,10 +36,10 @@
 					<table class="table table-bordered table-striped table-sm" style="font-size:12px; color: black">
 						<thead class="thead">
 							<tr> 
-								<td>#</td> 
-								<th>Nombre</th>
-								<th>Estado</th>
-								<td>Acciones</td>
+								<td width="20px">#</td> 
+								<th width="550px">Nombre</th>
+								<th width="200px">Estado</th>
+								<td width="200px"></td>
 							</tr>
 						</thead>
 						<tbody>

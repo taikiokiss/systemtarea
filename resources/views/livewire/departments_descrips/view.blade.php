@@ -36,14 +36,14 @@
 					<div class="table-responsive">
 						<table class="table table-bordered table-striped table-sm" style="font-size:12px; color: black">
 							<thead class="thead">
-								<tr> 
-									<td>#</td> 
-									<th>Departamento</th>
-									<th>Descripcion de tarea</th>
-									<th>Usuario Asignado</th>
-									<th>Tiempo Demora</th>
-									<th>Estado</th>
-									<td></td>
+								<tr>
+									<td width="20px">#</td> 
+									<th width="120px">Departamento</th>
+									<th width="200px">Descripcion de tarea</th>
+									<th width="200px">Usuario Asignado</th>
+									<th width="20px">Tiempo</th>
+									<th width="20px">Estado</th>
+									<td width="100px"></td>
 								</tr>
 							</thead>
 							<tbody>
