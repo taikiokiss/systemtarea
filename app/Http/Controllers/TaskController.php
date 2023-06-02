@@ -145,10 +145,11 @@ class TaskController extends Controller
 
     public function edit($id, Request $request)
     {
-        $tasks = Task::find($id);
-        
-        if (auth()->check() && (auth()->user()->id === $tasks->asign_a || auth()->user()->id === $tasks->usuario_solicitante ) ) {
-                $departmentt = Department::all();
+        $tasks1 = Task::find($id);
+        $tasks = Task::find($tasks1->deparment_descrip_id);
+
+
+        if (auth()->check() && (auth()->user()->id === $tasks->usuario_asignado || auth()->user()->id === $tasks->usuario_solicitante ) ) {
 
                 $opcion_rrp = DB::table('option')
                     ->join('sub_option', 'sub_option.cabe_opcion', '=', 'option.id_subopcion')
@@ -156,15 +157,13 @@ class TaskController extends Controller
                     ->select('sub_option.*')
                     ->get();
 
-                $userss = DB::table('users')
-                    ->join('persons', 'persons.id', '=', 'users.persona_id')
-                    ->join('departments', 'departments.id', '=', 'users.deparment_id')
-                    ->where('users.estado','=','ACTIVO')
-                    ->select('persons.*','departments.*')
-                    ->get();
+                $department2 = Department::all();
+
+                $depart_list = Departments_descrip::all();
+
                 $datos = [
-                    'departma' => $departmentt,
-                    'opciones' => $userss,
+                    'departma' => $department2,
+                    'opciones' => $depart_list,
                 ];
 
                 $tasks_users_rl = DB::table('tasks_users_rl')
@@ -183,16 +182,17 @@ class TaskController extends Controller
                     ->get();
 
                 $tasks1 = DB::table('tasks')
-                    ->join('users as usuarioAsig','usuarioAsig.id','tasks.asign_a')
-                    ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
                     ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
                     ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
-                    ->join('departments', 'departments.id', '=', 'tasks.department_id')
+                    ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
+                    ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
+                    ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
+                    ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
+
                     ->where('tasks.id','=',$id)
-                    ->select('tasks.*','perAsig.id as IdAsig','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments.id as depaid')
+                    ->select('tasks.*','perAsig.id as IdAsig','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments.id as depaid','departments_descrip.subtarea_descrip as nombretarea','departments_descrip.tiempo_demora as tiempotarea','departments_descrip.id as idttarea')
                     ->orderBy('tasks.created_at', 'desc')
                     ->get(); 
-
 
                 return view('tasks.edit', compact('tasks1','tasks','datos','opcion_rrp','ciclo','tasks_users_rl'));
 

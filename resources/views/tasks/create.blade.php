@@ -45,8 +45,6 @@
                                     <option value="" selected disabled>Seleccione la tarea que requiere</option>
                                 </select>
                             </div>
-
-
                         </div>
 
                         <div class="form-group row">
