@@ -7,6 +7,7 @@ use Livewire\WithPagination;
 use App\Models\Departments_descrip;
 use App\Models\Group;
 use App\Models\User;
+use App\Models\Person;
 use App\Models\Department;
 use DB;
 
@@ -88,43 +89,40 @@ class Departments_descrips extends Component
         
         $this->resetInput();
 		$this->emit('closeModal');
-		session()->flash('message', 'Departments_descrip Successfully created.');
+		session()->flash('message', 'Registro creado con exito.');
     }
 
     public function edit($id)
     {
-        $record = Departments_descrip::findOrFail($id);
+        $record  = Departments_descrip::findOrFail($id);
+        $record2 = Person::findOrFail($record->usuario_asignado);
+        $record3 = Department::findOrFail($record->departments_id);
 
         $this->selected_id = $id; 
-		$this->departments_id = $record-> departments_id;
-		$this->subtarea_descrip = $record-> subtarea_descrip;
-		$this->usuario_asignado = $record-> usuario_asignado;
+        $this->departments_id = $record3-> namedt;
+        $this->subtarea_descrip = $record-> subtarea_descrip;
+        $this->usuario_asignado = $record2-> name .' '.$record2-> last_name;
 		$this->tiempo_demora = $record-> tiempo_demora;
-		
         $this->updateMode = true;
     }
 
     public function update()
     {
         $this->validate([
-    		'departments_id' => 'required',
     		'subtarea_descrip' => 'required',
-    		'usuario_asignado' => 'required',
     		'tiempo_demora' => 'required',
         ]);
 
         if ($this->selected_id) {
 			$record = Departments_descrip::find($this->selected_id);
             $record->update([ 
-    			'departments_id' => $this-> departments_id,
     			'subtarea_descrip' => $this-> subtarea_descrip,
-    			'usuario_asignado' => $this-> usuario_asignado,
     			'tiempo_demora' => $this-> tiempo_demora
             ]);
 
             $this->resetInput();
             $this->updateMode = false;
-			session()->flash('message', 'Departments_descrip Successfully updated.');
+			session()->flash('message', 'Registro actualizado con exito.');
         }
     }
 
