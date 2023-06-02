@@ -23,20 +23,27 @@ class HomeController extends Controller
  
     public function index(Request $request)
     {
-        $estados = Task::whereIn('estado', ['REALIZADA',  'APROBADA'],'AND')
-            ->where('asign_a','=',Auth::user()->id)
-            ->get()
-            ->groupBy('estado');
+        $estados = Task::join('departments_descrip', 'departments_descrip.id', '=', 'tasks.deparment_descrip_id')
+            ->whereIn('tasks.estado', ['REALIZADA', 'APROBADA'])
+            ->where('departments_descrip.usuario_asignado', '=', Auth::user()->id)
+            ->select('tasks.estado')
+            ->groupBy('tasks.estado')
+            ->get();
 
-        $estados_vencidos = Task::where('asign_a','=',Auth::user()->id)
-            ->where('vencida','=','SI')
+        $estados_vencidos = Task::join('departments_descrip', 'departments_descrip.id', '=', 'tasks.deparment_descrip_id')
+            ->where('departments_descrip.usuario_asignado', '=', Auth::user()->id)
+            ->where('tasks.vencida','=','SI')
+            ->select('tasks.estado')
             ->get()
-            ->groupBy('estado');
+            ->groupBy('tasks.estado');
 
-        $EN_PROCESO = Task::where('asign_a','=',Auth::user()->id)
-            ->where('estado','!=','REALIZADA')
+        $EN_PROCESO = Task::join('departments_descrip', 'departments_descrip.id', '=', 'tasks.deparment_descrip_id')
+            ->where('departments_descrip.usuario_asignado', '=', Auth::user()->id)
+            ->where('tasks.estado','!=','REALIZADA')
+            ->select('tasks.estado')
             ->get()
-            ->groupBy('estado');
+            ->groupBy('tasks.estado');
+
 
         $REALIZADA  = $estados->get('REALIZADA') ?? collect();
         $APROBADA   = $estados->get('APROBADA') ?? collect();
@@ -44,11 +51,11 @@ class HomeController extends Controller
         $priresta = count($REALIZADA)+count($estados_vencidos);
         $pricompr = $priresta+count($REALIZADA);
         
-        if ($pricompr != 0 ) {
-            $valor = ($priresta/count($REALIZADA))*100;
-        }else{
-            $valor = 100;
-        }
+            if ($pricompr != 0 ) {
+                $valor = ($priresta/count($REALIZADA))*100;
+            }else{
+                $valor = 100;
+            }
 
         $valor_dos_deci = sprintf("%01.2f", $valor);
 

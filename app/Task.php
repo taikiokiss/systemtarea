@@ -18,7 +18,8 @@ class Task extends Model
         'estado',
         'accion',
         'entrega_real',
-        'vencida'
+        'vencida',
+        'calificacion'
     ];
 
     protected $primaryKey = 'id';
