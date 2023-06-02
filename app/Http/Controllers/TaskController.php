@@ -188,7 +188,6 @@ class TaskController extends Controller
                     ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
                     ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
                     ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
-
                     ->where('tasks.id','=',$id)
                     ->select('tasks.*','perAsig.id as IdAsig','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments.id as depaid','departments_descrip.subtarea_descrip as nombretarea','departments_descrip.tiempo_demora as tiempotarea','departments_descrip.id as idttarea')
                     ->orderBy('tasks.created_at', 'desc')
