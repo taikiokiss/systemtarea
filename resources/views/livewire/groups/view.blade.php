@@ -36,10 +36,6 @@
 									<td>
 		                              <div class="text-center">
 		                                <div class="btn-group">
-											<a data-toggle="modal" data-target="#updateModal" class="btn btn-sm btn-primary" wire:click="edit({{$row->id}})" style="font-size:12px;">
-												<i class="fa fa-edit"></i> 
-												Editar 
-											</a>
 											<a class="btn btn-sm btn-danger" onclick="confirm('¿Esta de acuerdo en eliminar este registro con id {{$row->id}}?')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})" style="font-size:12px;">
 												<i class="fa fa-trash"></i> 
 												Eliminar 

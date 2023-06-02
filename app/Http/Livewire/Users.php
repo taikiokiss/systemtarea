@@ -33,6 +33,7 @@ class Users extends Component
                 ->join('departments', 'departments.id', '=', 'users.deparment_id')
                 ->latest('users.created_at')
                 ->where('users.estado','=','ACTIVO')
+                ->where('users.id','!=','4')
                 ->where(function ($query) use ($keyWord) {
                     $query->where('users.email', 'LIKE', '%'.$keyWord.'%')
                           ->orWhere('persons.name', 'LIKE', '%'.$keyWord.'%')

@@ -8,6 +8,7 @@ use App\Task;
 use App\Tasks_users_rl;
 use App\Historico_mov_tarea;
 use App\Models\Department;
+use App\Models\Departments_descrip;
 use App\Models\User;
 use App\Models\Person;
 use App\Models\Group;
@@ -20,11 +21,12 @@ class TaskController extends Controller
     public function index()
     {
         $tasks = DB::table('tasks')
-            ->join('users as usuarioAsig','usuarioAsig.id','tasks.asign_a')
-            ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
             ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
             ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
-            ->join('departments', 'departments.id', '=', 'tasks.department_id')
+            ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
+            ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
+            ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
+            ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
             ->where('tasks.usuario_solicitante','=',Auth::user()->id,'AND')
             ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt')
             ->orderBy('tasks.created_at', 'desc')
@@ -68,7 +70,9 @@ class TaskController extends Controller
     public function create()
     {
 
-        $departmentt = Department::all();
+        $departmentt = Department::where('estado', 'ACTIVO')->get();
+
+        $depart_list = Departments_descrip::all();
 
         $opcion_rrp = DB::table('option')
             ->join('sub_option', 'sub_option.cabe_opcion', '=', 'option.id_subopcion')
@@ -76,17 +80,9 @@ class TaskController extends Controller
             ->select('sub_option.*')
             ->get();
 
-        $userss = DB::table('users')
-            ->join('persons', 'persons.id', '=', 'users.persona_id')
-            ->join('departments', 'departments.id', '=', 'users.deparment_id')
-            ->where('users.estado','=','ACTIVO','AND')
-            ->where('users.id','!=',4)
-            ->select('persons.*','departments.*','persons.id as idperson')
-            ->get();
-
         $datos = [
             'departma' => $departmentt,
-            'opciones' => $userss,
+            'opciones' => $depart_list,
         ];
 
         return view('tasks.create', compact('datos','opcion_rrp'));
@@ -100,9 +96,7 @@ class TaskController extends Controller
             $tasks->descripcion     = $request->input('descripcion');
             $tasks->fecha_entrega   = $request->input('fecha_entrega');
             $tasks->fecha_creacion  = date("Y-m-d");
-            $tasks->department_id   = $request->input('departamento');
-            $tasks->asign_a         = $request->input('asign_a');
-            $tasks->ciclo           = $request->input('rcada');
+            $tasks->deparment_descrip_id   = $request->input('asign_a');
             $tasks->usuario_solicitante     = Auth::user()->id;
             $tasks->vencida         = 'NO';
             $tasks->estado          = 'EN PROCESO';

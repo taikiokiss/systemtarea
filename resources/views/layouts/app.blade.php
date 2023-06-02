@@ -22,11 +22,12 @@
     <link rel="stylesheet" href="/css/ifile.scss">
     <link rel="stylesheet" href="/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/jquery.min.js"></script>
     
     <script src="/admin/vendor/jquery/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
      @livewireStyles
      <style type="text/css">
@@ -225,8 +226,6 @@
     <script src="/js/sweetalert.min.js"></script>
     <script src="/js/bootstrap-show-password.js"></script>
     <script type="text/javascript" src="/js/toastr.min.js"></script>
-    <!--SELECT 2-->
-    <script src="/plugins/select2/js/select2.full.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 
@@ -237,6 +236,9 @@
     <script type="text/javascript">
         window.livewire.on('closeModal', () => {
             $('#createDataModal').modal('hide');
+        });
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
         });
     </script>
 

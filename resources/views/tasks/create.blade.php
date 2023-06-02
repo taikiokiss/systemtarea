@@ -28,10 +28,9 @@
 
 
                         <div class="form-group row">
-
-                            <div class="col-md-6">
-                            <label for="departamento" class="col-form-label text-md-left">{{ __('Departamento') }}</label>
-                                <select id="departamento" class="form-control" name="departamento">
+                            <div class="col-md-12">
+                            <label for="departamento" class="col-form-label text-md-left ">{{ __('Departamento') }}</label>
+                                <select id="departamento" class="form-control js-example-basic-single" name="departamento">
                                     <option value="" selected disabled >Seleccione un departamento</option>
                                     @foreach ($datos['departma'] as $departm)
                                         <option value="{{ $departm->id }}">{{ $departm->namedt }}</option>
@@ -40,18 +39,19 @@
                             </div>
 
 
-                            <div class="col-md-6">
-                            <label for="asign_a" class="col-form-label text-md-left">{{ __('Asignar a') }}</label>
-                                <select id="asign_a" class="form-control" name="asign_a" disabled>
-                                    <option value="" selected disabled>Seleccione a quien va asignada la tarea</option>
+                            <div class="col-md-12">
+                            <label for="asign_a" class="col-form-label text-md-left">{{ __('Listado de tareas') }}</label>
+                                <select id="asign_a" class="form-control js-example-basic-single" name="asign_a" disabled>
+                                    <option value="" selected disabled>Seleccione la tarea que requiere</option>
                                 </select>
                             </div>
+
 
                         </div>
 
                         <div class="form-group row">
 
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                             <label for="asunto" class="col-form-label text-md-left">{{ __('Asunto') }}</label>
                                 <input id="asunto" type="text" class="form-control @error('asunto') is-invalid @enderror" name="asunto" onkeyup="this.value = this.value.toUpperCase();" value="{{ old('asunto') }}"  autocomplete="asunto" autofocus >
                                 @error('asunto')
@@ -60,29 +60,6 @@
                                     </span>
                                 @enderror
                             </div>
-
-
-                            <div class="col-md-2">
-                            <label for="fecha_entrega" class="col-form-label text-md-left">{{ __('Fecha de entrega') }}</label>
-                                <input id="fecha_entrega" type="date" class="form-control" max="<?php echo date('d/m/Y')?>" placeholder="DD/MM/AAAA" value="<?php echo date('d/m/Y')?>" name="fecha_entrega" value="{{ old('fecha_entrega') }}"  autocomplete="fecha_entrega" autofocus >
-                                @error('fecha_entrega')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-
-
-                            <div class="col-md-2">
-                            <label for="rcada" class="col-form-label text-md-left">{{ __('Repetir cada') }}</label>
-                                <select  class="custom-select target form-control @error('rcada') is-invalid @enderror" id="rcada" name="rcada">
-                                    @foreach($opcion_rrp as $opc_v)
-                                        <option value="{{$opc_v->id}}">{{$opc_v->opcion}}</option>
-                                    @endforeach 
-                                </select>
-
-                            </div>
-
                         </div>
 
 
@@ -162,8 +139,8 @@
                 var opciones = @json($datos['opciones']);
                 var options = '<option value="">Seleccione una opción</option>';
                 opciones.forEach(function(opcion) {
-                    if (opcion.id == departamento) { // <--- aquí se hace la comparación por id de departamento
-                        options += '<option value="' + opcion.idperson + '">' + opcion.last_name +' '+ opcion.name +  '</option>'; // <--- se utiliza id y nombre del usuario
+                    if (opcion.departments_id == departamento) { // <--- aquí se hace la comparación por id de departamento
+                        options += '<option value="' + opcion.id + '">' + opcion.subtarea_descrip +' -  DURACIÓN: '+opcion.tiempo_demora +' DIAS '+'</option>'; // <--- se utiliza id y nombre del usuario
                     }
                 });
                 $('#asign_a').html(options);
