@@ -192,7 +192,7 @@ class TaskController extends Controller
                     ->orderBy('tasks.created_at', 'desc')
                     ->get(); 
 
-                return view('tasks.edit', compact('tasks1','tasks','datos','opcion_rrp','ciclo','tasks_users_rl'));
+                return view('tasks.edit', compact('tasks1','tasks','datos','opcion_rrp','tasks_users_rl'));
 
         } else {
             abort(403); 
@@ -389,7 +389,7 @@ class TaskController extends Controller
                     ->orderBy('tasks.created_at', 'desc')
                     ->get(); 
 
-            return view('tasks.acciones.cerrar_tarea', compact('tasks1','tasks','opcion_rrp','ciclo','tasks_users_rl','historico_mov_tarea'));
+            return view('tasks.acciones.cerrar_tarea', compact('tasks1','tasks','opcion_rrp','tasks_users_rl','historico_mov_tarea'));
         } else {
             abort(403); 
         }
@@ -489,7 +489,7 @@ class TaskController extends Controller
                     ->orderBy('tasks.created_at', 'desc')
                     ->get(); 
 
-            return view('tasks.acciones.aprobarfinal_tarea', compact('tasks1','tasks','opcion_rrp','ciclo','tasks_users_rl','historico_mov_tarea'));
+            return view('tasks.acciones.aprobarfinal_tarea', compact('tasks1','tasks','opcion_rrp','tasks_users_rl','historico_mov_tarea'));
         } else {
             abort(403); 
         }
@@ -539,7 +539,7 @@ class TaskController extends Controller
                     ->orderBy('tasks.created_at', 'desc')
                     ->get(); 
 
-            return view('tasks.acciones.entregar_tarea', compact('tasks1','tasks','opcion_rrp','ciclo','tasks_users_rl','historico_mov_tarea'));
+            return view('tasks.acciones.entregar_tarea', compact('tasks1','tasks','opcion_rrp','tasks_users_rl','historico_mov_tarea'));
         } else {
             abort(403); 
         }
@@ -590,7 +590,7 @@ class TaskController extends Controller
                     ->get(); 
 
 
-            return view('tasks.acciones.rechazar_tarea', compact('tasks1','tasks','opcion_rrp','ciclo','tasks_users_rl','historico_mov_tarea'));
+            return view('tasks.acciones.rechazar_tarea', compact('tasks1','tasks','opcion_rrp','tasks_users_rl','historico_mov_tarea'));
         } else {
             abort(403); 
         }
@@ -640,7 +640,7 @@ class TaskController extends Controller
                     ->orderBy('tasks.created_at', 'desc')
                     ->get(); 
 
-            return view('tasks.acciones.consultar_tarea', compact('tasks1','tasks','opcion_rrp','ciclo','tasks_users_rl','historico_mov_tarea'));
+            return view('tasks.acciones.consultar_tarea', compact('tasks1','tasks','opcion_rrp','tasks_users_rl','historico_mov_tarea'));
         } else {
             abort(403); 
         }
