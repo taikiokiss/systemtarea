@@ -377,17 +377,17 @@ class TaskController extends Controller
                 ->orderBy('historico_mov_tarea.created_at', 'asc')
                 ->get();
 
-                $tasks1 = DB::table('tasks')
-                    ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
-                    ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
-                    ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
-                    ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
-                    ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
-                    ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
-                    ->where('tasks.id','=',$id)
-                    ->select('tasks.*','perAsig.id as IdAsig','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments.id as depaid','departments_descrip.subtarea_descrip as nombretarea','departments_descrip.tiempo_demora as tiempotarea','departments_descrip.id as idttarea')
-                    ->orderBy('tasks.created_at', 'desc')
-                    ->get(); 
+            $tasks1 = DB::table('tasks')
+                ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
+                ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
+                ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
+                ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
+                ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
+                ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
+                ->where('tasks.id','=',$id)
+                ->select('tasks.*','perAsig.id as IdAsig','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments.id as depaid','departments_descrip.subtarea_descrip as nombretarea','departments_descrip.tiempo_demora as tiempotarea','departments_descrip.id as idttarea')
+                ->orderBy('tasks.created_at', 'desc')
+                ->get(); 
 
             return view('tasks.acciones.cerrar_tarea', compact('tasks1','tasks','opcion_rrp','tasks_users_rl','historico_mov_tarea'));
         } else {
@@ -427,17 +427,17 @@ class TaskController extends Controller
                 ->orderBy('historico_mov_tarea.created_at', 'asc')
                 ->get();
 
-                $tasks1 = DB::table('tasks')
-                    ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
-                    ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
-                    ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
-                    ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
-                    ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
-                    ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
-                    ->where('tasks.id','=',$id)
-                    ->select('tasks.*','perAsig.id as IdAsig','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments.id as depaid','departments_descrip.subtarea_descrip as nombretarea','departments_descrip.tiempo_demora as tiempotarea','departments_descrip.id as idttarea')
-                    ->orderBy('tasks.created_at', 'desc')
-                    ->get(); 
+            $tasks1 = DB::table('tasks')
+                ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
+                ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
+                ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
+                ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
+                ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
+                ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
+                ->where('tasks.id','=',$id)
+                ->select('tasks.*','perAsig.id as IdAsig','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments.id as depaid','departments_descrip.subtarea_descrip as nombretarea','departments_descrip.tiempo_demora as tiempotarea','departments_descrip.id as idttarea')
+                ->orderBy('tasks.created_at', 'desc')
+                ->get(); 
 
             return view('tasks.acciones.aprobar_tarea', compact('tasks1','tasks','opcion_rrp','tasks_users_rl','historico_mov_tarea'));
         } else {
@@ -477,17 +477,17 @@ class TaskController extends Controller
                 ->orderBy('historico_mov_tarea.created_at', 'asc')
                 ->get();
 
-                $tasks1 = DB::table('tasks')
-                    ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
-                    ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
-                    ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
-                    ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
-                    ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
-                    ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
-                    ->where('tasks.id','=',$id)
-                    ->select('tasks.*','perAsig.id as IdAsig','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments.id as depaid','departments_descrip.subtarea_descrip as nombretarea','departments_descrip.tiempo_demora as tiempotarea','departments_descrip.id as idttarea')
-                    ->orderBy('tasks.created_at', 'desc')
-                    ->get(); 
+            $tasks1 = DB::table('tasks')
+                ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
+                ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
+                ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
+                ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
+                ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
+                ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
+                ->where('tasks.id','=',$id)
+                ->select('tasks.*','perAsig.id as IdAsig','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments.id as depaid','departments_descrip.subtarea_descrip as nombretarea','departments_descrip.tiempo_demora as tiempotarea','departments_descrip.id as idttarea')
+                ->orderBy('tasks.created_at', 'desc')
+                ->get(); 
 
             return view('tasks.acciones.aprobarfinal_tarea', compact('tasks1','tasks','opcion_rrp','tasks_users_rl','historico_mov_tarea'));
         } else {
@@ -527,17 +527,17 @@ class TaskController extends Controller
                 ->orderBy('historico_mov_tarea.created_at', 'asc')
                 ->get();
 
-                $tasks1 = DB::table('tasks')
-                    ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
-                    ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
-                    ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
-                    ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
-                    ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
-                    ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
-                    ->where('tasks.id','=',$id)
-                    ->select('tasks.*','perAsig.id as IdAsig','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments.id as depaid','departments_descrip.subtarea_descrip as nombretarea','departments_descrip.tiempo_demora as tiempotarea','departments_descrip.id as idttarea')
-                    ->orderBy('tasks.created_at', 'desc')
-                    ->get(); 
+            $tasks1 = DB::table('tasks')
+                ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
+                ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
+                ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
+                ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
+                ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
+                ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
+                ->where('tasks.id','=',$id)
+                ->select('tasks.*','perAsig.id as IdAsig','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.nameNombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments.id as depaid','departments_descrip.subtarea_descrip as nombretarea','departments_descrip.tiempo_demora as tiempotarea','departments_descrip.id as idttarea')
+                ->orderBy('tasks.created_at', 'desc')
+                ->get(); 
 
             return view('tasks.acciones.entregar_tarea', compact('tasks1','tasks','opcion_rrp','tasks_users_rl','historico_mov_tarea'));
         } else {
