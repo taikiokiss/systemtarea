@@ -31,16 +31,16 @@
                 <!-- inicio -->
                         <div class="form-group row">
 
-                            <div class="col-md-6">
-                            <label for="departamento" class="col-form-label text-md-left">{{ __('Departamento') }}</label>
+                            <div class="col-md-12">
+                                <label for="departamento" class="col-form-label text-md-left">{{ __('Departamento') }}</label>
                                 <select disabled="disabled" id="departamento" class="form-control" name="departamento">
                                     <option selected disabled value="{{$tasks1[0]->depaid}}">{{$tasks1[0]->namedt}}</option>
                                 </select>
                             </div>
 
 
-                            <div class="col-md-6">
-                            <label for="asign_a" class="col-form-label text-md-left">{{ __('Asignar a') }}</label>
+                            <div class="col-md-12">
+                                <label for="asign_a" class="col-form-label text-md-left">{{ __('Asignar a') }}</label>
                                 <select disabled="disabled" id="asign_a" class="form-control" name="asign_a" disabled>
                                     <option selected disabled value="{{$tasks1[0]->IdAsig}}">{{$tasks1[0]->ApellidoAsig}} {{$tasks1[0]->NombreAsig}}</option>
                                 </select>
@@ -49,26 +49,10 @@
 
                         <div class="form-group row">
 
-                            <div class="col-md-8">
+                            <div class="col-md-12">
                             <label for="asunto" class="col-form-label text-md-left">{{ __('Asunto') }}</label>
                                 <input disabled="disabled" id="asunto" type="text" class="form-control @error('asunto') is-invalid @enderror" name="asunto" onkeyup="this.value = this.value.toUpperCase();" value="{{ $tasks1[0]->asunto }}"  autocomplete="asunto" autofocus >
                             </div>
-
-
-                            <div class="col-md-2">
-                            <label for="fecha_entrega" class="col-form-label text-md-left">{{ __('Fecha de entrega') }}</label>
-                                <input disabled="disabled" id="fecha_entrega" type="date" class="form-control" value="<?php echo date('Y-m-d',strtotime($tasks1[0]->fecha_entrega));?>" name="fecha_entrega" >
-                            </div>
-
-
-                            <div class="col-md-2">
-                            <label for="rcada" class="col-form-label text-md-left">{{ __('Repetir cada') }}</label>
-                                <select  disabled="disabled" class="custom-select target form-control @error('rcada') is-invalid @enderror" id="rcada" name="rcada">
-                                    <option selected disabled value="{{$ciclo[0]->id}}">{{$ciclo[0]->opcion}}</option>
-                                </select>
-
-                            </div>
-
                         </div>
 
                         <div class="form-group row">
