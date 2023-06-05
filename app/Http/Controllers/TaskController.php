@@ -28,7 +28,7 @@ class TaskController extends Controller
             ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
             ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
             ->where('tasks.usuario_solicitante','=',Auth::user()->id,'AND')
-            ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt')
+            ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip')
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 
         return view('tasks.principales.index', compact('tasks'));
@@ -44,7 +44,7 @@ class TaskController extends Controller
             ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
             ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
             ->where('departments_descrip.usuario_asignado','=',Auth::user()->id)
-            ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt')
+            ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip')
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 
         return view('tasks.principales.asignadas', compact('tasks'));
@@ -62,7 +62,7 @@ class TaskController extends Controller
             ->where('departments_descrip.usuario_asignado','=',Auth::user()->id)
             ->where('tasks.estado','=','REALIZADA')
             ->where('tasks.accion','=','CONSULTAR')
-            ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt')
+            ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip')
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 
         return view('tasks.principales.resueltas', compact('tasks'));

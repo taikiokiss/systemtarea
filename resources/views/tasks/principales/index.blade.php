@@ -46,7 +46,7 @@
                         <tr>
 
                             <td>{{ $prodc->id }}</td>
-                            <td>{{ $prodc->asunto }}</td>
+                            <td>{{ $prodc->subtarea_descrip }}</td>
                             <td> <?php echo date('d/m/Y', strtotime($prodc->created_at)); ?></td>
                             <td> <?php echo date('d/m/Y', strtotime($prodc->fecha_entrega)); ?></td>
                             <td>[{{ $prodc->namedt }}] - {{ $prodc->ApellidoAsig }} {{ $prodc->NombreAsig }}</td>
