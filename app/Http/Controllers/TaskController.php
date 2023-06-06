@@ -92,12 +92,19 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
+
+            //sumo 1 día
+
+            $ff = $request->get('select_val_sel');
+            $fecha_actual = date("Y-m-d");
+            //sumo 1 día
+            $dff = date("Y-m-d",strtotime($fecha_actual."+ ".$ff." days")); 
             $tasks = array();
             $tasks = new Task;
             $tasks->asunto          = $request->input('asunto');
             $tasks->descripcion     = $request->input('descripcion');
-            $tasks->fecha_entrega   = $request->input('fecha_entrega');
-            $tasks->fecha_creacion  = date("Y-m-d");
+            $tasks->fecha_entrega   = $dff;
+            $tasks->fecha_creacion  = $fecha_actual;
             $tasks->deparment_descrip_id   = $request->input('asign_a');
             $tasks->usuario_solicitante     = Auth::user()->id;
             $tasks->vencida         = 'NO';
@@ -535,7 +542,7 @@ class TaskController extends Controller
                 ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
                 ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
                 ->where('tasks.id','=',$id)
-                ->select('tasks.*','perAsig.id as IdAsig','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.nameNombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments.id as depaid','departments_descrip.subtarea_descrip as nombretarea','departments_descrip.tiempo_demora as tiempotarea','departments_descrip.id as idttarea')
+                ->select('tasks.*','perAsig.id as IdAsig','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments.id as depaid','departments_descrip.subtarea_descrip as nombretarea','departments_descrip.tiempo_demora as tiempotarea','departments_descrip.id as idttarea')
                 ->orderBy('tasks.created_at', 'desc')
                 ->get(); 
 

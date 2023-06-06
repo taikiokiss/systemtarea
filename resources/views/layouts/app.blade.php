@@ -34,6 +34,12 @@
          body{
             color: black;
          }
+.rating-header {
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+         
      </style>
 </head>
 

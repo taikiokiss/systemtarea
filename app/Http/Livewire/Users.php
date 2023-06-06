@@ -39,6 +39,7 @@ class Users extends Component
                           ->orWhere('persons.name', 'LIKE', '%'.$keyWord.'%')
                           ->orWhere('persons.last_name', 'LIKE', '%'.$keyWord.'%');
                 })
+                ->select('users.*','persons.*','departments.*','users.id as userid')
                 ->paginate(10),
             'departments' => $departmentt,
             'groups' => $grup,

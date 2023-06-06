@@ -26,6 +26,7 @@
                     <form method="POST" action="{{ route('tasks.principales.index') }}">
                     @csrf
 
+                        <input type="hidden" id="select_val_sel" name="select_val_sel" value="">
 
                         <div class="form-group row">
                             <div class="col-md-12">
@@ -89,8 +90,6 @@
                                             <span id="files-names"></span>
                                         </span>
                                     </p>
-
-
                                 </div>
                             </div>
                         </div>
@@ -138,7 +137,7 @@
                 var options = '<option value="">Seleccione una opción</option>';
                 opciones.forEach(function(opcion) {
                     if (opcion.departments_id == departamento) { // <--- aquí se hace la comparación por id de departamento
-                        options += '<option value="' + opcion.id + '">' + opcion.subtarea_descrip +' -  DURACIÓN: '+opcion.tiempo_demora +' DIAS '+'</option>'; // <--- se utiliza id y nombre del usuario
+                        options += '<option data-tiempo="' + opcion.tiempo_demora + '"  value="' + opcion.id + '">' + opcion.subtarea_descrip +' -  DURACIÓN: '+opcion.tiempo_demora +' DIAS '+'</option>'; // <--- se utiliza id y nombre del usuario
                     }
                 });
                 $('#asign_a').html(options);
@@ -189,6 +188,12 @@ $("#attachment").on('change', function(e){
 
 </script>
 
+
+<script type="text/javascript">
+    $('#asign_a').change(function(){        
+      $("#select_val_sel").val($(this).find(':selected').attr('data-tiempo'));
+    });
+</script>
 @endsection
 
 

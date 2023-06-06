@@ -81,11 +81,14 @@
                                     case 'APROBADA':
                                         if ($prodc->accion == 'ENTREGAR') {
                                             $buttonText = $prodc->accion;
-                                            $route = route('tasks.acciones.entregar_tarea_view', $prodc->id);
+                                        } elseif ($prodc->accion == 'CONSULTAR') {
+                                            $buttonText = $prodc->accion;
+                                            $route = route('tasks.acciones.consultar_tarea_view', $prodc->id);
                                         }
                                         break;
                                     case 'REALIZADA':
                                     case 'ANULADA':
+                                    
                                         if ($prodc->accion == 'CONSULTAR') {
                                             $buttonText = $prodc->accion;
                                             $route = route('tasks.acciones.consultar_tarea_view', $prodc->id);
