@@ -269,7 +269,7 @@ class TaskController extends Controller
     {
 
         $tasks = Task::find($id);
-        $campos = ['asunto','descripcion','observacion','departamento','asign_a','selected_rating'];
+        $campos = ['asunto','descripcion','observacion','departamento','asign_a','calificacion'];
         $actualizacion = [];
 
         foreach ($campos as $campo) {
@@ -288,37 +288,37 @@ class TaskController extends Controller
                 $estado = 'REALIZADA';
                 $accion = 'CONSULTAR';
                 $entrega_real = date("Y-m-d H:i:s");
-                $selected_rating = $request->get('selected_rating');
+                $calificacion = $request->get('calificacion');
             }elseif ($variable == 'ENTREGAR') {
                 $estado = 'ENTREGADA';
                 $accion = 'APROBAR';
                 $entrega_real = NULL;
-                $selected_rating = NULL;
+                $calificacion = NULL;
 
             }elseif ($variable == 'APROBAR') {
                 $estado = 'APROBADA';
                 $accion = 'ENTREGAR';
                 $entrega_real = NULL;
-                $selected_rating = NULL;
+                $calificacion = NULL;
 
             }elseif ($variable == 'RECHAZAR') {
                 $estado = 'RECHAZADA';
                 $accion = 'ENTREGAR';
                 $entrega_real = NULL;
-                $selected_rating = NULL;
+                $calificacion = NULL;
 
             }elseif ($variable == 'APROBAR_1') {
                 $estado = 'APROBADA';
                 $accion = 'CONSULTAR';
                 $entrega_real = NULL;
-                $selected_rating = NULL;
+                $calificacion = NULL;
 
             }
             if (!empty($estado) && !empty($accion)) {
                 $actualizacion['estado'] = $estado;
                 $actualizacion['accion'] = $accion;
                 $actualizacion['entrega_real'] = $entrega_real;
-                $actualizacion['calificacion'] = $selected_rating;
+                $actualizacion['calificacion'] = $calificacion;
 
                 Task::where('id', $tasks->id)->update($actualizacion);
     

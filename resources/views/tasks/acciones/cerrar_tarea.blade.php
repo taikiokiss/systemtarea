@@ -164,7 +164,7 @@
                 <p class="text-center"><strong>¿CÓMO VALORA EL SERVICIO DE ATENCIÓN?</strong></p>
                     <div class="form-group" id="rating-ability-wrapper">
                         <label class="control-label" for="rating">
-                        <input type="hidden" id="selected_rating" name="selected_rating" value="" required="required">
+                        <input type="hidden" id="calificacion" name="calificacion" value="" required="required">
                         </label>
                         <h2 class="bold rating-header" style="font-size: 20px">
                         <span class="selected-rating">0</span><small> / 5</small>
@@ -247,10 +247,10 @@
         
     $(".btnrating").on('click',(function(e) {
     
-    var previous_value = $("#selected_rating").val();
+    var previous_value = $("#calificacion").val();
     
     var selected_value = $(this).attr("data-attr");
-    $("#selected_rating").val(selected_value);
+    $("#calificacion").val(selected_value);
     
     $(".selected-rating").empty();
     $(".selected-rating").html(selected_value);
