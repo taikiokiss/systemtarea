@@ -27,23 +27,20 @@ class HomeController extends Controller
             ->whereIn('tasks.estado', ['REALIZADA', 'APROBADA'])
             ->where('departments_descrip.usuario_asignado', '=', Auth::user()->id)
             ->select('tasks.estado')
-            ->groupBy('tasks.estado')
             ->get();
 
         $estados_vencidos = Task::join('departments_descrip', 'departments_descrip.id', '=', 'tasks.deparment_descrip_id')
             ->where('departments_descrip.usuario_asignado', '=', Auth::user()->id)
             ->where('tasks.vencida','=','SI')
             ->select('tasks.estado')
-            ->get()
-            ->groupBy('tasks.estado');
+            ->get();
 
         $EN_PROCESO = Task::join('departments_descrip', 'departments_descrip.id', '=', 'tasks.deparment_descrip_id')
             ->where('departments_descrip.usuario_asignado', '=', Auth::user()->id)
             ->where('tasks.estado','!=','REALIZADA')
+            ->where('tasks.estado','!=','ANULADA')
             ->select('tasks.estado')
-            ->get()
-            ->groupBy('tasks.estado');
-
+            ->get();
 
         $REALIZADA  = $estados->get('REALIZADA') ?? collect();
         $APROBADA   = $estados->get('APROBADA') ?? collect();

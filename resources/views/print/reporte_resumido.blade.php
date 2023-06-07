@@ -18,7 +18,7 @@
                             <th width="120%" style="text-align: center;">Asunto</th>
                             <th width="40%" style="text-align: center">Fecha Entrega</th>
                             <th width="40%" style="text-align: center">Entrega Real</th>
-                            <th width="30%" style="text-align: center">Estado</th>
+                            <th width="50%" style="text-align: center">Estado</th>
                             <th width="15%" style="text-align: center">Vencida</th>
                         </tr>
                     </thead>
@@ -43,7 +43,6 @@
                             @endforeach
                         @endforeach
                     </tbody>
-
             </table>
         </div>
           <script type="text/php">

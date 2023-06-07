@@ -13,6 +13,7 @@ use App\User;
 use App\Models\Person;
 use Session;
 use Auth;
+use App\Models\Departments_descrip;
 
 class ReporteController extends Controller
 {
@@ -28,17 +29,17 @@ class ReporteController extends Controller
         Session::put('FechaInicio', $FechaInicio);
         Session::put('FechaFin', $FechaFin);
 
-        $tasks = Task::join('users as usuarioAsig','usuarioAsig.id','tasks.asign_a')
-            ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
-            ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
+        $tasks = Task::Join('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
             ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
-            ->join('departments', 'departments.id', '=', 'tasks.department_id')
+            ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
+            ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
+            ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
+            ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
             ->where(function ($query) {
-                $query->orWhere('tasks.usuario_solicitante', '=', Auth::user()->id)
-                    ->orWhere('tasks.asign_a', '=', Auth::user()->id);
+                $query->orWhere('departments_descrip.usuario_asignado', '=', Auth::user()->id);
             })
-            ->Fechas($FechaInicio,$FechaFin)
-            ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt')
+            ->Fechas($FechaInicio,$FechaFin)            
+            ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip','departments_descrip.usuario_asignado as id_user_asign')
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 
 
@@ -87,7 +88,7 @@ class ReporteController extends Controller
 
         $tasks = Session::get('report_resumido');
 
-        $registrosAgrupados = $tasks->groupBy('asign_a')->map(function ($items, $key) {
+        $registrosAgrupados = $tasks->groupBy('id_user_asign')->map(function ($items, $key) {
             $nombreApellido = Person::find($key); 
             
             return [
@@ -96,6 +97,8 @@ class ReporteController extends Controller
                 'registros' => $items
             ];
         });
+
+
         
         $fi = Session::get('FechaInicio');
         

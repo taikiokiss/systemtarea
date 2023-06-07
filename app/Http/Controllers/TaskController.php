@@ -31,6 +31,7 @@ class TaskController extends Controller
             ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip')
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 
+
         return view('tasks.principales.index', compact('tasks'));
     }
 
@@ -268,7 +269,7 @@ class TaskController extends Controller
     {
 
         $tasks = Task::find($id);
-        $campos = ['asunto', 'descripcion','observacion','fecha_entrega', 'departamento', 'asign_a', 'rcada'];
+        $campos = ['asunto','descripcion','observacion','departamento','asign_a','selected_rating'];
         $actualizacion = [];
 
         foreach ($campos as $campo) {
@@ -276,7 +277,7 @@ class TaskController extends Controller
                 $actualizacion[$campo] = $request->$campo;
             }
         }
-
+        
         if (!empty($actualizacion)) {
 
             $files = $request->file('file');
@@ -287,28 +288,40 @@ class TaskController extends Controller
                 $estado = 'REALIZADA';
                 $accion = 'CONSULTAR';
                 $entrega_real = date("Y-m-d H:i:s");
+                $selected_rating = $request->get('selected_rating');
             }elseif ($variable == 'ENTREGAR') {
                 $estado = 'ENTREGADA';
                 $accion = 'APROBAR';
                 $entrega_real = NULL;
+                $selected_rating = NULL;
+
             }elseif ($variable == 'APROBAR') {
                 $estado = 'APROBADA';
                 $accion = 'ENTREGAR';
                 $entrega_real = NULL;
+                $selected_rating = NULL;
+
             }elseif ($variable == 'RECHAZAR') {
                 $estado = 'RECHAZADA';
                 $accion = 'ENTREGAR';
                 $entrega_real = NULL;
+                $selected_rating = NULL;
+
             }elseif ($variable == 'APROBAR_1') {
                 $estado = 'APROBADA';
                 $accion = 'CONSULTAR';
                 $entrega_real = NULL;
+                $selected_rating = NULL;
+
             }
             if (!empty($estado) && !empty($accion)) {
                 $actualizacion['estado'] = $estado;
                 $actualizacion['accion'] = $accion;
                 $actualizacion['entrega_real'] = $entrega_real;
+                $actualizacion['calificacion'] = $selected_rating;
 
+                Task::where('id', $tasks->id)->update($actualizacion);
+    
                 Historico_mov_tarea::create([
                     'id_tarea' => $tasks->id,
                     'observacion' => $request->get('observacion'),
@@ -318,7 +331,6 @@ class TaskController extends Controller
                 ]);
             }
 
-            Task::where('id', $id)->update($actualizacion);
             
             if (!empty($files)) {
                 for ($i = 0; $i < count($files); $i++) {
@@ -353,10 +365,10 @@ class TaskController extends Controller
 
     public function cerrar_tarea_view($id, Request $request)
     {
-        $tasks1 = Task::find($id);
-        $tasks = Departments_descrip::find($tasks1->deparment_descrip_id);
+        $tasks = Task::find($id);
+        $tasks1 = Departments_descrip::find($tasks->deparment_descrip_id);
 
-        if (auth()->check() && (auth()->user()->id === $tasks->usuario_asignado || auth()->user()->id === $tasks1->usuario_solicitante ) ) {
+        if (auth()->check() && (auth()->user()->id === $tasks1->usuario_asignado || auth()->user()->id === $tasks->usuario_solicitante ) ) {
 
             $opcion_rrp = DB::table('option')
                 ->join('sub_option', 'sub_option.cabe_opcion', '=', 'option.id_subopcion')
@@ -404,10 +416,10 @@ class TaskController extends Controller
 
     public function aprobar_tarea_view($id, Request $request)
     {
-        $tasks1 = Task::find($id);
-        $tasks = Departments_descrip::find($tasks1->deparment_descrip_id);
+        $tasks = Task::find($id);
+        $tasks1 = Departments_descrip::find($tasks->deparment_descrip_id);
 
-        if (auth()->check() && (auth()->user()->id === $tasks->usuario_asignado || auth()->user()->id === $tasks1->usuario_solicitante ) ) {
+        if (auth()->check() && (auth()->user()->id === $tasks1->usuario_asignado || auth()->user()->id === $tasks->usuario_solicitante ) ) {
 
             $opcion_rrp = DB::table('option')
                 ->join('sub_option', 'sub_option.cabe_opcion', '=', 'option.id_subopcion')
@@ -454,10 +466,11 @@ class TaskController extends Controller
 
     public function aprobarfinal_tarea_view($id, Request $request)
     {
-        $tasks1 = Task::find($id);
-        $tasks = Departments_descrip::find($tasks1->deparment_descrip_id);
+        $tasks = Task::find($id);
+        $tasks1 = Departments_descrip::find($tasks->deparment_descrip_id);
 
-        if (auth()->check() && (auth()->user()->id === $tasks->usuario_asignado || auth()->user()->id === $tasks1->usuario_solicitante ) ) {
+        if (auth()->check() && (auth()->user()->id === $tasks1->usuario_asignado || auth()->user()->id === $tasks->usuario_solicitante ) ) {
+
             $opcion_rrp = DB::table('option')
                 ->join('sub_option', 'sub_option.cabe_opcion', '=', 'option.id_subopcion')
                 ->where('option.nombre_opcion','=','REPETIR_CADA')
@@ -504,10 +517,11 @@ class TaskController extends Controller
 
     public function entregar_tarea_view($id, Request $request)
     {
-        $tasks1 = Task::find($id);
-        $tasks = Departments_descrip::find($tasks1->deparment_descrip_id);
+        $tasks = Task::find($id);
+        $tasks1 = Departments_descrip::find($tasks->deparment_descrip_id);
 
-        if (auth()->check() && (auth()->user()->id === $tasks->usuario_asignado || auth()->user()->id === $tasks1->usuario_solicitante ) ) {
+        if (auth()->check() && (auth()->user()->id === $tasks1->usuario_asignado || auth()->user()->id === $tasks->usuario_solicitante ) ) {
+ 
             $opcion_rrp = DB::table('option')
                 ->join('sub_option', 'sub_option.cabe_opcion', '=', 'option.id_subopcion')
                 ->where('option.nombre_opcion','=','REPETIR_CADA')
@@ -554,10 +568,11 @@ class TaskController extends Controller
 
     public function rechazar_tarea_view($id, Request $request)
     {
-        $tasks1 = Task::find($id);
-        $tasks = Departments_descrip::find($tasks1->deparment_descrip_id);
+        $tasks = Task::find($id);
+        $tasks1 = Departments_descrip::find($tasks->deparment_descrip_id);
 
-        if (auth()->check() && (auth()->user()->id === $tasks->usuario_asignado || auth()->user()->id === $tasks1->usuario_solicitante ) ) {
+        if (auth()->check() && (auth()->user()->id === $tasks1->usuario_asignado || auth()->user()->id === $tasks->usuario_solicitante ) ) {
+
             $opcion_rrp = DB::table('option')
                 ->join('sub_option', 'sub_option.cabe_opcion', '=', 'option.id_subopcion')
                 ->where('option.nombre_opcion','=','REPETIR_CADA')
@@ -605,10 +620,11 @@ class TaskController extends Controller
 
     public function consultar_tarea_view($id, Request $request)
     {
-        $tasks1 = Task::find($id);
-        $tasks = Departments_descrip::find($tasks1->deparment_descrip_id);
+        $tasks = Task::find($id);
+        $tasks1 = Departments_descrip::find($tasks->deparment_descrip_id);
 
-        if (auth()->check() && (auth()->user()->id === $tasks->usuario_asignado || auth()->user()->id === $tasks1->usuario_solicitante ) ) {
+        if (auth()->check() && (auth()->user()->id === $tasks1->usuario_asignado || auth()->user()->id === $tasks->usuario_solicitante ) ) {
+
             $opcion_rrp = DB::table('option')
                 ->join('sub_option', 'sub_option.cabe_opcion', '=', 'option.id_subopcion')
                 ->where('option.nombre_opcion','=','REPETIR_CADA')

@@ -62,7 +62,7 @@
                         <div class="form-group row">
                             <div class="col-md-12">
                             <label for="observacion" class="col-form-label text-md-left">{{ __('Observación') }}</label>
-                                <textarea id="observacion" required class="form-control" name="observacion" onkeyup="this.value = this.value.toUpperCase();" rows="5"></textarea>
+                                <textarea id="observacion" disabled="disabled" class="form-control" name="observacion" onkeyup="this.value = this.value.toUpperCase();" rows="5"></textarea>
                             </div>
                         </div>
 
