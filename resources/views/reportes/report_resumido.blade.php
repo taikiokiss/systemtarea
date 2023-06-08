@@ -15,19 +15,21 @@
                         <div class="row  mt-3">
                           <!--INICIO-->    
                           <div class="col-sm">
+
+
                             <label for="created_at" class="col-form-label text-md-right text-muted" style="font-size: 14px;">Inicio</label>
                               @if(request('created_at') == false)
-                                <input style="font-size: 14px" class="form-control @error('created_at') is-invalid @enderror" id="created_at" name="created_at" max="<?php echo date('Y-m-d')?>" placeholder="AAAA-MM-DD" value="<?php echo date('Y-m-d', strtotime('-2 months'))?>" type="date" required/>
+                                <input style="font-size: 14px" class="form-control @error('created_at') is-invalid @enderror" id="created_at" name="created_at" value="<?php echo date('Y-m-d', strtotime('-2 months')) ?>" type="date" required/>
                               @else
-                                <input style="font-size: 14px" class="form-control @error('created_at') is-invalid @enderror" id="created_at" name="created_at" max="<?php echo date('Y-m-d')?>" placeholder="AAAA-MM-DD" value="{{ request('created_at')}}" type="date" required/>
+                                <input style="font-size: 14px" class="form-control @error('created_at') is-invalid @enderror" id="created_at" name="created_at" value="{{ request('created_at') }}" type="date" required/>
                               @endif
                           </div>
                           <div class="col-sm">
                             <label for="updated_at" class="col-form-label text-md-right text-muted" style="font-size: 14px;">Fin</label>
                               @if(request('updated_at') == false)
-                                <input style="font-size: 14px" class="form-control @error('updated_at') is-invalid @enderror" id="updated_at" name="updated_at" max="<?php echo date('Y-m-d')?>" placeholder="AAAA-MM-DD" value="<?php echo date('Y-m-d')?>" type="date" required/>
+                                <input style="font-size: 14px" class="form-control @error('updated_at') is-invalid @enderror" id="updated_at" name="updated_at" value="<?php echo date('Y-m-d') ?>" type="date" required/>
                               @else
-                                <input style="font-size: 14px" class="form-control @error('updated_at') is-invalid @enderror" id="updated_at" name="updated_at" max="<?php echo date('Y-m-d')?>"  placeholder="AAAA-MM-DD" value="{{ request('updated_at')}}" type="date" required/>
+                                <input style="font-size: 14px" class="form-control @error('updated_at') is-invalid @enderror" id="updated_at" name="updated_at"  value="{{ request('updated_at') }}" type="date" required/>
                               @endif
                           </div>
                           <div class="row mt-3 col-sm-12"> 
@@ -82,7 +84,6 @@
                           <tbody style="text-align: center">
                               @foreach($tasks as $prodc)
                               <tr>
-
                                   <td>{{ $prodc->id }}</td>
                                   <td>{{ $prodc->asunto }}</td>
                                   <td> <?php echo date('d/m/Y', strtotime($prodc->created_at)); ?></td>
@@ -117,28 +118,16 @@
     </div>
 </section>
 
-
-
 <script type="text/javascript">
   $(document).ready(function () {
 
     var dats = '<?=count($tasks)?>';
-    
-    var fecha1 = document.getElementById("created_at").value;
-    var fecha2 = document.getElementById("updated_at").value;
-
     if (dats == 0) {
-
       $('#buscar').addClass('disabled');
-
-    }else{
-
-
-    }
+    }else{}
 
   });
 
 </script>
-
 @endsection
 

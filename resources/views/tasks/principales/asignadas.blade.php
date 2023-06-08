@@ -81,7 +81,8 @@
                                     case 'APROBADA':
                                         if ($prodc->accion == 'ENTREGAR') {
                                             $buttonText = $prodc->accion;
-                                        } elseif ($prodc->accion == 'CONSULTAR') {
+                                            $route = route('tasks.acciones.entregar_tarea_view', $prodc->id);
+                                        }elseif ($prodc->accion == 'CONSULTAR') {
                                             $buttonText = $prodc->accion;
                                             $route = route('tasks.acciones.consultar_tarea_view', $prodc->id);
                                         }

@@ -8,11 +8,11 @@
             </tr>
             <tr>
               <td style="width:30%;text-align: left";><b>Usuario:</b></td>
-              <td colspan="3" style="width:70%"> --------</td>
+              <td colspan="3" style="width:70%"> {{ strtoupper($tasks[0]->NombreAsig) }} {{ strtoupper($tasks[0]->ApellidoAsig) }}</td>
             </tr>
             <tr>
               <td style="width:30%;text-align: left";><b># Tarea:</b></td>
-              <td colspan="3" style="width:70%"> --------</td>
+              <td colspan="3" style="width:70%">{{$id}}</td>
             </tr>
           </table>
       </div>
