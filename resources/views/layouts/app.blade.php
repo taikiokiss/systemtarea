@@ -22,24 +22,24 @@
     <link rel="stylesheet" href="/css/ifile.scss">
     <link rel="stylesheet" href="/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
     <link href="https://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />    
+    <link rel="stylesheet" type="text/css" href="/pivot/dist_pivot.css">
+
+
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/jquery.min.js"></script>
-    
     <script src="/admin/vendor/jquery/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script type="text/javascript" src="/pivot/jqueryui_1.11.4_jquery-ui.min.js"></script>
 
      @livewireStyles
      <style type="text/css">
          body{
             color: black;
          }
-.rating-header {
-    margin-top: -10px;
-    margin-bottom: 10px;
-}
-
-         
+        .rating-header {
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
      </style>
 </head>
 
@@ -238,6 +238,15 @@
     <!--Datatable -->
     <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+
+
+
+        <script src="/pivot/plotly-basic-latest.min.js"></script>
+        <script type="text/javascript" src="/pivot/dist_pivot.js"></script>
+        <script type="text/javascript" src="/pivot/dist_plotly_renderers.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
 
     <script type="text/javascript">
         window.livewire.on('closeModal', () => {
