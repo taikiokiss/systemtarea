@@ -12,6 +12,12 @@ Route::middleware(['auth'])->group(function () {
 		->name('reportes.report_resumido')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
+	Route::get('tareas/reporte/grafica', 'ReporteController@report_grafica')
+		->name('reportes.report_grafica')
+		->middleware('role:ADMINISTRADOR|USUARIO');
+
+	Route::get('/mps-data', 'ReporteController@getMpsData');
+
 
 //RUTAS DE IMPRESION
 

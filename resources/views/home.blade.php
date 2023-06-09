@@ -120,18 +120,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-12 col-md-6 mb-4">
 
-                            <!-- Project Card Example -->
-                            <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">GRAFICA</h6>
-                                </div>
-                                <div class="card-body table-responsive">
-                                        <div id="output"  style="margin: 30px;"></div>
-                                </div>
-                            </div>
-                        </div>
 
                     </div>			
 			</div>
@@ -139,25 +128,4 @@
 	</div>
 </div>
 </div>
-
-
-<script type="text/javascript">
-    // This example adds Plotly chart renderers.
-
-    $(function(){
-
-        var derivers = $.pivotUtilities.derivers;
-        var renderers = $.extend($.pivotUtilities.renderers,
-            $.pivotUtilities.plotly_renderers);
-
-        $.getJSON("mps.json", function(mps) {
-            $("#output").pivotUI(mps, {
-                renderers: renderers,
-                cols: ["Party"], rows: ["Province"],
-                rendererName: "Bar Chart",
-                rowOrder: "value_a_to_z", colOrder: "value_z_to_a",
-            });
-        });
-     });
-</script>
 @endsection

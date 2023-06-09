@@ -120,6 +120,7 @@
                         data-parent="#accordionSidebar">
                         <div class="bg-white py-2 collapse-inner rounded">
                             <a class="collapse-item" href="{{route('reportes.report_resumido')}}">Resumido</a> 
+                            <a class="collapse-item" href="{{route('reportes.report_grafica')}}">Grafica</a> 
                         </div>
                     </div>
                 </li>

@@ -61,6 +61,24 @@ class ReporteController extends Controller
 
     }
 
+    public function report_grafica(Request $request){
+
+        $tasks = Task::Join('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
+            ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
+            ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
+            ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
+            ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
+            ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
+            ->where(function ($query) {
+                $query->orWhere('departments_descrip.usuario_asignado', '=', Auth::user()->id);
+            })
+            ->orderBy('tasks.created_at', 'desc')
+            ->get(); 
+
+        return view('reportes.report_grafica', compact('tasks'));
+
+    }
+
     public function imprimir_reporte_detallado($id){
 
         $historico_mov_tarea = DB::table('historico_mov_tarea')
@@ -127,5 +145,27 @@ class ReporteController extends Controller
 
         return $pdf->stream($text_pdf.'.pdf');
     }
+
+
+    public function getMpsData()
+    {
+
+        $tasks = Task::Join('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
+            ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
+            ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
+            ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
+            ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
+            ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
+            ->where(function ($query) {
+                $query->orWhere('departments_descrip.usuario_asignado', '=', Auth::user()->id);
+            })
+            ->select('tasks.estado as Estado','departments.namedt as Departamento','departments_descrip.subtarea_descrip as Descripcion')
+            ->orderBy('tasks.created_at', 'desc')
+            ->get();
+
+
+        return response()->json($tasks);
+    }
+
 
 }
