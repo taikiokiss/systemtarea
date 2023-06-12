@@ -24,6 +24,9 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+Route::middleware(['auth'])->group(function () {
+
 //Route Hooks - Do not delete//
 	Route::view('groups', 'livewire.groups.index')->middleware('role:ADMINISTRADOR');
 	Route::view('departments', 'livewire.departments.index')->middleware('role:ADMINISTRADOR');
@@ -32,7 +35,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 	Route::view('users', 'livewire.users.index')->middleware('role:ADMINISTRADOR');
 	Route::view('departments_descrip', 'livewire.departments_descrips.index')->middleware('role:ADMINISTRADOR');
 	
-	Route::get('send-email', [SendEmailController::class, 'sendEmail']);
+
+
+});
+
 
 
 require __DIR__ . '/task/task.php';

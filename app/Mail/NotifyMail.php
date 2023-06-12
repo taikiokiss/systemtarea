@@ -7,9 +7,12 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
+
 class NotifyMail extends Mailable
 {
     use Queueable, SerializesModels;
+
+    public $tasks;
 
     /**
      * Create a new message instance.
@@ -18,7 +21,7 @@ class NotifyMail extends Mailable
      */
     public function __construct()
     {
-        //
+        
     }
 
     /**
@@ -28,6 +31,7 @@ class NotifyMail extends Mailable
      */
     public function build()
     {
+
         return $this->view('mail.envioCorreo');
     }
 }

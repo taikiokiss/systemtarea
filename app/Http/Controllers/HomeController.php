@@ -42,21 +42,31 @@ class HomeController extends Controller
             ->select('tasks.estado')
             ->get();
 
-        $REALIZADA  = $estados->get('REALIZADA') ?? collect();
-        $APROBADA   = $estados->get('APROBADA') ?? collect();
+        $REALIZADA = $estados->get('REALIZADA') ?? collect();
+        $APROBADA = $estados->get('APROBADA') ?? collect();
 
-        $priresta = count($REALIZADA)+count($estados_vencidos);
-        $pricompr = $priresta+count($REALIZADA);
-        
-            if ($pricompr != 0 ) {
-                $valor = ($priresta/count($REALIZADA))*100;
-            }else{
-                $valor = 100;
-            }
+        $priresta = count($REALIZADA) + count($estados_vencidos);
+        $pricompr = $priresta + count($REALIZADA);
+
+        $valor = 100;
+        if (count($REALIZADA) > 0 && $pricompr != 0) {
+            $valor = ($priresta / count($REALIZADA)) * 100;
+        }
 
         $valor_dos_deci = sprintf("%01.2f", $valor);
+        if (count($REALIZADA) > 0) {
+            $valor_dos_deci = sprintf("%01.2f", $valor);
+        } elseif(count($REALIZADA) == 0 && count($APROBADA) == 0 && count($EN_PROCESO) == 0 && count($estados_vencidos) == 0) {
+            $valor_dos_deci = sprintf("%01.2f", 100);
+        }else{
+            $valor_dos_deci = sprintf("%01.2f", 0);
+        }
 
-        return view('home',compact('REALIZADA','APROBADA','EN_PROCESO','estados_vencidos','valor_dos_deci'));
+        return view('home', compact('REALIZADA', 'APROBADA', 'EN_PROCESO', 'estados_vencidos', 'valor_dos_deci'));
+
+
+
+
     }
 
 

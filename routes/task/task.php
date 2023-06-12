@@ -69,6 +69,9 @@ Route::middleware(['auth'])->group(function () {
 		->name('tasks.destroy')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
-		
+	Route::get('send-email', [SendEmailController::class, 'sendEmail']);
+	
+	Route::get('logs', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index']);
+
 });
 ?>
