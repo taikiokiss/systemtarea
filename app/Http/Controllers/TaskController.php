@@ -142,6 +142,9 @@ class TaskController extends Controller
                 'estado_id_tarea'   => 'ASIGNADA'                
             ]);
             
+            //Mail::to('elmaic_14@hotmail.com')
+            //    ->cc('tabatablet65@gmail.com')
+            //    ->send(new TareaVencida($registros)); 
 
         $notificationa=array(
             'message' => 'Tarea creada con éxito',
