@@ -72,7 +72,6 @@
    <body style="background-color: #f8f8f9; margin: 0; padding: 0; -webkit-text-size-adjust: none; text-size-adjust: none;">
       <table border="0" cellpadding="0" cellspacing="0" class="nl-container" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #f8f8f9;" width="100%">
 
-         {{$tasks}}
       <tbody>
          <tr>
             <td>
@@ -133,7 +132,7 @@
                                              <td class="pad" style="padding-bottom:10px;padding-left:40px;padding-right:40px;padding-top:10px;">
                                                 <div style="font-family: sans-serif">
                                                    <div class="" style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
-                                                      <p style="margin: 0; font-size: 16px; text-align: center; mso-line-height-alt: 19.2px;"><span style="font-size:30px;color:#2b303a;"><strong>You have a new message</strong></span></p>
+                                                      <p style="margin: 0; font-size: 16px; text-align: center; mso-line-height-alt: 19.2px;"><span style="font-size:30px;color:#2b303a;"><strong>NUEVA TAREA </strong></span></p>
                                                    </div>
                                                 </div>
                                              </td>
@@ -199,7 +198,7 @@
                                              <td class="pad" style="padding-bottom:10px;padding-left:10px;padding-right:10px;padding-top:15px;">
                                                 <div style="font-family: sans-serif">
                                                    <div class="" style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
-                                                      <p style="margin: 0; font-size: 16px; text-align: center; mso-line-height-alt: 19.2px;"><span style="color:#2b303a;font-size:18px;"><strong>EJEMPLO</strong></span></p>
+                                                      <p style="margin: 0; font-size: 16px; text-align: center; mso-line-height-alt: 19.2px;"><span style="color:#2b303a;font-size:18px;"><strong>Estimado compañero, la siguiente tarea que le fue asignada llego a su fecha limite de entrega, por favor gestionela lo mas pronto:</strong></span></p>
                                                    </div>
                                                 </div>
                                              </td>
@@ -210,15 +209,40 @@
                                              <td class="pad" style="padding-bottom:40px;padding-left:30px;padding-right:30px;padding-top:20px;">
                                                 <div style="font-family: sans-serif">
                                                    <div class="" style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 18px; color: #555555; line-height: 1.5;">
-                                                      <p style="margin: 0; font-size: 14px; text-align: left; mso-line-height-alt: 22.5px;"><span style="color:#2b303a;font-size:15px;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmodati mat tempor incididunt ut labore et dolore magna aliqua.</span></p>
-                                                      <p style="margin: 0; font-size: 14px; text-align: left; mso-line-height-alt: 18px;"> </p>
-                                                      <p style="margin: 0; font-size: 14px; text-align: left; mso-line-height-alt: 22.5px;"><span style="color:#2b303a;font-size:15px;">Nam velit elit, tincidunt nec tellus a, scelerisque tempus eros. Vivamus varius nisi ut pharetra auctor. Nulla sit amet ultricies elit. Ut ipsum sapien, tristique eu erat nec, tristique pretium ex.</span></p>
+
+                                                      <p style="margin: 0; font-size: 14px; text-align: left; mso-line-height-alt: 22.5px;">
+                                                         <span style="color:#2b303a;font-size:15px;">
+                                                           <strong>Asunto:</strong> {{$registros[0]->asunto}}
+                                                         </span>
+                                                      </p>
+                                                      <p style="margin: 0; font-size: 14px; text-align: left; mso-line-height-alt: 22.5px;">
+                                                         <span style="color:#2b303a;font-size:15px;">
+                                                           <strong>Descripción:</strong> {{$registros[0]->descripcion}}
+                                                         </span>
+                                                      </p>
+                                                      <p style="margin: 0; font-size: 14px; text-align: left; mso-line-height-alt: 22.5px;">
+                                                         <span style="color:#2b303a;font-size:15px;">
+                                                           <strong>Tarea:</strong> {{$registros[0]->subtarea_descrip}}
+                                                         </span>
+                                                      </p>
+                                                      <p style="margin: 0; font-size: 14px; text-align: left; mso-line-height-alt: 22.5px;">
+                                                         <span style="color:#2b303a;font-size:15px;">
+                                                           <strong>Departamento a cargo:</strong> {{$registros[0]->namedt}}
+                                                         </span>
+                                                      </p>
+                                                      <p style="margin: 0; font-size: 14px; text-align: left; mso-line-height-alt: 22.5px;">
+                                                         <span style="color:#2b303a;font-size:15px;">
+                                                           <strong>Tiempo de entrega:</strong> {{$registros[0]->fecha_entrega}}
+                                                         </span>
+                                                      </p>
+
                                                    </div>
                                                 </div>
                                              </td>
                                           </tr>
                                        </table>
-                                       <br><br><br><br>
+                                       <br><br>
+                                       <br><br>
                                     </td>
                                  </tr>
                               </tbody>

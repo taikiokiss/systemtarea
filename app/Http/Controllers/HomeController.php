@@ -54,10 +54,12 @@ class HomeController extends Controller
         }
 
         $valor_dos_deci = sprintf("%01.2f", $valor);
+
         if (count($REALIZADA) > 0) {
             $valor_dos_deci = sprintf("%01.2f", $valor);
         } elseif(count($REALIZADA) == 0 && count($APROBADA) == 0 && count($EN_PROCESO) == 0 && count($estados_vencidos) == 0) {
             $valor_dos_deci = sprintf("%01.2f", 100);
+            
         }else{
             $valor_dos_deci = sprintf("%01.2f", 0);
         }
