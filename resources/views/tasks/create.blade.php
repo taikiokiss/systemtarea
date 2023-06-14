@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="loader"></div>
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -97,16 +98,16 @@
 
                         <div class="form-group row was-validated mt-3">
                             <div class="col-md-12 col-md-offset-4 text-md-left">
-                                <button type="submit" class="btn btn-primary btn-block" value="Crear">
+                                <button type="submit" class="btn btn-primary btn-block"  onclick="executeAjaxRequest();" value="Crear">
                                     Crear
                                 </button>
+                                <div id="boxLoading"></div>
                             </div>
                         </div>
 
                 </form>
 
                 {{ Form::close() }}
-
 
               </div>
             </div>
@@ -151,40 +152,34 @@
 </script>
 
 <script type="text/javascript">
-const dt = new DataTransfer(); // Permet de manipuler les fichiers de l'input file
+    const dt = new DataTransfer(); 
 
-$("#attachment").on('change', function(e){
-    for(var i = 0; i < this.files.length; i++){
-        let fileBloc = $('<span/>', {class: 'file-block'}),
-             fileName = $('<span/>', {class: 'name', text: this.files.item(i).name});
-        fileBloc.append('<span class="file-delete"><span>+</span></span>')
-            .append(fileName);
-        $("#filesList > #files-names").append(fileBloc);
-    };
-    // Ajout des fichiers dans l'objet DataTransfer
-    for (let file of this.files) {
-        dt.items.add(file);
-    }
-    // Mise à jour des fichiers de l'input file après ajout
-    this.files = dt.files;
-
-    // EventListener pour le bouton de suppression créé
-    $('span.file-delete').click(function(){
-        let name = $(this).next('span.name').text();
-        // Supprimer l'affichage du nom de fichier
-        $(this).parent().remove();
-        for(let i = 0; i < dt.items.length; i++){
-            // Correspondance du fichier et du nom
-            if(name === dt.items[i].getAsFile().name){
-                // Suppression du fichier dans l'objet DataTransfer
-                dt.items.remove(i);
-                continue;
-            }
+    $("#attachment").on('change', function(e){
+        for(var i = 0; i < this.files.length; i++){
+            let fileBloc = $('<span/>', {class: 'file-block'}),
+                 fileName = $('<span/>', {class: 'name', text: this.files.item(i).name});
+            fileBloc.append('<span class="file-delete"><span>+</span></span>')
+                .append(fileName);
+            $("#filesList > #files-names").append(fileBloc);
+        };
+        for (let file of this.files) {
+            dt.items.add(file);
         }
-        // Mise à jour des fichiers de l'input file après suppression
-        document.getElementById('attachment').files = dt.files;
-    });
-});    
+
+        this.files = dt.files;
+
+        $('span.file-delete').click(function(){
+            let name = $(this).next('span.name').text();
+            $(this).parent().remove();
+            for(let i = 0; i < dt.items.length; i++){
+                if(name === dt.items[i].getAsFile().name){
+                    dt.items.remove(i);
+                    continue;
+                }
+            }
+            document.getElementById('attachment').files = dt.files;
+        });
+    });    
 
 </script>
 
@@ -194,6 +189,15 @@ $("#attachment").on('change', function(e){
       $("#select_val_sel").val($(this).find(':selected').attr('data-tiempo'));
     });
 </script>
+
+<script type="text/javascript">
+    function executeAjaxRequest() {
+      $("#boxLoading").addClass("loading")
+      setTimeout(() => $("#boxLoading").removeClass("loading"), 4000);
+    }    
+
+</script>
+
 @endsection
 
 
