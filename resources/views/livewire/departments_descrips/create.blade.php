@@ -14,7 +14,7 @@
                         <div class="col-md-12">
                         <label class="col-form-label text-md-left">{{ __('Departamento') }}</label>
                             <select  wire:model.defer="departments_id" id="departments_id" class="form-control" name="departments_id">
-                                
+                                <option hidden value="">Selecciona el departamento</option>
                                 @foreach ($datos['departma'] as $departm)
                                     <option value="{{ $departm->id }}">{{ $departm->namedt }}</option>
                                 @endforeach

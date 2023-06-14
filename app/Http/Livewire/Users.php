@@ -23,7 +23,7 @@ class Users extends Component
     public function render()
     {
 		$keyWord = '%'.$this->keyWord .'%';
-        $departmentt = Department::all();
+        $departmentt = Department::where('estado','ACTIVO')->get();
         $grup = Group::all();
 
         return view('livewire.users.view', [
