@@ -45,7 +45,7 @@ class AprobarTarea extends Command
 
         foreach ($registros as $registro) {
             $fechaEntrega = $registro->fecha_creacion;
-            $fechaHoy = date("Y-m-d h:i:s");
+            $fechaHoy = date("Y-m-d");
 
             $intervalo = date_diff(date_create($fechaHoy), date_create($fechaEntrega));
             $diasTranscurridos = $intervalo->format("%a");
@@ -64,7 +64,7 @@ class AprobarTarea extends Command
                         'id_tarea'          => $registro->id,
                         'observacion'       => 'APROBADO AUTOMATICO',
                         'usuario'           => 4,
-                        'fecha_act'         => $fechaHoy,
+                        'fecha_act'         => date("Y-m-d h:i:s"),
                         'estado_id_tarea'   => 'APROBADA'                
                     ]);
                 } else {}

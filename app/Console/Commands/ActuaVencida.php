@@ -42,6 +42,7 @@ class ActuaVencida extends Command
      */
     public function handle()
     {
+        
         $registros1 = DB::table('tasks')
             ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
             ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
@@ -53,23 +54,9 @@ class ActuaVencida extends Command
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 
 
-
         foreach ($registros1 as $registro) {
             $fechaEntrega = $registro->fecha_entrega;
             $fechaHoy = date("Y-m-d");
-
-
-            $registros = DB::table('tasks')
-                ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
-                ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
-                ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
-                ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
-                ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
-                ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
-                ->where('tasks.id','=',$registro->id)
-                ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip','usuarioAsig.email as emailAsig','usuarioSolici.email as emailSolici')
-                ->orderBy('tasks.created_at', 'desc')
-                ->get(); 
 
             if($registro->vencida != 'SI' && (($registro->estado != 'ANULADA' || $registro->estado != 'REALIZADA') && $registro->accion != 'CONSULTAR' )){
                 if ($fechaHoy > $fechaEntrega) {
@@ -79,10 +66,6 @@ class ActuaVencida extends Command
                         ->update([
                             'vencida' => 'SI'
                         ]);
-
-                    Mail::to('elmaic_14@hotmail.com') //asignadodepart-  emailAsig
-                        ->send(new TareaVencida($registros));
-                        //->cc('tabatablet65@gmail.com') //solicitarea-    emailSolici
                 } else {
                     
                 }

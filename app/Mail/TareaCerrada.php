@@ -8,7 +8,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use DB;
 
-class TareaVencida extends Mailable
+class TareaCerrada extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -43,6 +43,6 @@ class TareaVencida extends Mailable
                 ->orderBy('tasks.created_at', 'desc')
                 ->get(); 
 
-        return $this->view('mail.TareaVencida')->with([ "registros" => $registros ]);
+        return $this->view('mail.TareaCerrada')->with([ "registros" => $registros ]);
     }
 }

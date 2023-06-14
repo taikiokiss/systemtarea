@@ -198,7 +198,7 @@
                                              <td class="pad" style="padding-bottom:10px;padding-left:10px;padding-right:10px;padding-top:15px;">
                                                 <div style="font-family: sans-serif">
                                                    <div class="" style="font-size: 12px; font-family: Montserrat, Trebuchet MS, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Tahoma, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
-                                                      <p style="margin: 0; font-size: 16px; text-align: center; mso-line-height-alt: 19.2px;"><span style="color:#2b303a;font-size:18px;"><strong>Estimado compañero, la siguiente tarea que le fue asignada llego a su fecha limite de entrega, por favor gestionela lo mas pronto:</strong></span></p>
+                                                      <p style="margin: 0; font-size: 16px; text-align: center; mso-line-height-alt: 19.2px;"><span style="color:#2b303a;font-size:18px;"><strong>Estimado compañero, se ha creado una nueva tarea en la cual ha sido asignado:</strong></span></p>
                                                    </div>
                                                 </div>
                                              </td>

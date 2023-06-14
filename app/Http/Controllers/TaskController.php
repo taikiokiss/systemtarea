@@ -15,6 +15,7 @@ use App\Models\Group;
 use Auth;
 use DB;
 use App\Mail\NuevaTarea;
+use Mail;
 
 class TaskController extends Controller
 {
