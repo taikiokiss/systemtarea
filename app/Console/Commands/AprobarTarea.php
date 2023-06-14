@@ -56,7 +56,7 @@ class AprobarTarea extends Command
                     Task::select(DB::table('tasks'))
                         ->where('id', $registro->id)
                         ->update([
-                            'estado' => 'APROBADA'
+                            'estado' => 'APROBADA',
                             'accion' => 'ENTREGAR'
                         ]);
 

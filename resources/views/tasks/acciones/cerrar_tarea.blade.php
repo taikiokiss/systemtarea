@@ -1,8 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -193,11 +191,13 @@
 
     <div class="form-group row was-validated mt-3">
         <div class="col-md-12 col-md-offset-4 text-md-left">
-            <button type="submit" class="btn btn-primary btn-block" value="Crear">
+            <button type="submit" class="btn btn-primary btn-block" onclick="executeAjaxRequest();" value="Cerrar">
                 Cerrar
             </button>
+            <div id="boxLoading"></div>
         </div>
     </div>
+
 
 </div>                        
 {!! Form::close() !!}
@@ -272,5 +272,10 @@
 
 
 </script>
-
+<script type="text/javascript">
+    function executeAjaxRequest() {
+      $("#boxLoading").addClass("loading")
+      setTimeout(() => $("#boxLoading").removeClass("loading"), 4000);
+    }    
+</script>
 @endsection

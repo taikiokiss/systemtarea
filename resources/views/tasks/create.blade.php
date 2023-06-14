@@ -195,7 +195,6 @@
       $("#boxLoading").addClass("loading")
       setTimeout(() => $("#boxLoading").removeClass("loading"), 4000);
     }    
-
 </script>
 
 @endsection
