@@ -45,7 +45,7 @@ class AprobarTarea extends Command
 
         foreach ($registros as $registro) {
             $fechaEntrega = $registro->fecha_creacion;
-            $fechaHoy = date("Y-m-d");
+            $fechaHoy = date("Y-m-d h:i:s");
 
             $intervalo = date_diff(date_create($fechaHoy), date_create($fechaEntrega));
             $diasTranscurridos = $intervalo->format("%a");
@@ -57,6 +57,7 @@ class AprobarTarea extends Command
                         ->where('id', $registro->id)
                         ->update([
                             'estado' => 'APROBADA'
+                            'accion' => 'ENTREGAR'
                         ]);
 
                     Historico_mov_tarea::create([
