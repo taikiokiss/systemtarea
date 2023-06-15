@@ -97,8 +97,6 @@ class TaskController extends Controller
     public function store(Request $request)
     {
 
-            //sumo 1 día
-
             $ff = $request->get('select_val_sel');
             $fecha_actual = date("Y-m-d");
             //sumo 1 día
@@ -145,21 +143,9 @@ class TaskController extends Controller
                 'estado_id_tarea'   => 'ASIGNADA'                
             ]);
             
-            $registros = DB::table('tasks')
-                ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
-                ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
-                ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
-                ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
-                ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
-                ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
-                ->where('tasks.id','=',$tasks->id)
-                ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip','usuarioAsig.email as emailAsig','usuarioSolici.email as emailSolici')
-                ->orderBy('tasks.created_at', 'desc')
-                ->get(); 
-
             Mail::to('elmaic_14@hotmail.com')
                 ->cc('tabatablet65@gmail.com')
-                ->send(new NuevaTarea($registros)); 
+                ->send(new NuevaTarea($tasks->id)); 
 
         $notificationa=array(
             'message' => 'Tarea creada con éxito',
@@ -307,21 +293,9 @@ class TaskController extends Controller
                 $accion = 'CONSULTAR';
                 $entrega_real = date("Y-m-d H:i:s");
                 $calificacion = $request->get('calificacion');
-
-                $registros = DB::table('tasks')
-                    ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
-                    ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
-                    ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
-                    ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
-                    ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
-                    ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
-                    ->where('tasks.id','=',$tasks->id)
-                    ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip','usuarioAsig.email as emailAsig','usuarioSolici.email as emailSolici')
-                    ->orderBy('tasks.created_at', 'desc')
-                    ->get(); 
-
+                
                     Mail::to('elmaic_14@hotmail.com') //asignadodepart-  emailAsig
-                        ->send(new TareaCerrada($registros));
+                        ->send(new TareaCerrada($tasks->id));
 
             }elseif ($variable == 'ENTREGAR') {
                 $estado = 'ENTREGADA';

@@ -38,8 +38,8 @@ class TareaCerrada extends Mailable
                 ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
                 ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
                 ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
-                ->where('tasks.id','=',$this->registros[0]->id)
-                ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip')
+                ->where('tasks.id','=',$this->registros)
+                ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip','usuarioAsig.email as emailAsig','usuarioSolici.email as emailSolici')
                 ->orderBy('tasks.created_at', 'desc')
                 ->get(); 
 

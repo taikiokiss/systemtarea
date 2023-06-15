@@ -173,7 +173,7 @@
                           <li class="nav-item dropdown">
                               <a style="font-size: 14px;" id="navigation" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="color: black;">
                                     @if(Auth::user()->person)
-                                        {{ strtoupper(Auth::user()->person->last_name) }} {{ strtoupper(Auth::user()->person->name) }}
+                                       <b> {{ strtoupper(Auth::user()->person->last_name) }} {{ strtoupper(Auth::user()->person->name) }} ({{Auth::user()->person->cedula}}) </b>
                                     @endif
                               </a>
                             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
