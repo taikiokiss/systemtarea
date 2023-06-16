@@ -9,15 +9,17 @@ use App\Models\User;
 use App\Models\Person;
 use App\Models\Group;
 use App\Models\Department;
-use DB;
+use Illuminate\Http\Request;
 
+use DB;
+use Spatie\Permission\Models\Role;
 
 class Users extends Component
 {
     use WithPagination;
 
 	protected $paginationTheme = 'bootstrap';
-    public $selected_id, $keyWord, $email,$persona_id, $estado,$name,$last_name,$cedula,$direccion,$celular,$department,$grupo;
+    public $selected_id, $keyWord, $email,$persona_id, $estado,$name,$last_name,$cedula,$direccion,$celular,$department,$grupo,$rol_option;
     public $updateMode = false;
 
     public function render()
@@ -25,6 +27,7 @@ class Users extends Component
 		$keyWord = '%'.$this->keyWord .'%';
         $departmentt = Department::where('estado','ACTIVO')->get();
         $grup = Group::all();
+        $roles = Role::all();
 
         return view('livewire.users.view', [
 
@@ -32,17 +35,17 @@ class Users extends Component
                 ->join('persons', 'persons.id', '=', 'users.persona_id')
                 ->join('departments', 'departments.id', '=', 'users.deparment_id')
                 ->latest('users.created_at')
-                ->where('users.estado','=','ACTIVO')
                 ->where('users.id','!=','4')
                 ->where(function ($query) use ($keyWord) {
                     $query->where('users.email', 'LIKE', '%'.$keyWord.'%')
                           ->orWhere('persons.name', 'LIKE', '%'.$keyWord.'%')
                           ->orWhere('persons.last_name', 'LIKE', '%'.$keyWord.'%');
                 })
-                ->select('users.*','persons.*','departments.*','users.id as userid')
+                ->select('users.*','persons.*','departments.*','users.id as userid','users.estado as UserEstado')
                 ->paginate(10),
             'departments' => $departmentt,
             'groups' => $grup,
+            'roles' => $roles,
 
         ]);
     }
@@ -61,6 +64,8 @@ class Users extends Component
         $this->cedula = null;
         $this->department = null;
         $this->grupo = null;
+        $this->rol_option = null;
+
 
     }
 
@@ -82,7 +87,7 @@ class Users extends Component
             'cedula'    => $this-> cedula
         ]);
 
-        User::create([ 
+        $user = User::create([ 
 			'email' => $this-> email,
             'cedula'    => $this-> cedula,
             'password' => Hash::make($this-> cedula),
@@ -91,6 +96,8 @@ class Users extends Component
             'group_id' => $this-> grupo,
             'estado' => 'ACTIVO'
         ]);
+        
+        $user->assignRole($this-> rol_option);
 
 
         $this->resetInput();
@@ -113,7 +120,7 @@ class Users extends Component
         $this->updateMode = true;
     }
 
-    public function update()
+    public function update(Request $request)
     {
         $this->validate([
             'name' => 'required',
@@ -137,7 +144,6 @@ class Users extends Component
                 'cedula'    => $this-> cedula
             ]);
 
-
             $this->resetInput();
             $this->updateMode = false;
 			session()->flash('message', 'Usuario Actualizado con exito.');
@@ -154,4 +160,22 @@ class Users extends Component
             ]);
         }
     }
+
+    public function habilitar($id)
+    {
+        if ($id) {
+
+            $record = User::find($id);
+            $record->update([ 
+            'estado' => 'ACTIVO',
+            ]);
+        }
+    }
+
+    public function limitarCedula()
+    {
+        $this->cedula = substr($this->cedula, 0, 10);
+    }
+
+
 }

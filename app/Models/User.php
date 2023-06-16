@@ -17,6 +17,8 @@ class User extends Authenticatable
     
     protected $primaryKey = 'id';
 
+    protected $guard_name = "WEB";
+
     protected $table = 'users';
 
     protected $fillable = ['email','password','persona_id','deparment_id','group_id','estado','cedula'];

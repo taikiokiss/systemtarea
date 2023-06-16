@@ -229,7 +229,12 @@ class ReporteController extends Controller
                     ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
                     ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
                     ->join('groups','groups.id','=','usuarioAsig.group_id')
-                    ->select('tasks.estado as Estado','departments.namedt as Departamento','departments_descrip.subtarea_descrip as Descripcion')
+                    ->select(
+                        'tasks.estado as Estado',
+                        'departments.namedt as Departamento',
+                        'departments_descrip.subtarea_descrip as Descripcion',
+                        DB::raw("CONCAT(perAsig.name, ' ', perAsig.last_name) as Usuario")
+                    )                    
                     ->orderBy('tasks.created_at', 'desc')
                     ->get(); 
                 break;
@@ -244,7 +249,12 @@ class ReporteController extends Controller
                     ->where(function ($query) {
                         $query->orWhere('departments_descrip.usuario_asignado', '=', Auth::user()->id);
                     })
-                    ->select('tasks.estado as Estado','departments.namedt as Departamento','departments_descrip.subtarea_descrip as Descripcion')
+                    ->select(
+                        'tasks.estado as Estado',
+                        'departments.namedt as Departamento',
+                        'departments_descrip.subtarea_descrip as Descripcion',
+                        DB::raw("CONCAT(perAsig.name, ' ', perAsig.last_name) as Usuario")
+                    )
                     ->orderBy('tasks.created_at', 'desc')
                     ->get(); 
                 break;

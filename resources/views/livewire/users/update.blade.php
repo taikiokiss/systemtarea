@@ -33,6 +33,7 @@
                 <input wire:model="email" type="text" class="form-control" id="email" placeholder="Email">@error('email') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
 
+
                 </form>
             </div>
             <div class="modal-footer">

@@ -15,7 +15,9 @@ class User extends Authenticatable
     use HasRoles;
 
     public $timestamps = true;
-    
+
+    protected $guard_name = "WEB";
+
     protected $primaryKey = 'id';
 
     protected $table = 'users';

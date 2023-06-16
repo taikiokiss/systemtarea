@@ -36,7 +36,7 @@
 								<td>{{ $loop->iteration }}</td> 
 								<td>{{ $row->name }} {{ $row->last_name }}</td>
 								<td>{{ $row->email }}</td>
-								<td>{{ $row->namedt }}</td>
+								<td>{{ $row->namedt }} </td>
 									<td>
 										<div class="text-center">
 		                	<div class="btn-group">
@@ -44,10 +44,17 @@
 													<i class="fa fa-edit"></i> 
 													Editar 
 												</a>
-												<a class="btn btn-sm btn-danger" onclick="confirm('¿Esta de acuerdo en eliminar este registro con id {{$row->userid}}?')||event.stopImmediatePropagation()" wire:click="destroy({{$row->userid}})" style="font-size:12px;">
-													<i class="fa fa-trash"></i> 
-													Eliminar 
-												</a>
+												@if($row->UserEstado == 'INACTIVO')
+													<a class="btn btn-sm btn-success" onclick="confirm('¿Esta de acuerdo en habilitar este registro con id {{$row->userid}}?')||event.stopImmediatePropagation()" wire:click="habilitar({{$row->userid}})" style="font-size:12px;">
+														<i class="fa fa-toggle-on"></i> 
+														Habilitar 
+													</a>
+												@else
+													<a class="btn btn-sm btn-danger" onclick="confirm('¿Esta de acuerdo en eliminar este registro con id {{$row->userid}}?')||event.stopImmediatePropagation()" wire:click="destroy({{$row->userid}})" style="font-size:12px;">
+														<i class="fa fa-toggle-off"></i> 
+														Deshabilitar 
+													</a>
+												@endif
 		                   </div>
 		                </div>
 									</td>

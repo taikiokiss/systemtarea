@@ -22,7 +22,7 @@
 
             <div class="form-group">
                 <label for="cedula"></label>
-                <input wire:model="cedula" type="number" maxlength="10" class="form-control" id="cedula" placeholder="Cedula">@error('cedula') <span class="error text-danger">{{ $message }}</span> @enderror
+                <input wire:model="cedula" type="number" maxlength="10" wire:keydown="limitarCedula" class="form-control" id="cedula" placeholder="Cedula">@error('cedula') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>  
 
             <div class="form-group">
@@ -51,6 +51,19 @@
                 </select>
                 @error('grupo') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
+
+            <div class="form-group">
+                <label for="select-option">Escoge el rol:</label>
+                @foreach($roles as $optiona)
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" wire:model="rol_option" name="rol_option" id="rol_option{{$loop->iteration}}" value="{{$optiona->name}}">
+                        <label class="form-check-label" for="rol_option{{$loop->iteration}}">
+                            {{$optiona->name}}
+                        </label>
+                    </div>
+                @endforeach
+            </div>
+
 
                 </form>
             </div>
