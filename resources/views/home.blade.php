@@ -32,6 +32,7 @@
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
+                                        <a href="{{route('tasks.principales.pendientes')}}" class="stretched-link"></a>
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                                 Tareas (Pendientes por aprobar)</div>

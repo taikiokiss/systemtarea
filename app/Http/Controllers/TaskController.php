@@ -98,7 +98,8 @@ class TaskController extends Controller
             ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
             ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
             ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
-            ->where('departments_descrip.usuario_asignado','=',Auth::user()->id)
+            ->where('departments_descrip.usuario_asignado','=',Auth::user()->id,'AND')
+            ->where('tasks.estado','=','APROBADA')
             ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip')
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 

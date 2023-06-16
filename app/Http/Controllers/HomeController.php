@@ -42,8 +42,13 @@ class HomeController extends Controller
             ->select('tasks.estado')
             ->get();
 
-        $REALIZADA = $estados->get('REALIZADA') ?? collect();
-        $APROBADA = $estados->get('APROBADA') ?? collect();
+        $REALIZADA = $estados->filter(function ($estado) {
+            return $estado->estado === 'REALIZADA';
+        });        
+
+        $APROBADA = $estados->filter(function ($estado) {
+            return $estado->estado === 'APROBADA';
+        });
 
         $priresta = count($REALIZADA) + count($estados_vencidos);
         $pricompr = $priresta + count($REALIZADA);

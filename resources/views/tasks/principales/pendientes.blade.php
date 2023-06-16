@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h4 style="display:inline;">Gestión de Tareas | PENDIENTE</h4>
+            <h4 style="display:inline;">Gestión de Tareas | Pendientes</h4>
             <div class="btn-group float-right">
               <a  href="{{ route('tasks.create') }}"
                   class="btn btn-sm btn-primary">
