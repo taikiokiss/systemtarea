@@ -41,6 +41,13 @@ class Task extends Model
         }
       }
 
+    public function scopeUsuario($query, $Usuario){
+        if($Usuario ){
+          return $query
+           ->where('departments_descrip.usuario_asignado','=', $Usuario);
+        }
+      }
+
 }
 
 

@@ -9,6 +9,8 @@
               <h4>Reporte de Tareas</h4>
               <div class="tab-content">
                 <div class="container-fluid">
+                <div class="container-fluid">
+
 
                   <div class="card-body">
                     @if (count($tasks))
@@ -45,8 +47,8 @@
         $.getJSON("/mps-data", function(mps) {
             $("#output").pivotUI(mps, {
                 renderers: renderers,
-                cols: ["Descripcion"],
-                rows: ["Departamento","Estado"],
+                cols: ["Departamento"],
+                rows: ["Descripcion"],
                 rendererName: "Bar Chart",
                 rowOrder: "value_a_to_z",
                 colOrder: "value_z_to_a"

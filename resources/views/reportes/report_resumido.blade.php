@@ -32,6 +32,38 @@
                                 <input style="font-size: 14px" class="form-control @error('updated_at') is-invalid @enderror" id="updated_at" name="updated_at"  value="{{ request('updated_at') }}" type="date" required/>
                               @endif
                           </div>
+
+                          <div class="col-sm">
+                            <label for="usuario" class="col-form-label text-md-right text-muted" style="font-size: 14px;">Usuario</label>
+                                <select  class="form-control" id="usuario" name="usuario" 
+                                    style="font-size: 14px;">
+                                    <option value="" hidden>Todos</option>
+                                        @foreach($user_act as $usuario)
+                                          @if(request('usuario')==$usuario->userid)
+                                            <option selected value="{{$usuario->userid}}">{{$usuario->name}} {{$usuario->last_name}}</option>
+                                          @else
+                                            <option value="{{$usuario->userid}}">{{$usuario->name}} {{$usuario->last_name}}</option>
+                                          @endif
+                                        @endforeach 
+                                </select>
+                          </div>
+
+                          <div class="col-sm">
+                            <label for="grupo" class="col-form-label text-md-right text-muted" style="font-size: 14px;">Grupo</label>
+                                <select  class="form-control" id="grupo" name="grupo" 
+                                    style="font-size: 14px;">
+                                    <option value="" hidden>Todos</option>
+                                        @foreach($grupos as $grupo)
+                                          @if(request('grupo')==$grupo->id)
+                                            <option selected value="{{$grupo->id}}">{{$grupo->name}}</option>
+                                          @else
+                                            <option value="{{$grupo->id}}">{{$grupo->name}}</option>
+                                          @endif
+                                        @endforeach 
+                                </select>
+                          </div>
+
+
                           <div class="row mt-3 col-sm-12"> 
                             <div class="col-sm" >
                               <div class="text-left">

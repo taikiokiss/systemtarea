@@ -102,9 +102,6 @@
                 </li>
             @endrole
 
-
-
-
             @role('ADMINISTRADOR|USUARIO')
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFooda6"
