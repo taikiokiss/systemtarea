@@ -14,7 +14,6 @@ use App\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth; 
 
-
 class LoginController extends Controller
 {
     /*
@@ -31,6 +30,7 @@ class LoginController extends Controller
     use AuthenticatesUsers;
     use Notifiable;
     use HasRoles;
+
     /**
      * Where to redirect users after login.
      *
@@ -46,6 +46,15 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function username()
+    {
+        $login = request()->input('login');
+
+        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'cedula';
+        request()->merge([$fieldType    => $login]);
+        return $fieldType;
     }
 
     protected function credentials(Request $request)
@@ -75,5 +84,8 @@ class LoginController extends Controller
             ->withInput($request->only($this->username(), 'remember'))
             ->withErrors($errors);
     }
-    
+
+
+
+
 }

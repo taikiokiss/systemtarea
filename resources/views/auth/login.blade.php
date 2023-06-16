@@ -17,12 +17,14 @@
               @csrf
               <div class="form-group">
                 <label for="email">Correo Electrónico o Cédula</label>
-                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                  @error('email')
+                  
+                  <input id="login" type="text" class="form-control {{$errors->has('email') || $errors->has('cedula') ? 'is-invalid ': ''}}" name="login" value="{{ old('email') ?: old('cedula') }}" required autofocus placeholder="correo@ejemplo.com">
+
+                  @if ($errors->has('email') || $errors->has('cedula'))
                       <span class="invalid-feedback" role="alert">
-                          <strong>{{ $message }}</strong>
+                          <strong>{{ $errors->first('email') ?: $errors->first('cedula') }}</strong>
                       </span>
-                  @enderror
+                  @endif
               </div>
               <div class="form-group">
                 <label for="password">Contraseña</label>
@@ -36,8 +38,10 @@
 
               <div class="form-group">
                 <div class="row">
-                  <div class="col-12">
-                    <input name="login" id="login" class="btn btn-block back-btn" type="submit" value="Entrar">
+                  <div class="col-12">                    
+                    <button type="submit" class="btn btn-block back-btn">
+                        {{ __('Ingresar') }}
+                    </button>
                   </div>
                 </div>
               </div>
