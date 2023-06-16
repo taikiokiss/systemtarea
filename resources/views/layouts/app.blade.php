@@ -118,6 +118,8 @@
                             <a class="collapse-item" href="{{route('tasks.principales.index')}}">Adm. Tareas</a> 
                             <a class="collapse-item" href="{{route('tasks.principales.asignadas')}}">Tareas Asignadas</a>
                             <a class="collapse-item" href="{{route('tasks.principales.resueltas')}}">Tareas Realizadas</a>  
+                            <a class="collapse-item" href="{{route('tasks.principales.vencidas')}}">Tareas Vencidas</a>
+                            <a class="collapse-item" href="{{route('tasks.principales.pendientes')}}">Tareas Pendientes</a>  
                         </div>
                     </div>
                 </li>

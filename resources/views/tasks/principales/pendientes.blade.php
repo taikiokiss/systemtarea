@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h4 style="display:inline;">Gestión de Tareas | Pendientes</h4>
+            <h4 style="display:inline;">Gestión de Tareas | PENDIENTE</h4>
             <div class="btn-group float-right">
               <a  href="{{ route('tasks.create') }}"
                   class="btn btn-sm btn-primary">
@@ -52,13 +52,58 @@
                             <td>{{ $prodc->ApellidoSoli }} {{ $prodc->NombreSoli }}</td>   
                             <td>{{ $prodc->estado }}</td>   
                             <td>
-                                @if($prodc->estado == 'REALIZADA' && $prodc->accion == 'CONSULTAR')
-                                    <a  href="{{ route('tasks.acciones.consultar_tarea_view', $prodc->id) }}"
-                                        style="font-size:12px"
-                                        class="btn-sm btn btn-outline-primary">
-                                        {{ $prodc->accion }}
+                                @php
+                                $buttonText = '';
+                                $route = '';
+
+                                switch ($prodc->estado) {
+                                    case 'EN PROCESO':
+                                        if ($prodc->accion == 'APROBAR') {
+                                            $buttonText = $prodc->accion;
+                                            $route = route('tasks.acciones.aprobar_tarea_view', $prodc->id);
+                                        }
+                                        break;
+                                    case 'ENTREGADA':
+                                        if ($prodc->accion == 'APROBAR') {
+                                            $buttonText = 'CONSULTAR';
+                                            $route = route('tasks.acciones.consultar_tarea_view', $prodc->id);
+                                        } elseif ($prodc->accion == 'ENTREGAR') {
+                                            $buttonText = $prodc->accion;
+                                            $route = route('tasks.acciones.entregar_tarea_view', $prodc->id);
+                                        }
+                                        break;
+                                    case 'RECHAZADA':
+                                        if ($prodc->accion == 'ENTREGAR') {
+                                            $buttonText = $prodc->accion;
+                                            $route = route('tasks.acciones.entregar_tarea_view', $prodc->id);
+                                        }
+                                        break;
+                                    case 'APROBADA':
+                                        if ($prodc->accion == 'ENTREGAR') {
+                                            $buttonText = $prodc->accion;
+                                            $route = route('tasks.acciones.entregar_tarea_view', $prodc->id);
+                                        }elseif ($prodc->accion == 'CONSULTAR') {
+                                            $buttonText = $prodc->accion;
+                                            $route = route('tasks.acciones.consultar_tarea_view', $prodc->id);
+                                        }
+                                        break;
+                                    case 'REALIZADA':
+                                    case 'ANULADA':
+                                    
+                                        if ($prodc->accion == 'CONSULTAR') {
+                                            $buttonText = $prodc->accion;
+                                            $route = route('tasks.acciones.consultar_tarea_view', $prodc->id);
+                                        }
+                                        break;
+                                }
+                                @endphp
+
+                                @if ($buttonText)
+                                    <a href="{{ $route }}" style="font-size:12px" class="btn-sm btn btn-outline-primary">
+                                        {{ $buttonText }}
                                     </a>
                                 @endif
+
                             </td> 
                         </tr>
                         @endforeach

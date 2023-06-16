@@ -17,6 +17,14 @@ Route::middleware(['auth'])->group(function () {
 		->name('tasks.principales.resueltas')
 		->middleware('role:ADMINISTRADOR|USUARIO');
 
+	Route::get('/tareas-vencidas', 'TaskController@vencidas')
+		->name('tasks.principales.vencidas')
+		->middleware('role:ADMINISTRADOR|USUARIO');
+
+	Route::get('/tareas-pendientes', 'TaskController@pendientes')
+		->name('tasks.principales.pendientes')
+		->middleware('role:ADMINISTRADOR|USUARIO');
+
 	Route::get('/tareas/create', 'TaskController@create')
 		->name('tasks.create')
 		->middleware('role:ADMINISTRADOR|USUARIO');

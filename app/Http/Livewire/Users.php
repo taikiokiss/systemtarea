@@ -84,6 +84,7 @@ class Users extends Component
 
         User::create([ 
 			'email' => $this-> email,
+            'cedula'    => $this-> cedula,
             'password' => Hash::make($this-> cedula),
             'persona_id' => $pers->id,
             'deparment_id' => $this-> department,
@@ -107,6 +108,7 @@ class Users extends Component
 		$this->name = $record2-> name;		
         $this->last_name = $record2-> last_name;
         $this->cedula = $record2-> cedula;
+        $this->cedula = $record-> cedula;
 
         $this->updateMode = true;
     }
@@ -124,7 +126,8 @@ class Users extends Component
 
 			$record = User::find($this->selected_id);
             $record->update([ 
-			     'email' => $this-> email
+			     'email' => $this-> email,
+                 'cedula'    => $this-> cedula
             ]);
 
             $record2 = Person::find($this->selected_id);
