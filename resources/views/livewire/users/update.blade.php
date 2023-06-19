@@ -34,6 +34,20 @@
             </div>
 
 
+            <div class="form-group">
+                <label for="select-option">Escoge el rol:</label>
+                @foreach($roles as $optiona)
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" wire:model="rol_option" name="rol_option" id="rol_option{{$loop->iteration}}" value="{{$optiona->name}}" {{ $optiona->name == $rol_option ? 'checked' : '' }}>
+                        <label class="form-check-label" for="rol_option{{$loop->iteration}}">
+                            {{$optiona->name}}
+                        </label>
+                    </div>
+                @endforeach
+            </div>
+
+
+
                 </form>
             </div>
             <div class="modal-footer">

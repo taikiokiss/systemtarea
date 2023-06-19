@@ -10,8 +10,8 @@ use App\Models\Person;
 use App\Models\Group;
 use App\Models\Department;
 use Illuminate\Http\Request;
-
 use DB;
+
 use Spatie\Permission\Models\Role;
 
 class Users extends Component
@@ -48,6 +48,7 @@ class Users extends Component
             'roles' => $roles,
 
         ]);
+
     }
 	
     public function cancel()
@@ -96,7 +97,7 @@ class Users extends Component
             'group_id' => $this-> grupo,
             'estado' => 'ACTIVO'
         ]);
-        
+
         $user->assignRole($this-> rol_option);
 
 
@@ -116,6 +117,7 @@ class Users extends Component
         $this->last_name = $record2-> last_name;
         $this->cedula = $record2-> cedula;
         $this->cedula = $record-> cedula;
+        $this->rol_option = $record->roles[0]->name;
 
         $this->updateMode = true;
     }
@@ -128,6 +130,8 @@ class Users extends Component
             'email' => 'required',
             'last_name' => 'required'
         ]);
+
+        $datarol = DB::table('roles')->where('name','=',$this-> rol_option)->select('roles.*')->get();
 
         if ($this->selected_id) {
 
@@ -144,6 +148,12 @@ class Users extends Component
                 'cedula'    => $this-> cedula
             ]);
 
+            DB::table('model_has_roles')
+                    ->where('model_id','=',$this->selected_id)
+                    ->update(
+                        ['role_id' => $datarol[0]->id]
+                    );
+
             $this->resetInput();
             $this->updateMode = false;
 			session()->flash('message', 'Usuario Actualizado con exito.');
@@ -156,7 +166,7 @@ class Users extends Component
 
             $record = User::find($id);
             $record->update([ 
-            'estado' => 'INACTIVO',
+                'estado' => 'INACTIVO',
             ]);
         }
     }
@@ -167,7 +177,7 @@ class Users extends Component
 
             $record = User::find($id);
             $record->update([ 
-            'estado' => 'ACTIVO',
+                'estado' => 'ACTIVO',
             ]);
         }
     }
