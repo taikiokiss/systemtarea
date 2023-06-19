@@ -112,7 +112,7 @@ class TaskController extends Controller
 
         $departmentt = Department::where('estado', 'ACTIVO')->get();
 
-        $depart_list = Departments_descrip::all();
+        $depart_list = Departments_descrip::where('estado', 'ACTIVO')->get();
 
         $opcion_rrp = DB::table('option')
             ->join('sub_option', 'sub_option.cabe_opcion', '=', 'option.id_subopcion')
@@ -202,9 +202,9 @@ class TaskController extends Controller
                     ->select('sub_option.*')
                     ->get();
 
-                $department2 = Department::all();
+                $department2 = Department::where('estado', 'ACTIVO')->get();
 
-                $depart_list = Departments_descrip::all();
+                $depart_list = Departments_descrip::where('estado', 'ACTIVO')->get();
 
                 $datos = [
                     'departma' => $department2,

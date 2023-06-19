@@ -40,10 +40,17 @@
 												<i class="fa fa-edit"></i> 
 												Editar 
 											</a>
-											<a class="btn btn-sm btn-danger" onclick="confirm('¿Esta de acuerdo en eliminar este registro con id {{$row->id}}?')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})" style="font-size:12px;">
-												<i class="fa fa-trash"></i> 
-												Eliminar 
-											</a>
+												@if($row->estado == 'INACTIVO')
+													<a class="btn btn-sm btn-success" onclick="confirm('¿Esta de acuerdo en habilitar este registro con id {{$row->id}}?')||event.stopImmediatePropagation()" wire:click="habilitar({{$row->id}})" style="font-size:12px;">
+														<i class="fa fa-toggle-on"></i> 
+														Habilitar 
+													</a>
+												@else
+													<a class="btn btn-sm btn-danger" onclick="confirm('¿Esta de acuerdo en eliminar este registro con id {{$row->id}}?')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})" style="font-size:12px;">
+														<i class="fa fa-toggle-off"></i> 
+														Deshabilitar 
+													</a>
+												@endif
 		                                </div>
 		                              </div>
 									</td>

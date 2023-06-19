@@ -11,7 +11,7 @@ class Group extends Model
 
     protected $table = 'groups';
 
-    protected $fillable = ['name','jefe_grupo','miembro_grupo'];
+    protected $fillable = ['name','jefe_grupo','miembro_grupo','estado'];
 	
     public function User()
     {

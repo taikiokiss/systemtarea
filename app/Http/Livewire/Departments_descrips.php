@@ -31,7 +31,7 @@ class Departments_descrips extends Component
             ->select('persons.*','departments.*','persons.id as idperson','departments.id as idpersondepar')
             ->get();
 
-        $departamento = Department::all();
+        $departamento = Department::where('estado', 'ACTIVO')->get();
 
         $datos = [
             'departma' => $departamento,
@@ -45,7 +45,6 @@ class Departments_descrips extends Component
                 ->join('users', 'users.id', '=', 'departments_descrip.usuario_asignado')
                 ->join('persons', 'persons.id', '=', 'users.persona_id')
                 ->select('departments.namedt as nombredepartamento','persons.*','departments_descrip.*')
-                ->where('departments_descrip.estado','=','ACTIVO')
                 ->where(function ($query) use ($keyWord) {
                     $query->where('departments_descrip.subtarea_descrip', 'LIKE', $keyWord);
                 })
@@ -136,4 +135,16 @@ class Departments_descrips extends Component
 
         }
     }
+
+    public function habilitar($id)
+    {
+        if ($id) {
+
+            $record = Departments_descrip::where('id', $id);
+            $record->update([ 
+                'estado' => 'ACTIVO',
+            ]);
+        }
+    }
+    
 }

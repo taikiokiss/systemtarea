@@ -19,7 +19,6 @@ class Departments extends Component
 		$keyWord = '%'.$this->keyWord .'%';
         return view('livewire.departments.view', [
                 'departments' => Department::latest()
-                        ->where('estado', '=', 'ACTIVO')
                         ->where(function ($query) use ($keyWord) {
                             $query->where('namedt', 'LIKE', '%'.$keyWord.'%');
                         })
@@ -91,4 +90,16 @@ class Departments extends Component
 
         }
     }
+
+    public function habilitar($id)
+    {
+        if ($id) {
+
+            $record = Department::where('id', $id);
+            $record->update([ 
+                'estado' => 'ACTIVO',
+            ]);
+        }
+    }
+    
 }

@@ -13,7 +13,7 @@ class Groups extends Component
     use WithPagination;
 
 	protected $paginationTheme = 'bootstrap';
-    public $selected_id, $keyWord, $name, $jefe_grupo, $miembro_grupo;
+    public $selected_id, $keyWord, $name, $jefe_grupo, $miembro_grupo, $estado;
     public $updateMode = false;
 
     public function render()
@@ -22,7 +22,6 @@ class Groups extends Component
 
         $list_user = DB::table('users')
             ->Join('persons', 'persons.id', 'users.persona_id')
-            ->where('users.estado','=','ACTIVO')
                 ->select('users.*','persons.*')
                 ->get(); 
 
@@ -30,7 +29,7 @@ class Groups extends Component
             'groups' => DB::table('groups')
                 ->join('users', 'users.id', '=', 'groups.jefe_grupo')
                 ->join('persons', 'persons.id', '=', 'users.persona_id')
-                ->select('groups.id as idg','groups.name as nombregrupo','groups.miembro_grupo as miembrogrupo','persons.*')
+                ->select('groups.id as idg','groups.name as nombregrupo','groups.miembro_grupo as miembrogrupo','persons.*','groups.estado as estado')
                 ->where(function ($query) use ($keyWord) {
                     $query->where('groups.name', 'LIKE', $keyWord)
                           ->orWhere('groups.jefe_grupo', 'LIKE', $keyWord)
@@ -52,6 +51,8 @@ class Groups extends Component
 		$this->name = null;
 		$this->jefe_grupo = null;
 		$this->miembro_grupo = null;
+        $this->estado = null;
+
     }
 
     public function store()
@@ -63,7 +64,9 @@ class Groups extends Component
         Group::create([ 
 			'name' => $this-> name,
 			'jefe_grupo' => $this-> jefe_grupo,
-			'miembro_grupo' => $this-> miembro_grupo
+			'miembro_grupo' => $this-> miembro_grupo,
+            'estado' => 'ACTIVO'
+
         ]);
         
         $this->resetInput();
@@ -79,6 +82,7 @@ class Groups extends Component
 		$this->name = $record-> name;
 		$this->jefe_grupo = $record-> jefe_grupo;
 		$this->miembro_grupo = $record-> miembro_grupo;
+
 		
         $this->updateMode = true;
     }
@@ -107,7 +111,21 @@ class Groups extends Component
     {
         if ($id) {
             $record = Group::where('id', $id);
-            $record->delete();
+            $record->update([ 
+                'estado' => 'INACTIVO',
+            ]);
         }
     }
+
+    public function habilitar($id)
+    {
+        if ($id) {
+
+            $record = Group::where('id', $id);
+            $record->update([ 
+                'estado' => 'ACTIVO',
+            ]);
+        }
+    }
+
 }
