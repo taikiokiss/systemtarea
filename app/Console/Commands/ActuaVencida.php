@@ -43,16 +43,7 @@ class ActuaVencida extends Command
     public function handle()
     {
         
-        $registros1 = DB::table('tasks')
-            ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
-            ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
-            ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
-            ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
-            ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
-            ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
-            ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip')
-            ->orderBy('tasks.created_at', 'desc')
-            ->get(); 
+        $registros1 = DB::table('tasks')->get();
 
         foreach ($registros1 as $registro) {
             $fechaEntrega = $registro->fecha_entrega;
