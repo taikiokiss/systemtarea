@@ -37,7 +37,7 @@ class ReporteController extends Controller
             ->join('departments', 'departments.id', '=', 'users.deparment_id')
             ->latest('users.created_at')
             ->where('users.estado','=','ACTIVO')
-            ->where('users.id','!=','4')
+            ->where('users.id','!=','1')
             ->select('users.*','persons.*','departments.*','users.id as userid')
             ->get();
 

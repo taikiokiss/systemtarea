@@ -49,7 +49,7 @@
             height: 100%;
             z-index: 9999;
             background: url('/assets1/images/pageLoader.gif') 50% 50% no-repeat rgb(249,249,249);
-            opacity: .8;
+            opacity: .9;
         }
 
      </style>

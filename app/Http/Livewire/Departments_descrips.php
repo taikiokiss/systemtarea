@@ -27,7 +27,7 @@ class Departments_descrips extends Component
             ->join('persons', 'persons.id', '=', 'users.persona_id')
             ->join('departments', 'departments.id', '=', 'users.deparment_id')
             ->where('users.estado','=','ACTIVO','AND')
-            ->where('users.id','!=',4)
+            ->where('users.id','!=',1)
             ->select('persons.*','departments.*','persons.id as idperson','departments.id as idpersondepar')
             ->get();
 
