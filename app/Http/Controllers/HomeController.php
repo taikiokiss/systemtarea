@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Task;
 use DB;
 use Auth;
+use Hash;
 
 class HomeController extends Controller
 {
