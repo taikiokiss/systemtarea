@@ -212,27 +212,27 @@
 
                                                       <p style="margin: 0; font-size: 14px; text-align: left; mso-line-height-alt: 22.5px;">
                                                          <span style="color:#2b303a;font-size:15px;">
-                                                           <strong>Asunto:</strong> {{$registros[0]->asunto}}
+                                                           <strong>Asunto:</strong> {{$registr[0]->asunto}}
                                                          </span>
                                                       </p>
                                                       <p style="margin: 0; font-size: 14px; text-align: left; mso-line-height-alt: 22.5px;">
                                                          <span style="color:#2b303a;font-size:15px;">
-                                                           <strong>Descripción:</strong> {{$registros[0]->descripcion}}
+                                                           <strong>Descripción:</strong> {{$registr[0]->descripcion}}
                                                          </span>
                                                       </p>
                                                       <p style="margin: 0; font-size: 14px; text-align: left; mso-line-height-alt: 22.5px;">
                                                          <span style="color:#2b303a;font-size:15px;">
-                                                           <strong>Tarea:</strong> {{$registros[0]->subtarea_descrip}}
+                                                           <strong>Tarea:</strong> {{$registr[0]->subtarea_descrip}}
                                                          </span>
                                                       </p>
                                                       <p style="margin: 0; font-size: 14px; text-align: left; mso-line-height-alt: 22.5px;">
                                                          <span style="color:#2b303a;font-size:15px;">
-                                                           <strong>Departamento a cargo:</strong> {{$registros[0]->namedt}}
+                                                           <strong>Departamento a cargo:</strong> {{$registr[0]->namedt}}
                                                          </span>
                                                       </p>
                                                       <p style="margin: 0; font-size: 14px; text-align: left; mso-line-height-alt: 22.5px;">
                                                          <span style="color:#2b303a;font-size:15px;">
-                                                           <strong>Tiempo de entrega:</strong> {{$registros[0]->fecha_entrega}}
+                                                           <strong>Tiempo de entrega:</strong> {{$registr[0]->fecha_entrega}}
                                                          </span>
                                                       </p>
 

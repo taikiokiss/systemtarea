@@ -43,6 +43,6 @@ class TareaCerrada extends Mailable
                 ->orderBy('tasks.created_at', 'desc')
                 ->get(); 
 
-        return $this->view('mail.TareaCerrada')->with([ "registros" => $registros ]);
+        return $this->view('mail.TareaCerrada')->with([ "registr" => $registros ]);
     }
 }
