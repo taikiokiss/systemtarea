@@ -275,7 +275,7 @@
 <script type="text/javascript">
     function executeAjaxRequest() {
       $("#boxLoading").addClass("loading")
-      setTimeout(() => $("#boxLoading").removeClass("loading"), 4000);
+      setTimeout(() => $("#boxLoading").removeClass("loading"), 7000);
     }    
 </script>
 @endsection
