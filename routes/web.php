@@ -13,6 +13,14 @@ use App\Http\Controllers\SendEmailController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/clear', function() {
+    Artisan::call('cache:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:clear');
+    return "Cleared!";
+});
+
+
 
 Route::get('/', function () {
     return  redirect('/login');
@@ -24,6 +32,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+//RUTAS DE CAMBIAR LA CONTRASEÑA
+	Route::get('/changePassword','HomeController@showChangePasswordForm');
+
+	Route::post('/changePassword','HomeController@changePassword')
+		->name('changePassword');
 
 Route::middleware(['auth'])->group(function () {
 

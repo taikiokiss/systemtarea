@@ -177,6 +177,10 @@
                                     @endif
                               </a>
                             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                                
+                                <a class="dropdown-item" href="{{ route('changePassword') }}">
+                                  {{ __('Cambiar clave') }}
+                                </a>
 
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                   onclick="event.preventDefault();document.getElementById('logout-form').submit();">

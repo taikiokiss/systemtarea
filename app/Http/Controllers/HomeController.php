@@ -73,4 +73,61 @@ class HomeController extends Controller
     }
 
 
+    public function showChangePasswordForm(){
+        return view('auth.changepassword');
+    }
+
+    public function changePassword(Request $request){
+
+        if (!(Hash::check($request->get('current-password'), Auth::user()->password))) {
+            // The passwords matches
+        
+        $notification=array(
+            'message' => 'Su clave actual no coincide con la clave que proporciono. Intentalo de nuevo.',
+            'alert-type' => 'error'
+        );
+            return redirect()->back()->with($notification);
+        }
+
+        if(strcmp($request->get('current-password'), $request->get('new-password')) == 0){
+            $notification=array(
+                'message' => 'La nueva clave no puede ser la misma que su clave actual. Por favor, elija una clave diferente.',
+                'alert-type' => 'error'
+            );
+                return redirect()->back()->with($notification);
+        }
+
+        if(strlen($request->get('new-password')) <= 7 ){
+            $notification=array(
+                'message' => 'Las clave es muy pequeña, deben ser más de 8 caracteres. Intentalo de nuevo.',
+                'alert-type' => 'error'
+            );
+                return redirect()->back()->with($notification);
+        }
+
+        if($request->get('new-password') != $request->get('new-password-confirm') ){
+            $notification=array(
+                'message' => 'Las claves no son las mismas. Intentalo de nuevo.',
+                'alert-type' => 'error'
+            );
+                return redirect()->back()->with($notification);
+        }
+
+        //Change Password
+        $user = Auth::user();
+        $user->password = bcrypt($request->get('new-password'));
+        $user->save();
+
+        
+        $notification=array(
+            'message' => 'Clave cambiada con éxito!',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->back()->with($notification);
+
+    }
+
+
+
 }
