@@ -34,7 +34,7 @@ Route::middleware(['auth'])->group(function () {
 	Route::view('roles', 'livewire.roles.index')->middleware('role:ADMINISTRADOR');
 	Route::view('users', 'livewire.users.index')->middleware('role:ADMINISTRADOR');
 	Route::view('departments_descrip', 'livewire.departments_descrips.index')->middleware('role:ADMINISTRADOR');
-	
+
 
 
 });

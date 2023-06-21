@@ -70,10 +70,6 @@ class HomeController extends Controller
         }
 
         return view('home', compact('REALIZADA', 'APROBADA', 'EN_PROCESO', 'estados_vencidos', 'valor_dos_deci'));
-
-
-
-
     }
 
 

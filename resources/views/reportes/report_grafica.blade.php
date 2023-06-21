@@ -14,7 +14,7 @@
 
                   <div class="card-body">
                     @if (count($tasks))
-                        <div class="col-lg-12 col-md-6 mb-4">
+                        <div class="col-lg-12 mb-4">
                             <!-- Project Card Example -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">

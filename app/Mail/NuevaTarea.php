@@ -7,6 +7,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use DB;
+use App\Models\Email_configuration;
+
 
 class NuevaTarea extends Mailable
 {
@@ -31,18 +33,35 @@ class NuevaTarea extends Mailable
      */
     public function build()
     {
-            $registros  = DB::table('tasks')
-                ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
-                ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
-                ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
-                ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
-                ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
-                ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
-                ->where('tasks.id','=',$this->registros)
-                ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip','usuarioAsig.email as emailAsig','usuarioSolici.email as emailSolici')
-                ->orderBy('tasks.created_at', 'desc')
-                ->get(); 
 
-        return $this->view('mail.TareaNueva')->with([ "registr" => $registros ]);
+        $config = Email_configuration::first();
+
+        $mailer = $config->mailer;
+        $host = $config->host;
+        $port = $config->port;
+        $username = $config->username;
+        $password = $config->password;
+        $encryption = $config->encryption;
+        $fromAddress = $config->from_address;
+        $fromName = $config->from_name;
+
+        $subject = 'NUEVA TAREA';
+
+        $registros  = DB::table('tasks')
+            ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
+            ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
+            ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
+            ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
+            ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
+            ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
+            ->where('tasks.id','=',$this->registros)
+            ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip','usuarioAsig.email as emailAsig','usuarioSolici.email as emailSolici')
+        ->orderBy('tasks.created_at', 'desc')
+        ->get(); 
+
+        return $this->view('mail.TareaNueva')
+                    ->from($fromAddress, $fromName)
+                    ->subject($subject)
+                    ->with([ "registr" => $registros ]);
     }
 }

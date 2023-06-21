@@ -90,6 +90,7 @@
                   <div id="collapseFooda" class="collapse" aria-labelledby="headingUtilities"
                       data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="{{url('/mail-settings')}}">Correo</a> 
                             <a class="collapse-item" href="{{url('/users')}}">Usuarios</a> 
                             <!--a class="collapse-item" href="{{url('/roles')}}">Admi. Roles</a-->
                             <!--a class="collapse-item" href="{{url('/permissions')}}">Admi. Permisos</a-->
