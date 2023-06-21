@@ -11,6 +11,7 @@
 
 
     <title>{{ config('app.name') }}</title>
+    <link rel="icon" type="image/ico" href="/images/icons/logo.ico" />  
 
     <!-- Custom fonts for this template-->
     <link href="/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
