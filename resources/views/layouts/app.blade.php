@@ -257,12 +257,10 @@
     <script src="/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
 
-
-
-        <script src="/pivot/plotly-basic-latest.min.js"></script>
-        <script type="text/javascript" src="/pivot/dist_pivot.js"></script>
-        <script type="text/javascript" src="/pivot/dist_plotly_renderers.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="/pivot/plotly-basic-latest.min.js"></script>
+    <script type="text/javascript" src="/pivot/dist_pivot.js"></script>
+    <script type="text/javascript" src="/pivot/dist_plotly_renderers.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 
 
