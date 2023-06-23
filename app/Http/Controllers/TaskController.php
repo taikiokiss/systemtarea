@@ -130,7 +130,6 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
-
             $ff = $request->get('select_val_sel');
             $fecha_actual = date("Y-m-d");
             //sumo 1 día

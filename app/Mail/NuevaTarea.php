@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use DB;
-use App\Models\Email_configuration;
+use App\Models\Emailconfiguration;
 
 
 class NuevaTarea extends Mailable
@@ -34,17 +34,10 @@ class NuevaTarea extends Mailable
     public function build()
     {
 
-        $config = Email_configuration::first();
+        $config_data_email = Emailconfiguration::first();
 
-        $mailer = $config->mailer;
-        $host = $config->host;
-        $port = $config->port;
-        $username = $config->username;
-        $password = $config->password;
-        $encryption = $config->encryption;
-        $fromAddress = $config->from_address;
-        $fromName = $config->from_name;
-
+        $fromAddress =    $config_data_email->from_address;
+        $fromName    =    $config_data_email->from_name;
         $subject = 'NUEVA TAREA';
 
         $registros  = DB::table('tasks')

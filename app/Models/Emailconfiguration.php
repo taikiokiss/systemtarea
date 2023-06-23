@@ -4,9 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Email_configuration extends Model
+class Emailconfiguration extends Model
 {
     protected $fillable = [
+        'mailer',
         'mailer',
         'host',
         'port',
@@ -19,5 +20,5 @@ class Email_configuration extends Model
 
     protected $primaryKey = 'id';
 
-    protected $table = 'email_configurations';
+    protected $table = 'emailconfigurations';
 }

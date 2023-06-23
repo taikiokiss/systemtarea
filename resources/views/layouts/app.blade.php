@@ -26,11 +26,11 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />    
     <link rel="stylesheet" type="text/css" href="/pivot/dist_pivot.css">
 
-
     <script src="/js/jquery-3.3.1.min.js"></script>
     <script src="/js/jquery.min.js"></script>
     <script src="/admin/vendor/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/pivot/jqueryui_1.11.4_jquery-ui.min.js"></script>
+
 
      @livewireStyles
      <style type="text/css">
@@ -233,6 +233,7 @@
     </a>
     <!-- AdminLTE App -->
     @livewireScripts
+
     <!-- Bootstrap CDN Plugin -->
     <script src="/js/loader.js"></script>  
 
