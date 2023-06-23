@@ -81,7 +81,7 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Inicio</span></a>
             </li>
-            @role('ADMINISTRADOR')
+            @role('ADMINISTRADOR|SUPER-ADMIN')
                 <li class="nav-item">
                   <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFooda"
                       aria-expanded="true" aria-controls="collapseFooda">
@@ -91,7 +91,10 @@
                   <div id="collapseFooda" class="collapse" aria-labelledby="headingUtilities"
                       data-parent="#accordionSidebar">
                       <div class="bg-white py-2 collapse-inner rounded">
-                            <a class="collapse-item" href="{{url('/mail-settings')}}">Correo</a> 
+                            @role('SUPER-ADMIN')
+                                <a class="collapse-item" href="{{url('/mail-settings')}}">Correo</a> 
+                            @endrole
+
                             <a class="collapse-item" href="{{url('/users')}}">Usuarios</a> 
                             <!--a class="collapse-item" href="{{url('/roles')}}">Admi. Roles</a-->
                             <!--a class="collapse-item" href="{{url('/permissions')}}">Admi. Permisos</a-->
@@ -104,7 +107,7 @@
                 </li>
             @endrole
 
-            @role('ADMINISTRADOR|USUARIO')
+            @role('ADMINISTRADOR|USUARIO|SUPER-ADMIN')
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFooda6"
                         aria-expanded="true" aria-controls="collapseFooda6">

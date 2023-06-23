@@ -20,34 +20,29 @@ Route::get('/clear', function() {
     return "Cleared!";
 });
 
-
-
 Route::get('/', function () {
     return  redirect('/login');
 });
 
 Auth::routes(['register' => false]);
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware(['auth'])->group(function () {
+	Route::get('/home', 'HomeController@index')
+		->name('home');
 
-
-//RUTAS DE CAMBIAR LA CONTRASEÑA
 	Route::get('/changePassword','HomeController@showChangePasswordForm');
 
 	Route::post('/changePassword','HomeController@changePassword')
 		->name('changePassword');
 
-Route::middleware(['auth'])->group(function () {
-
 //Route Hooks - Do not delete//
-	Route::view('groups', 'livewire.groups.index')->middleware('role:ADMINISTRADOR');
-	Route::view('departments', 'livewire.departments.index')->middleware('role:ADMINISTRADOR');
-	Route::view('permissions', 'livewire.permissions.index')->middleware('role:ADMINISTRADOR');
-	Route::view('roles', 'livewire.roles.index')->middleware('role:ADMINISTRADOR');
-	Route::view('users', 'livewire.users.index')->middleware('role:ADMINISTRADOR');
-	Route::view('departments_descrip', 'livewire.departments_descrips.index')->middleware('role:ADMINISTRADOR');
+	Route::view('groups', 'livewire.groups.index')->middleware('role:ADMINISTRADOR|SUPER-ADMIN');
+	Route::view('departments', 'livewire.departments.index')->middleware('role:ADMINISTRADOR|SUPER-ADMIN');
+	Route::view('permissions', 'livewire.permissions.index')->middleware('role:ADMINISTRADOR|SUPER-ADMIN');
+	Route::view('roles', 'livewire.roles.index')->middleware('role:ADMINISTRADOR|SUPER-ADMIN');
+	Route::view('users', 'livewire.users.index')->middleware('role:ADMINISTRADOR|SUPER-ADMIN');
+	Route::view('departments_descrip', 'livewire.departments_descrips.index')->middleware('role:ADMINISTRADOR|SUPER-ADMIN');
 
 
 
