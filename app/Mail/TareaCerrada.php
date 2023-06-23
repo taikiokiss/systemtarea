@@ -7,6 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use DB;
+use App\Models\Emailconfiguration;
 
 class TareaCerrada extends Mailable
 {
@@ -31,6 +32,13 @@ class TareaCerrada extends Mailable
      */
     public function build()
     {
+
+        $config_data_email = Emailconfiguration::first();
+
+        $fromAddress =    $config_data_email->from_address;
+        $fromName    =    $config_data_email->from_name;
+        $subject = 'TAREA CERRADA';
+
             $registros  = DB::table('tasks')
                 ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
                 ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
@@ -43,6 +51,10 @@ class TareaCerrada extends Mailable
                 ->orderBy('tasks.created_at', 'desc')
                 ->get(); 
 
-        return $this->view('mail.TareaCerrada')->with([ "registr" => $registros ]);
+        return $this->view('mail.TareaCerrada')
+                    ->from($fromAddress, $fromName)
+                    ->subject($subject)
+                    ->with([ "registr" => $registros ]);
+
     }
 }

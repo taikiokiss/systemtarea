@@ -176,8 +176,18 @@ class TaskController extends Controller
                 'estado_id_tarea'   => 'ASIGNADA'                
             ]);
             
-            Mail::to('elmaic_14@hotmail.com') //PERSONA QUE ES ASIGNADA A LA TAREA
-                ->cc('tabatablet65@gmail.com') //PERSONA QUE CREA LA TAREA
+        $email_info = DB::table('tasks')
+            ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
+            ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
+            ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
+            ->where('tasks.id','=',$tasks->id)
+            ->select('tasks.*','departments_descrip.subtarea_descrip','usuarioSolici.email as email_Solicita','usuarioAsig.email as email_Asignado')
+            ->orderBy('tasks.created_at', 'desc')
+            ->get(); 
+
+            Mail::to($email_info[0]->email_Asignado) //PERSONA QUE ES ASIGNADA A LA TAREA
+                ->cc($email_info[0]->email_Solicita) //PERSONA QUE CREA LA TAREA
+
                 ->send(new NuevaTarea($tasks->id)); 
 
         $notificationa=array(
@@ -309,6 +319,15 @@ class TaskController extends Controller
         $campos = ['asunto','descripcion','observacion','departamento','asign_a','calificacion'];
         $actualizacion = [];
 
+        $email_info = DB::table('tasks')
+            ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
+            ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
+            ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
+            ->where('tasks.id','=',$tasks->id)
+            ->select('tasks.*','departments_descrip.subtarea_descrip','usuarioSolici.email as email_Solicita','usuarioAsig.email as email_Asignado')
+            ->orderBy('tasks.created_at', 'desc')
+            ->get(); 
+
         foreach ($campos as $campo) {
             if (isset($request->$campo)) {
                 $actualizacion[$campo] = $request->$campo;
@@ -327,7 +346,7 @@ class TaskController extends Controller
                 $entrega_real = date("Y-m-d H:i:s");
                 $calificacion = $request->get('calificacion');
                 
-                    Mail::to('elmaic_14@hotmail.com') //PERSONA QUE ES ASIGNADA LA TAREA
+                    Mail::to($email_info[0]->email_Asignado) //PERSONA QUE ES ASIGNADA LA TAREA
                         ->send(new TareaCerrada($tasks->id));
 
             }elseif ($variable == 'ENTREGAR') {
