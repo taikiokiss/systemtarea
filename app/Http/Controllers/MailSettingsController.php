@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Email_configuration;
+use App\Models\Emailconfiguration;
 
 class MailSettingsController extends Controller
 {
     public function mailsettings()
     {
-        $settings = Email_configuration::all();
+        $settings = Emailconfiguration::all();
 
         return view('mail.settings', compact('settings'));
     }
@@ -17,8 +17,8 @@ class MailSettingsController extends Controller
     public function update(Request $request)
     {
 
-        $settings_data = Email_configuration::all();        
-        $settings = Email_configuration::find($settings_data[0]->id);
+        $settings_data = Emailconfiguration::all();        
+        $settings = Emailconfiguration::find($settings_data[0]->id);
         $settings->update($request->all());
         
         $notificationa=array(
