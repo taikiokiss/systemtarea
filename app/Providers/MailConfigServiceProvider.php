@@ -30,6 +30,7 @@ class MailConfigServiceProvider extends ServiceProvider
             if ($mail) //checking if table is not empty
             {
                 $config = array(
+                    'transport'     =>  $mail->transport,
                     'mailer'        =>  $mail->mailer,
                     'host'          =>  $mail->host,
                     'port'          =>  $mail->port,

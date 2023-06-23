@@ -176,8 +176,8 @@ class TaskController extends Controller
                 'estado_id_tarea'   => 'ASIGNADA'                
             ]);
             
-            Mail::to('elmaic_14@hotmail.com')
-                ->cc('tabatablet65@gmail.com')
+            Mail::to('elmaic_14@hotmail.com') //PERSONA QUE ES ASIGNADA A LA TAREA
+                ->cc('tabatablet65@gmail.com') //PERSONA QUE CREA LA TAREA
                 ->send(new NuevaTarea($tasks->id)); 
 
         $notificationa=array(
@@ -327,7 +327,7 @@ class TaskController extends Controller
                 $entrega_real = date("Y-m-d H:i:s");
                 $calificacion = $request->get('calificacion');
                 
-                    Mail::to('elmaic_14@hotmail.com') //asignadodepart-  emailAsig
+                    Mail::to('elmaic_14@hotmail.com') //PERSONA QUE ES ASIGNADA LA TAREA
                         ->send(new TareaCerrada($tasks->id));
 
             }elseif ($variable == 'ENTREGAR') {

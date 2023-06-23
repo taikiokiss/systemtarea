@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Emailconfiguration extends Model
 {
     protected $fillable = [
-        'mailer',
+        'transport',
         'mailer',
         'host',
         'port',
