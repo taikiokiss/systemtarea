@@ -109,10 +109,15 @@ class TaskController extends Controller
 
     public function create()
     {
-
         $departmentt = Department::where('estado', 'ACTIVO')->get();
-
         $depart_list = Departments_descrip::where('estado', 'ACTIVO')->get();
+        $userss = DB::table('users')
+            ->join('persons', 'persons.id', '=', 'users.persona_id')
+            ->join('departments', 'departments.id', '=', 'users.deparment_id')
+            ->where('users.estado','=','ACTIVO','AND')
+            ->where('users.id','!=',1)
+            ->select('persons.*','departments.*','persons.id as idperson','departments.id as idpersondepar')
+            ->get();
 
         $opcion_rrp = DB::table('option')
             ->join('sub_option', 'sub_option.cabe_opcion', '=', 'option.id_subopcion')
@@ -123,6 +128,7 @@ class TaskController extends Controller
         $datos = [
             'departma' => $departmentt,
             'opciones' => $depart_list,
+            'userss' => $userss,
         ];
 
         return view('tasks.create', compact('datos','opcion_rrp'));
