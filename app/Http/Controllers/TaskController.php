@@ -12,6 +12,7 @@ use App\Models\Departments_descrip;
 use App\Models\User;
 use App\Models\Person;
 use App\Models\Group;
+use App\Move_user_task;
 use Auth;
 use DB;
 use App\Mail\NuevaTarea;
@@ -109,14 +110,13 @@ class TaskController extends Controller
 
     public function create()
     {
-        $departmentt = Department::where('estado', 'ACTIVO')->get();
-        $depart_list = Departments_descrip::where('estado', 'ACTIVO')->get();
-        $userss = DB::table('users')
+        $departmentt = Department::where('estado', 'ACTIVO')->get();        
+        $depart_list = DB::table('departments_descrip')
+            ->join('users', 'users.id', '=', 'departments_descrip.usuario_asignado')
             ->join('persons', 'persons.id', '=', 'users.persona_id')
             ->join('departments', 'departments.id', '=', 'users.deparment_id')
-            ->where('users.estado','=','ACTIVO','AND')
-            ->where('users.id','!=',1)
-            ->select('persons.*','departments.*','persons.id as idperson','departments.id as idpersondepar')
+            ->where('departments_descrip.estado','=','ACTIVO','AND')
+            ->select('departments_descrip.*','departments.*','persons.id as idperson','departments.id as idpersondepar', 'persons.name as nombre', 'persons.last_name as apellido')
             ->get();
 
         $opcion_rrp = DB::table('option')
@@ -128,7 +128,6 @@ class TaskController extends Controller
         $datos = [
             'departma' => $departmentt,
             'opciones' => $depart_list,
-            'userss' => $userss,
         ];
 
         return view('tasks.create', compact('datos','opcion_rrp'));

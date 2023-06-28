@@ -63,7 +63,7 @@ class AprobarTarea extends Command
                     Historico_mov_tarea::create([
                         'id_tarea'          => $registro->id,
                         'observacion'       => 'APROBADO AUTOMATICO',
-                        'usuario'           => 4,
+                        'usuario'           => 1,
                         'fecha_act'         => date("Y-m-d h:i:s"),
                         'estado_id_tarea'   => 'APROBADA'                
                     ]);

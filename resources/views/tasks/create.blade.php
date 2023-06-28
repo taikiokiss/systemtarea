@@ -138,8 +138,10 @@
                 var options = '<option value="">Seleccione una opción</option>';
                 opciones.forEach(function(opcion) {
                     if (opcion.departments_id == departamento) { // <--- aquí se hace la comparación por id de departamento
-                        options += '<option data-tiempo="' + opcion.tiempo_demora + '"  value="' + opcion.id + '">' + opcion.subtarea_descrip +' -  DURACIÓN: '+opcion.tiempo_demora +' DIAS '+'</option>'; // <--- se utiliza id y nombre del usuario
+                        options += '<option data-tiempo="' + opcion.tiempo_demora + '"  value="' + opcion.id + '">' + opcion.subtarea_descrip +' -  ENCARGADO: '+opcion.nombre+' '+opcion.apellido+' -  DURACIÓN: '+opcion.tiempo_demora +' DIAS '+'</option>'; // <--- se utiliza id y nombre del usuario
                     }
+
+
                 });
                 $('#asign_a').html(options);
             } else {

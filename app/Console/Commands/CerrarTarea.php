@@ -77,14 +77,14 @@ class CerrarTarea extends Command
                             [
                                 'id_tarea'          => $registro->id,
                                 'observacion'       => 'APROBADO AUTOMATICO',
-                                'usuario'           => 4,
+                                'usuario'           => 1,
                                 'fecha_act'         => date('Y-m-d H:i:s'),
                                 'estado_id_tarea'   => 'APROBADA'
                             ],
                             [
                                 'id_tarea'          => $registro->id,
                                 'observacion'       => 'CERRADO AUTOMATICO',
-                                'usuario'           => 4,
+                                'usuario'           => 1,
                                 'fecha_act'         => date('Y-m-d H:i:s'),
                                 'estado_id_tarea'   => 'REALIZADA'
                             ]
