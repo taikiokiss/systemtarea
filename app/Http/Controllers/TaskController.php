@@ -181,6 +181,14 @@ class TaskController extends Controller
                 'estado_id_tarea'   => 'ASIGNADA'                
             ]);
             
+            Move_user_task::create([
+                'id_tarea'                  => $tasks->id,
+                'id_usuario_movimiento'     => Auth::user()->id,
+                'accion'                    => 'CREACION DE TAREA',
+                'fecha_movimiento'          => date("Y-m-d H:i:s")
+            ]);
+
+
         $email_info = DB::table('tasks')
             ->leftJoin('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
             ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')

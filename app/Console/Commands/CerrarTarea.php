@@ -92,7 +92,7 @@ class CerrarTarea extends Command
 
                     Historico_mov_tarea::insert($historicoMovimientos);
 
-                    Mail::to('elmaic_14@hotmail.com') //asignadodepart-  emailAsig
+                    Mail::to($registros[0]->emailAsig) //asignadodepart-  emailAsig
                         ->send(new TareaCerrada($registros));
 
                 } else {}
