@@ -51,7 +51,7 @@ class HomeController extends Controller
             return $estado->estado === 'APROBADA';
         });
 
-        $priresta = count($REALIZADA) + count($estados_vencidos);
+        $priresta = count($REALIZADA) - count($estados_vencidos);
         $pricompr = $priresta + count($REALIZADA);
 
         $valor = 100;
