@@ -771,7 +771,7 @@ class TaskController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy($id)    
     {
         Task::select(DB::table('tasks'))
             ->where('id', $id)
