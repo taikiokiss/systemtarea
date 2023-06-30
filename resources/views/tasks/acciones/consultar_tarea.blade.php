@@ -70,6 +70,38 @@
             </div>
         </div>
     </div>
+
+    @if($tasks1[0]->estado == 'REALIZADA' && $tasks1[0]->accion == 'CONSULTAR'  )
+        @if($tasks1[0]->calificacion != 0)
+        <div class="mx-0 mx-sm-auto">
+          <div class="card">
+            <div class="card-body text-center">
+                <p class="text-center"><strong>VALORACIÓN DEL SERVICIO</strong></p>
+                    <div class="form-group" id="rating-ability-wrapper">
+                        <label class="control-label" for="rating">
+                        <input type="hidden" id="calificacion" name="calificacion" value="0" required="required">
+                        </label>
+                        <h2 class="bold rating-header" style="font-size: 20px">
+                        <span class="selected-rating">{{$tasks1[0]->calificacion}}</span><small> / 5</small>
+                        </h2>
+                            @for ($i = 1; $i <= $tasks1[0]->calificacion; $i++)
+                                <button type="button" class="btnrating btn btn-sm btn-warning" data-attr="{{$tasks1[0]->calificacion}}" id="rating-star-{{$tasks1[0]->calificacion}}">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </button>
+                            @endfor
+                            <?php $nuevo = 5 - $tasks1[0]->calificacion; ?>
+                            @for ($i = 1; $i <= $nuevo; $i++)
+                                <button type="button" class="btnrating btn btn-default btn-sm" data-attr="{{$nuevo}}" id="rating-star-{{$nuevo}}">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </button>
+                            @endfor
+                    </div>
+            </div>
+          </div>
+        </div>
+        @endif
+    @endif
+
     <br>
     <nav>
       <div class="nav nav-tabs" id="nav-tab" role="tablist">
