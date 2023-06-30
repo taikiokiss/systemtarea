@@ -32,8 +32,8 @@
                         <tr>
                             <th width="10px" style="text-align: center">ID</th>
                             <th width="500px" style="text-align: center">Asunto</th>
-                            <th width="120px" style="text-align: center">Fecha de Creación</th>
-                            <th width="120px" style="text-align: center">Fecha de Solicitud</th>
+                            <th width="120px" style="text-align: center">Fecha de Asignación</th>
+                            <th width="120px" style="text-align: center">Fecha de Entrega</th>
                             <th width="500px" style="text-align: center">Departamento - Encargado</th>
                             <th width="300px" style="text-align: center">Solicitante</th>
                             <th width="250px" style="text-align: center">Estado</th>

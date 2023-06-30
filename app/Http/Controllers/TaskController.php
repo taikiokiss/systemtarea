@@ -12,7 +12,7 @@ use App\Models\Departments_descrip;
 use App\Models\User;
 use App\Models\Person;
 use App\Models\Group;
-use App\Move_user_task;
+use App\Models\Move_user_task;
 use Auth;
 use DB;
 use App\Mail\NuevaTarea;
@@ -312,6 +312,14 @@ class TaskController extends Controller
                     }
                 }
             }
+
+            Move_user_task::create([
+                'id_tarea'                  => $tasks->id,
+                'id_usuario_movimiento'     => Auth::user()->id,
+                'accion'                    => 'EDICION DE TAREA',
+                'fecha_movimiento'          => date("Y-m-d H:i:s")
+            ]);
+
         }
 
 
