@@ -363,7 +363,7 @@ class TaskController extends Controller
 
             if ($variable == 'CONSULTAR' || $variable == 'CERRAR') {
                 $estado = 'REALIZADA';
-                $accion = 'CONSULTAR';
+                $accion = 'CONSULTAR'; //CERRO LA TAREA o CONSULTO LA TAREA
                 $entrega_real = date("Y-m-d H:i:s");
                 $calificacion = $request->get('calificacion');
                 
@@ -373,25 +373,25 @@ class TaskController extends Controller
             }elseif ($variable == 'ENTREGAR') {
                 $estado = 'ENTREGADA';
                 $accion = 'APROBAR';
-                $entrega_real = NULL;
+                $entrega_real = NULL; //ENTREGO LA TAREA, FALTA APROBACION
                 $calificacion = NULL;
 
             }elseif ($variable == 'APROBAR') {
                 $estado = 'APROBADA';
-                $accion = 'ENTREGAR';
+                $accion = 'ENTREGAR'; //APROBO LA CREACION DE LA TAREA
                 $entrega_real = NULL;
                 $calificacion = NULL;
 
             }elseif ($variable == 'RECHAZAR') {
                 $estado = 'RECHAZADA';
                 $accion = 'ENTREGAR';
-                $entrega_real = NULL;
+                $entrega_real = NULL; //RECHAZO LA ENTREGA DE LA TAREA
                 $calificacion = NULL;
 
             }elseif ($variable == 'APROBAR_1') {
                 $estado = 'APROBADA';
                 $accion = 'CONSULTAR';
-                $entrega_real = NULL;
+                $entrega_real = NULL; //APROBO LA ENTREGA DE LA TAREA
                 $calificacion = NULL;
 
             }
@@ -400,6 +400,7 @@ class TaskController extends Controller
                 $actualizacion['accion'] = $accion;
                 $actualizacion['entrega_real'] = $entrega_real;
                 $actualizacion['calificacion'] = $calificacion;
+
 
                 Task::where('id', $tasks->id)->update($actualizacion);
     
@@ -410,6 +411,26 @@ class TaskController extends Controller
                     'fecha_act' => date("Y-m-d H:i:s"),
                     'estado_id_tarea' => $estado
                 ]);
+
+
+                $acciones = [
+                    'CONSULTAR' => 'CONSULTO LA TAREA',
+                    'CERRAR' => 'CERRO LA TAREA',
+                    'ENTREGAR' => 'ENTREGO LA TAREA, FALTA APROBACION',
+                    'APROBAR' => 'APROBO LA CREACION DE LA TAREA',
+                    'RECHAZAR' => 'RECHAZO LA ENTREGA DE LA TAREA',
+                    'APROBAR_1' => 'APROBO LA ENTREGA DE LA TAREA',
+                ];
+
+
+                if (isset($acciones[$variable])) {
+                    Move_user_task::create([
+                        'id_tarea' => $tasks->id,
+                        'id_usuario_movimiento' => Auth::user()->id,
+                        'accion' => $acciones[$variable],
+                        'fecha_movimiento' => date("Y-m-d H:i:s")
+                    ]);
+                }
             }
 
             
@@ -758,6 +779,14 @@ class TaskController extends Controller
                 'estado' => 'ANULADA',
                 'accion' => 'CONSULTAR',
             ]);
+
+        Move_user_task::create([
+            'id_tarea' => $tasks->id,
+            'id_usuario_movimiento' => Auth::user()->id,
+            'accion' => 'ANULO LA TAREA',
+            'fecha_movimiento' => date("Y-m-d H:i:s")
+        ]);
+
 
         $notification=array(
             'message' => 'Tarea anulada con éxito.',
