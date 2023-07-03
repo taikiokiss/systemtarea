@@ -14,15 +14,18 @@ class TareaCerrada extends Mailable implements ShouldQueue
     use Queueable, SerializesModels;
 
     public $registros ;
+    public $filestc;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($registros )
+    public function __construct($registros, $filestc)
     {
-        $this->registros  = $registros ;
+        $this->registros  = $registros;
+        $this->filestc = $filestc;
+
     }
 
     /**
@@ -50,11 +53,19 @@ class TareaCerrada extends Mailable implements ShouldQueue
                 ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip','usuarioAsig.email as emailAsig','usuarioSolici.email as emailSolici')
                 ->orderBy('tasks.created_at', 'desc')
                 ->get(); 
-
-        return $this->view('mail.TareaCerrada')
+                
+        $message = $this->view('mail.TareaCerrada')
                     ->from($fromAddress, $fromName)
                     ->subject($subject)
                     ->with([ "registr" => $registros ]);
+
+        foreach ($this->filestc as $file) {
+            $message->attach(public_path('storage/archivos_adjuntos/' . $file));
+        }
+
+        return $message;
+
+
 
     }
 }

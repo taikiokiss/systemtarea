@@ -353,6 +353,13 @@ class TaskController extends Controller
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 
 
+        $tasks_users_rl = DB::table('tasks_users_rl')
+            ->where('tasks_users_rl.id_tasks', '=', $tasks->id)
+            ->select('tasks_users_rl.file')
+            ->get();
+
+        $filestc = $tasks_users_rl->pluck('file')->toArray();
+
         foreach ($campos as $campo) {
             if (isset($request->$campo)) {
                 $actualizacion[$campo] = $request->$campo;
@@ -372,7 +379,7 @@ class TaskController extends Controller
                 $calificacion = $request->get('calificacion');
                 
                     Mail::to($email_info[0]->email_Asignado) //PERSONA QUE ES ASIGNADA LA TAREA
-                        ->send(new TareaCerrada($tasks->id));
+                        ->send(new TareaCerrada($tasks->id, $filestc));
 
             }elseif ($variable == 'ENTREGAR') {
                 $estado = 'ENTREGADA';
