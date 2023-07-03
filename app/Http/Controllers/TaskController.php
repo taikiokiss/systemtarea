@@ -328,8 +328,6 @@ class TaskController extends Controller
 
         }
 
-
-
         $notificationa=array(
             'message' => 'Tarea actualizada con éxito.',
             'alert-type' => 'success'
