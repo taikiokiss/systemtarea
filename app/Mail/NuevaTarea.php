@@ -10,7 +10,7 @@ use DB;
 use App\Models\Emailconfiguration;
 
 
-class NuevaTarea extends Mailable
+class NuevaTarea extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 

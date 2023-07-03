@@ -9,7 +9,7 @@ use Illuminate\Queue\SerializesModels;
 use DB;
 use App\Models\Emailconfiguration;
 
-class TareaCerrada extends Mailable
+class TareaCerrada extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 

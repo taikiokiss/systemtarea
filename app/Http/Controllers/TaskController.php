@@ -200,7 +200,6 @@ class TaskController extends Controller
 
             Mail::to($email_info[0]->email_Asignado) //PERSONA QUE ES ASIGNADA A LA TAREA
                 ->cc($email_info[0]->email_Solicita) //PERSONA QUE CREA LA TAREA
-
                 ->send(new NuevaTarea($tasks->id)); 
 
         $notificationa=array(
