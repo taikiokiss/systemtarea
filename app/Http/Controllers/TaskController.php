@@ -198,9 +198,16 @@ class TaskController extends Controller
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 
 
-            Mail::to($email_info[0]->email_Asignado) //PERSONA QUE ES ASIGNADA A LA TAREA
-                ->cc($email_info[0]->email_Solicita) //PERSONA QUE CREA LA TAREA
-                ->send(new NuevaTarea($tasks->id)); 
+        $tasks_users_rl = DB::table('tasks_users_rl')
+            ->where('tasks_users_rl.id_tasks', '=', $tasks->id)
+            ->select('tasks_users_rl.file')
+            ->get();
+
+        $files = $tasks_users_rl->pluck('file')->toArray();
+
+        Mail::to($email_info[0]->email_Asignado)
+            ->cc($email_info[0]->email_Solicita)
+            ->send(new NuevaTarea($tasks->id, $files));
 
         $notificationa=array(
             'message' => 'Tarea creada con éxito',
@@ -780,7 +787,7 @@ class TaskController extends Controller
             ]);
 
         Move_user_task::create([
-            'id_tarea' => $tasks->id,
+            'id_tarea' => $id,
             'id_usuario_movimiento' => Auth::user()->id,
             'accion' => 'ANULO LA TAREA',
             'fecha_movimiento' => date("Y-m-d H:i:s")

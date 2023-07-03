@@ -9,21 +9,24 @@ use Illuminate\Queue\SerializesModels;
 use DB;
 use App\Models\Emailconfiguration;
 
-
 class NuevaTarea extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $registros ;
+    public $registros;
+    public $files;
+
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($registros )
+    public function __construct($registros, $files )
     {
-        $this->registros  = $registros ;
+        $this->registros  = $registros;
+        $this->files = $files;
+
     }
 
     /**
@@ -52,9 +55,17 @@ class NuevaTarea extends Mailable implements ShouldQueue
         ->orderBy('tasks.created_at', 'desc')
         ->get(); 
 
-        return $this->view('mail.TareaNueva')
+        $message = $this->view('mail.TareaNueva')
                     ->from($fromAddress, $fromName)
                     ->subject($subject)
                     ->with([ "registr" => $registros ]);
+
+        foreach ($this->files as $file) {
+            $message->attach(public_path('storage/archivos_adjuntos/' . $file));
+        }
+
+        return $message;
+
+
     }
 }
