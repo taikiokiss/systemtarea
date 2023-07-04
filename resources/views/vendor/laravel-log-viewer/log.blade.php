@@ -70,9 +70,6 @@
             padding: 5px;
         }
 
-
-
-
     /**
     * DARK MODE CSS
     */
@@ -191,12 +188,13 @@
         @foreach($files as $file)
           <a href="?l={{ \Illuminate\Support\Facades\Crypt::encrypt($file) }}"
              class="list-group-item @if ($current_file == $file) llv-active @endif">
-            Recargar fichero
+            <i class="fas fa-sync-alt"></i>              
+              Recargar fichero
           </a>
           
           <a class="list-group-item" href="{{ route('home') }}">
-              <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Volver al Inicio</span>
+              <i class="fas fa-fw fa-home"></i>
+              <span>Volver al Inicio</span>
           </a>
 
         @endforeach
