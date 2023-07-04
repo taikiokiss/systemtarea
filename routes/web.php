@@ -44,8 +44,6 @@ Route::middleware(['auth'])->group(function () {
 	Route::view('users', 'livewire.users.index')->middleware('role:ADMINISTRADOR|SUPER-ADMIN');
 	Route::view('departments_descrip', 'livewire.departments_descrips.index')->middleware('role:ADMINISTRADOR|SUPER-ADMIN');
 
-
-
 });
 
 require __DIR__ . '/task/task.php';

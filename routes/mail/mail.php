@@ -13,6 +13,7 @@ Route::middleware(['auth'])->group(function () {
 		->middleware('role:SUPER-ADMIN');
 
 	Route::get('logs-admin-view-system', [\Rap2hpoutre\LaravelLogViewer\LogViewerController::class, 'index'])
+		->name('logs-admin-view-system')
 		->middleware('role:SUPER-ADMIN');
 
 });

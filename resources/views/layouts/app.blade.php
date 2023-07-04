@@ -93,6 +93,7 @@
                       <div class="bg-white py-2 collapse-inner rounded">
                             @role('SUPER-ADMIN')
                                 <a class="collapse-item" href="{{url('/mail-settings')}}">Correo</a> 
+                                <a class="collapse-item" href="{{url('/logs-admin-view-system')}}">Visor Logs</a> 
                             @endrole
 
                             <a class="collapse-item" href="{{url('/users')}}">Usuarios</a> 
