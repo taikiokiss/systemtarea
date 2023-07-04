@@ -49,6 +49,7 @@ class ReporteController extends Controller
             ->get(); 
 
         switch ($user_rol[0]->name) {
+            case 'SUPER-ADMIN':
             case 'ADMINISTRADOR':
                 $tasks = Task::Join('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
                     ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
@@ -109,6 +110,7 @@ class ReporteController extends Controller
             ->get(); 
 
         switch ($user_rol[0]->name) {
+            case 'SUPER-ADMIN':
             case 'ADMINISTRADOR':
                 $tasks = Task::Join('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
                     ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
@@ -221,7 +223,7 @@ class ReporteController extends Controller
             ->get(); 
 
         switch ($user_rol[0]->name) {
-            case 'ADMINISTRADOR':
+            case ['SUPER-ADMIN', 'ADMINISTRADOR']:
                 $tasks = Task::Join('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
                     ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
                     ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
