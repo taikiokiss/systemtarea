@@ -24,6 +24,7 @@ class HomeController extends Controller
  
     public function index(Request $request)
     {
+
         $estados = Task::join('departments_descrip', 'departments_descrip.id', '=', 'tasks.deparment_descrip_id')
             ->whereIn('tasks.estado', ['REALIZADA', 'APROBADA'])
             ->where('departments_descrip.usuario_asignado', '=', Auth::user()->id)

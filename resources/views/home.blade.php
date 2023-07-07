@@ -8,7 +8,6 @@
 			<div class="card-header"><h5><span class="text-center fa fa-home"></span> @yield('title')</h5></div>
 			<div class="card-body">
 				<hr>
-
 					<div class="row w-100">
                         <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-danger shadow h-100 py-2">

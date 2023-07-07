@@ -15,15 +15,15 @@
 					</div>
 				</div>
 				
-				<div class="card-body">
 						@include('livewire.users.create')
 						@include('livewire.users.update')
+				<div class="card-body">
 				<div class="table-responsive">
 					<table class="table table-bordered table-striped table-sm" style="font-size:12px; color: black">
 						<thead class="thead">
 							<tr>
 								<td width="20px">#</td> 
-								<th width="550px">Nombre</th>
+								<th width="350px">Nombre</th>
 								<th width="550px">Email</th>
 								<th width="200px">Departamento</th>
 								<td width="200px"></td>
@@ -33,13 +33,13 @@
 						<tbody>
 							@foreach($users as $row)
 							<tr>
-								<td>{{ $loop->iteration }}</td> 
+								<td>{{ $row->userid }}</td> 
 								<td>{{ $row->name }} {{ $row->last_name }}</td>
 								<td>{{ $row->email }}</td>
 								<td>{{ $row->namedt }} </td>
 									<td>
 										<div class="text-center">
-		                	<div class="btn-group">
+		                				<div class="btn-group">
 												<a data-toggle="modal" data-target="#updateModal" class="btn btn-sm btn-primary" wire:click="edit({{$row->userid}})" style="font-size:12px;">
 													<i class="fa fa-edit"></i> 
 													Editar 
@@ -55,13 +55,14 @@
 														Deshabilitar 
 													</a>
 												@endif
-		                   </div>
-		                </div>
+						                   </div>
+						                </div>
 									</td>
 							@endforeach
 						</tbody>
 					</table>						
 					{{ $users->links() }}
+
 					</div>
 				</div>
 			</div>
