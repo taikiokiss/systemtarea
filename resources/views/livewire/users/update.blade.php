@@ -20,12 +20,12 @@
 
             <div class="form-group">
                 <label for="last_name"></label>
-                <input wire:model="last_name" type="text" class="form-control" id="last_name" placeholder="Apellido">@error('name') <span class="error text-danger">{{ $message }}</span> @enderror
+                <input wire:model="last_name" type="text" class="form-control" id="last_name" placeholder="Apellido">@error('last_name') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">
                 <label for="cedula"></label>
-                <input wire:model="cedula" type="text" class="form-control" id="cedula" placeholder="Cedula">@error('name') <span class="error text-danger">{{ $message }}</span> @enderror
+                <input wire:model="cedula" type="text" class="form-control" id="cedula" placeholder="Cedula">@error('cedula') <span class="error text-danger">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">

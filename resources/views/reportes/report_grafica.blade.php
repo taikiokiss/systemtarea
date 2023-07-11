@@ -13,7 +13,6 @@
 
 
                   <div class="card-body">
-                    @if (count($tasks))
                         <div class="col-lg-12 mb-4">
                             <!-- Project Card Example -->
                             <div class="card shadow mb-4">
@@ -25,9 +24,6 @@
                                 </div>
                             </div>
                         </div>
-                    @else
-                        <div class="text-center text-muted">No existen registros</div> 
-                    @endif           
                   </div>
                 </div>               
               </div>
@@ -48,7 +44,7 @@
             $("#output").pivotUI(mps, {
                 renderers: renderers,
                 cols: ["Departamento"],
-                rows: ["Descripcion"],
+                rows: ["Estado"],
                 rendererName: "Bar Chart",
                 rowOrder: "value_a_to_z",
                 colOrder: "value_z_to_a"

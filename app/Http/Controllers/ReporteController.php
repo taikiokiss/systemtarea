@@ -25,6 +25,7 @@ class ReporteController extends Controller
         $FechaFin = $request->get('updated_at');
         $Grupo_inpt = $request->get('grupo');
 
+
         Session::put('FechaInicio', $FechaInicio);
         Session::put('FechaFin', $FechaFin);
         Session::put('Usuario', $Usuario);
@@ -51,34 +52,64 @@ class ReporteController extends Controller
         switch ($user_rol[0]->name) {
             case 'SUPER-ADMIN':
             case 'ADMINISTRADOR':
-                $tasks = Task::Join('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
+                $tasks = Task::join('users as usuarioSolici', 'usuarioSolici.id', '=', 'tasks.usuario_solicitante')
                     ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
-                    ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
+                    ->join('departments_descrip', 'departments_descrip.id', '=', 'tasks.deparment_descrip_id')
                     ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
-                    ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
+                    ->join('users as usuarioAsig', 'usuarioAsig.id', '=', 'departments_descrip.usuario_asignado')
                     ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
-                    ->join('groups','groups.id','=','usuarioAsig.group_id')
-                    ->Fechas($FechaInicio,$FechaFin)
+                    ->join('groups', 'groups.id', '=', 'usuarioAsig.group_id')
+                    ->when($FechaInicio == null && $FechaFin == null, function ($q) {
+                        return $q->Fechas(date('Y/m/d', strtotime('-2 months')), date('Y/m/d'));
+                    })
+                    ->when($FechaInicio != null && $FechaFin != null, function ($q) use ($FechaInicio, $FechaFin) {
+                        return $q->Fechas($FechaInicio, $FechaFin);
+                    })
                     ->Usuario($Usuario)
-                    ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip','departments_descrip.usuario_asignado as id_user_asign')
+                    ->select(
+                        'tasks.*',
+                        'perAsig.name as NombreAsig',
+                        'perAsig.last_name as ApellidoAsig',
+                        'perSoli.name as NombreSoli',
+                        'perSoli.last_name as ApellidoSoli',
+                        'departments.namedt',
+                        'departments_descrip.subtarea_descrip',
+                        'departments_descrip.usuario_asignado as id_user_asign'
+                    )
                     ->orderBy('tasks.created_at', 'desc')
-                    ->get(); 
+                    ->get();
                 break;
             
             default:
-                $tasks = Task::Join('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
+                $tasks = Task::join('users as usuarioSolici', 'usuarioSolici.id', '=', 'tasks.usuario_solicitante')
                     ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
-                    ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
+                    ->join('departments_descrip', 'departments_descrip.id', '=', 'tasks.deparment_descrip_id')
                     ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
-                    ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
+                    ->join('users as usuarioAsig', 'usuarioAsig.id', '=', 'departments_descrip.usuario_asignado')
                     ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
+                    ->join('groups', 'groups.id', '=', 'usuarioAsig.group_id')
                     ->where(function ($query) {
                         $query->orWhere('departments_descrip.usuario_asignado', '=', Auth::user()->id);
                     })
-                    ->Fechas($FechaInicio,$FechaFin)
-                    ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip','departments_descrip.usuario_asignado as id_user_asign')
+                    ->when($FechaInicio == null && $FechaFin == null, function ($q) {
+                        return $q->Fechas(date('Y/m/d', strtotime('-2 months')), date('Y/m/d'));
+                    })
+                    ->when($FechaInicio != null && $FechaFin != null, function ($q) use ($FechaInicio, $FechaFin) {
+                        return $q->Fechas($FechaInicio, $FechaFin);
+                    })
+                    ->Usuario($Usuario)
+                    ->select(
+                        'tasks.*',
+                        'perAsig.name as NombreAsig',
+                        'perAsig.last_name as ApellidoAsig',
+                        'perSoli.name as NombreSoli',
+                        'perSoli.last_name as ApellidoSoli',
+                        'departments.namedt',
+                        'departments_descrip.subtarea_descrip',
+                        'departments_descrip.usuario_asignado as id_user_asign'
+                    )
                     ->orderBy('tasks.created_at', 'desc')
-                    ->get(); 
+                    ->get();
                 break;
         }
 
@@ -102,45 +133,7 @@ class ReporteController extends Controller
 
     public function report_grafica(Request $request){
 
-        $user_rol = DB::table('model_has_roles')
-            ->Join('users', 'users.id', 'model_has_roles.model_id')
-            ->Join('roles', 'roles.id', 'model_has_roles.role_id')
-            ->where('users.id','=',Auth::user()->id)
-            ->select('roles.*')
-            ->get(); 
-
-        switch ($user_rol[0]->name) {
-            case 'SUPER-ADMIN':
-            case 'ADMINISTRADOR':
-                $tasks = Task::Join('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
-                    ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
-                    ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
-                    ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
-                    ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
-                    ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
-                    ->join('groups','groups.id','=','usuarioAsig.group_id')
-                    ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip','departments_descrip.usuario_asignado as id_user_asign')
-                    ->orderBy('tasks.created_at', 'desc')
-                    ->get(); 
-                break;
-            
-            default:
-                $tasks = Task::Join('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
-                    ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
-                    ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
-                    ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
-                    ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
-                    ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
-                    ->where(function ($query) {
-                        $query->orWhere('departments_descrip.usuario_asignado', '=', Auth::user()->id);
-                    })
-                    ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip','departments_descrip.usuario_asignado as id_user_asign')
-                    ->orderBy('tasks.created_at', 'desc')
-                    ->get(); 
-                break;
-        }
-
-        return view('reportes.report_grafica', compact('tasks'));
+        return view('reportes.report_grafica');
 
     }
 
@@ -235,7 +228,6 @@ class ReporteController extends Controller
                     ->select(
                         'tasks.estado as Estado',
                         'departments.namedt as Departamento',
-                        'departments_descrip.subtarea_descrip as Descripcion',
                         DB::raw("CONCAT(perAsig.name, ' ', perAsig.last_name) as Usuario")
                     )                    
                     ->orderBy('tasks.created_at', 'desc')
@@ -255,7 +247,6 @@ class ReporteController extends Controller
                     ->select(
                         'tasks.estado as Estado',
                         'departments.namedt as Departamento',
-                        'departments_descrip.subtarea_descrip as Descripcion',
                         DB::raw("CONCAT(perAsig.name, ' ', perAsig.last_name) as Usuario")
                     )
                     ->orderBy('tasks.created_at', 'desc')
