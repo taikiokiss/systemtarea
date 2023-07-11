@@ -207,6 +207,8 @@ class ReporteController extends Controller
 
     public function getMpsData(Request $request)
     {
+        $FechaInicio = $request->get('created_at');
+        $FechaFin = $request->get('updated_at');
 
         $user_rol = DB::table('model_has_roles')
             ->Join('users', 'users.id', 'model_has_roles.model_id')
@@ -225,9 +227,16 @@ class ReporteController extends Controller
                     ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
                     ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
                     ->join('groups','groups.id','=','usuarioAsig.group_id')
+                    ->when($FechaInicio == null && $FechaFin == null, function ($q) {
+                        return $q->Fechas(date('Y/m/d', strtotime('-2 months')), date('Y/m/d'));
+                    })
+                    ->when($FechaInicio != null && $FechaFin != null, function ($q) use ($FechaInicio, $FechaFin) {
+                        return $q->Fechas($FechaInicio, $FechaFin);
+                    })
                     ->select(
                         'tasks.estado as Estado',
                         'departments.namedt as Departamento',
+                        'tasks.created_at as Fecha',
                         DB::raw("CONCAT(perAsig.name, ' ', perAsig.last_name) as Usuario")
                     )                    
                     ->orderBy('tasks.created_at', 'desc')
@@ -243,6 +252,12 @@ class ReporteController extends Controller
                     ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
                     ->where(function ($query) {
                         $query->orWhere('departments_descrip.usuario_asignado', '=', Auth::user()->id);
+                    })
+                    ->when($FechaInicio == null && $FechaFin == null, function ($q) {
+                        return $q->Fechas(date('Y/m/d', strtotime('-2 months')), date('Y/m/d'));
+                    })
+                    ->when($FechaInicio != null && $FechaFin != null, function ($q) use ($FechaInicio, $FechaFin) {
+                        return $q->Fechas($FechaInicio, $FechaFin);
                     })
                     ->select(
                         'tasks.estado as Estado',
