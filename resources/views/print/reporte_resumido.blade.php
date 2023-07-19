@@ -36,9 +36,9 @@
                                   <td style="text-align: center;">{{ $prodc->id }}</td>
                                   <td style="text-align: left;">{{ $prodc->asunto }}</td>
                                   <td style="text-align: center;"> <?php echo date('d/m/Y', strtotime($prodc->fecha_entrega)); ?></td>
-                                  <td style="text-align: center;"> <?php echo date('d/m/Y', strtotime($prodc->created_at)); ?></td>
+                                  <td style="text-align: center;"> @if ($prodc->entrega_real == NULL) @else <?php echo date('d/m/Y', strtotime($prodc->entrega_real)); ?> @endif </td>
                                   <td style="text-align: center;">{{ $prodc->estado }}</td>  
-                                  <td style="text-align: center;">{{ $prodc->id }}</td>                         
+                                  <td style="text-align: center;">{{ $prodc->vencida }}</td>                         
                               </tr>
                             @endforeach
                         @endforeach
