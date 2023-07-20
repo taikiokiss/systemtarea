@@ -133,6 +133,13 @@ class ReporteController extends Controller
 
     public function report_grafica(Request $request){
 
+        $FechaInicio = $request->input('created_at');
+        $FechaFin = $request->input('updated_at');
+
+        Session::put('FechaInicio12', $FechaInicio);
+        Session::put('FechaFin12', $FechaFin);
+
+
         return view('reportes.report_grafica');
 
     }
@@ -207,8 +214,8 @@ class ReporteController extends Controller
 
     public function getMpsData(Request $request)
     {
-        $FechaInicio = $request->get('created_at');
-        $FechaFin = $request->get('updated_at');
+        $FechaInicio = Session::get('FechaInicio12');
+        $FechaFin = Session::get('FechaFin12');
 
         $user_rol = DB::table('model_has_roles')
             ->Join('users', 'users.id', 'model_has_roles.model_id')
@@ -228,7 +235,7 @@ class ReporteController extends Controller
                     ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
                     ->join('groups','groups.id','=','usuarioAsig.group_id')
                     ->when($FechaInicio == null && $FechaFin == null, function ($q) {
-                        return $q->Fechas(date('Y/m/d', strtotime('-2 months')), date('Y/m/d'));
+                        return $q->Fechas(date('d/m/Y', strtotime('-2 months')), date('d/m/Y'));
                     })
                     ->when($FechaInicio != null && $FechaFin != null, function ($q) use ($FechaInicio, $FechaFin) {
                         return $q->Fechas($FechaInicio, $FechaFin);
@@ -244,28 +251,27 @@ class ReporteController extends Controller
                 break;
             
             default:
-                $tasks = Task::Join('users as usuarioSolici','usuarioSolici.id','tasks.usuario_solicitante')
+               $tasks = Task::join('users as usuarioSolici', 'usuarioSolici.id', 'tasks.usuario_solicitante')
                     ->leftJoin('persons as perSoli', 'perSoli.id', '=', 'usuarioSolici.persona_id')
-                    ->join('departments_descrip','departments_descrip.id','tasks.deparment_descrip_id')
+                    ->join('departments_descrip', 'departments_descrip.id', 'tasks.deparment_descrip_id')
                     ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
-                    ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
+                    ->join('users as usuarioAsig', 'usuarioAsig.id', 'departments_descrip.usuario_asignado')
                     ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
-                    ->where(function ($query) {
-                        $query->orWhere('departments_descrip.usuario_asignado', '=', Auth::user()->id);
-                    })
-                    ->when($FechaInicio == null && $FechaFin == null, function ($q) {
-                        return $q->Fechas(date('Y/m/d', strtotime('-2 months')), date('Y/m/d'));
-                    })
-                    ->when($FechaInicio != null && $FechaFin != null, function ($q) use ($FechaInicio, $FechaFin) {
-                        return $q->Fechas($FechaInicio, $FechaFin);
+                    ->where('departments_descrip.usuario_asignado', Auth::user()->id)
+                    ->when($FechaInicio && $FechaFin, function ($q) use ($FechaInicio, $FechaFin) {
+                        return $q->whereBetween('tasks.created_at', [$FechaInicio, $FechaFin]);
+                    }, function ($q) {
+                        return $q->where('tasks.created_at', '>=', now()->subMonths(2));
                     })
                     ->select(
                         'tasks.estado as Estado',
                         'departments.namedt as Departamento',
+                        'tasks.created_at as Fecha',
                         DB::raw("CONCAT(perAsig.name, ' ', perAsig.last_name) as Usuario")
                     )
                     ->orderBy('tasks.created_at', 'desc')
-                    ->get(); 
+                    ->get();
+
                 break;
         }
 

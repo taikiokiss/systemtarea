@@ -86,6 +86,8 @@ class TaskController extends Controller
             ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
             ->where('departments_descrip.usuario_asignado','=',Auth::user()->id,'AND')
             ->where('tasks.vencida','=','SI')
+            ->where('tasks.estado','!=','REALIZADA')
+            ->where('tasks.accion','!=','CONSULTAR')
             ->select('tasks.*','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments_descrip.subtarea_descrip')
             ->orderBy('tasks.created_at', 'desc')
             ->get(); 
@@ -777,7 +779,6 @@ class TaskController extends Controller
                     ->select('tasks.*','perAsig.id as IdAsig','perAsig.name as NombreAsig','perAsig.last_name as ApellidoAsig','perSoli.name as NombreSoli','perSoli.last_name as ApellidoSoli','departments.namedt','departments.id as depaid','departments_descrip.subtarea_descrip as nombretarea','departments_descrip.tiempo_demora as tiempotarea','departments_descrip.id as idttarea')
                     ->orderBy('tasks.created_at', 'desc')
                     ->get(); 
-
             return view('tasks.acciones.consultar_tarea', compact('tasks1','tasks','opcion_rrp','tasks_users_rl','historico_mov_tarea'));
         } else {
             abort(403); 

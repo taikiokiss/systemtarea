@@ -34,6 +34,8 @@ class HomeController extends Controller
         $estados_vencidos = Task::join('departments_descrip', 'departments_descrip.id', '=', 'tasks.deparment_descrip_id')
             ->where('departments_descrip.usuario_asignado', '=', Auth::user()->id)
             ->where('tasks.vencida','=','SI')
+            ->where('tasks.estado','!=','REALIZADA')
+            ->where('tasks.estado','!=','ANULADA')
             ->select('tasks.estado')
             ->get();
 

@@ -16,7 +16,7 @@
                           <div class="col-sm">
 
 
-                            <label for="created_at" class="col-form-label text-md-right text-muted" style="font-size: 14px;">Inicio</label>
+                            <label class="col-form-label text-md-right text-muted" style="font-size: 14px;">Inicio</label>
                               @if(request('created_at') == false)
                                 <input style="font-size: 14px" class="form-control @error('created_at') is-invalid @enderror" id="created_at" name="created_at" value="<?php echo date('Y-m-d', strtotime('-2 months')) ?>" type="date" required/>
                               @else
@@ -24,7 +24,7 @@
                               @endif
                           </div>
                           <div class="col-sm">
-                            <label for="updated_at" class="col-form-label text-md-right text-muted" style="font-size: 14px;">Fin</label>
+                            <label class="col-form-label text-md-right text-muted" style="font-size: 14px;">Fin</label>
                               @if(request('updated_at') == false)
                                 <input style="font-size: 14px" class="form-control @error('updated_at') is-invalid @enderror" id="updated_at" name="updated_at" value="<?php echo date('Y-m-d') ?>" type="date" required/>
                               @else
@@ -93,9 +93,9 @@
             // Filtrar los registros según la fecha de inicio y fecha de fin
             var mpsFiltered = mps.filter(function(record) {
                 var fecha =record.Fecha; 
+            console.log(fecha);
                 return fecha >= fechaInicio && fecha <= fechaFin;
             });
-            console.log(mpsFiltered);
             $("#output").pivotUI(mpsFiltered, {
                 renderers: renderers,
                 cols: ["Departamento"],
