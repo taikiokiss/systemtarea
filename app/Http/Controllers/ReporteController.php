@@ -205,6 +205,9 @@ class ReporteController extends Controller
         $pdf = PDF::loadView('print.reporte_resumido', compact('registrosAgrupados','fi','ff'));
 
         $pdf->setPaper('A4', 'portrait');
+        $pdf->set_option('isHtml5ParserEnabled', true);
+
+
 
         $pdf->getDomPDF()->set_option("enable_php", true);
 
@@ -234,20 +237,19 @@ class ReporteController extends Controller
                     ->join('users as usuarioAsig','usuarioAsig.id','departments_descrip.usuario_asignado')
                     ->join('persons as perAsig', 'perAsig.id', '=', 'usuarioAsig.persona_id')
                     ->join('groups','groups.id','=','usuarioAsig.group_id')
-                    ->when($FechaInicio == null && $FechaFin == null, function ($q) {
-                        return $q->Fechas(date('d/m/Y', strtotime('-2 months')), date('d/m/Y'));
-                    })
-                    ->when($FechaInicio != null && $FechaFin != null, function ($q) use ($FechaInicio, $FechaFin) {
-                        return $q->Fechas($FechaInicio, $FechaFin);
+                    ->when($FechaInicio && $FechaFin, function ($q) use ($FechaInicio, $FechaFin) {
+                        return $q->whereBetween('tasks.created_at', [$FechaInicio, $FechaFin]);
+                    }, function ($q) {
+                        return $q->where('tasks.created_at', '>=', now()->subMonths(2));
                     })
                     ->select(
                         'tasks.estado as Estado',
                         'departments.namedt as Departamento',
                         'tasks.created_at as Fecha',
                         DB::raw("CONCAT(perAsig.name, ' ', perAsig.last_name) as Usuario")
-                    )                    
+                    )
                     ->orderBy('tasks.created_at', 'desc')
-                    ->get(); 
+                    ->get();
                 break;
             
             default:

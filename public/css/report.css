@@ -17,7 +17,7 @@
 	margin-top: 2cm;
 	margin-left: 0cm;
 	margin-right: 0cm;
-	margin-bottom: 0cm;
+	margin-bottom: 2cm;
 }
 
 table {
@@ -33,7 +33,7 @@ body{
 }
 
 #header { 
-    position: fixed;
+    position: absolute;
     top: -10px;
     left: 0px;
     right: 0px;
@@ -41,7 +41,7 @@ body{
 } 
 
 #footer { 
-	position: absolute; 
+	position: fixed; 
 	left: 0px; 
 	bottom: 0px; 
 	right: 0px; 
