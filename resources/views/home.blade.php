@@ -9,8 +9,6 @@
 			<div class="card-body">
 				<hr>
 
-
-                
 					<div class="row w-100">
 
 
