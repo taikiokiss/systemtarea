@@ -120,6 +120,7 @@ class TaskController extends Controller
             ->join('persons', 'persons.id', '=', 'users.persona_id')
             ->join('departments', 'departments.id', '=', 'users.deparment_id')
             ->where('departments_descrip.estado','=','ACTIVO','AND')
+            ->where('departments_descrip.old_new','!=','2')
             ->select('departments_descrip.*','departments.*','persons.id as idperson','departments.id as idpersondepar', 'persons.name as nombre', 'persons.last_name as apellido')
             ->get();
 
@@ -236,7 +237,7 @@ class TaskController extends Controller
 
                 $department2 = Department::where('estado', 'ACTIVO')->get();
 
-                $depart_list = Departments_descrip::where('estado', 'ACTIVO')->get();
+                $depart_list = Departments_descrip::where('estado', 'ACTIVO')->where('old_new', '1')->get();
 
                 $datos = [
                     'departma' => $department2,

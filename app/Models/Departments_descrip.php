@@ -11,7 +11,7 @@ class Departments_descrip extends Model
 
     protected $table = 'departments_descrip';
 
-    protected $fillable = ['departments_id','subtarea_descrip','usuario_asignado','tiempo_demora','estado'];
+    protected $fillable = ['departments_id','subtarea_descrip','usuario_asignado','tiempo_demora','estado','old_new'];
 	
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

@@ -44,6 +44,7 @@ class Departments_descrips extends Component
                 ->join('departments', 'departments.id', '=', 'departments_descrip.departments_id')
                 ->join('users', 'users.id', '=', 'departments_descrip.usuario_asignado')
                 ->join('persons', 'persons.id', '=', 'users.persona_id')
+                ->where('departments_descrip.old_new','!=',2)
                 ->select('departments.namedt as nombredepartamento','persons.*','departments_descrip.*')
                 ->where(function ($query) use ($keyWord) {
                     $query->where('departments_descrip.subtarea_descrip', 'LIKE', $keyWord);
@@ -83,7 +84,9 @@ class Departments_descrips extends Component
 			'subtarea_descrip' => $this-> subtarea_descrip,
 			'usuario_asignado' => $this-> usuario_asignado,
 			'tiempo_demora' => $this-> tiempo_demora,
-			'estado' => 'ACTIVO'
+			'estado' => 'ACTIVO',
+            'old_new' => '1'
+
         ]);
         
         $this->resetInput();
