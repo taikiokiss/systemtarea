@@ -13,20 +13,20 @@
 					<input type="hidden" wire:model="selected_id">
                     <div class="form-group">
                         <label for="departments_id"></label>
-                        <input wire:model="departments_id" type="text" class="form-control" id="departments_id" readonly>@error('departments_id') <span class="error text-danger">{{ $message }}</span> @enderror
+                        <input wire:model="departments_id" type="text" class="form-control" id="departments_id" readonly>@error('departments_id') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group">
                         <label for="subtarea_descrip"></label>
-                        <input wire:model="subtarea_descrip" onkeyup="this.value = this.value.toUpperCase();" type="text" class="form-control" id="subtarea_descrip" placeholder="Descripcion">@error('subtarea_descrip') <span class="error text-danger">{{ $message }}</span> @enderror
+                        <input wire:model="subtarea_descrip" onkeyup="this.value = this.value.toUpperCase();" type="text" class="form-control" id="subtarea_descrip" placeholder="Descripcion">@error('subtarea_descrip') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
                     </div>
                     <div class="form-group">
                         <label for="usuario_asignado"></label>
-                        <input wire:model="usuario_asignado" type="text" class="form-control" id="usuario_asignado" readonly>@error('usuario_asignado') <span class="error text-danger">{{ $message }}</span> @enderror
+                        <input wire:model="usuario_asignado" type="text" class="form-control" id="usuario_asignado" readonly>@error('usuario_asignado') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
 
                     </div>
                     <div class="form-group">
                         <label for="tiempo_demora">Tiempo en dias</label>
-                        <input wire:model="tiempo_demora" type="number" class="form-control" id="tiempo_demora" placeholder="Tiempo Demora">@error('tiempo_demora') <span class="error text-danger">{{ $message }}</span> @enderror
+                        <input wire:model="tiempo_demora" type="number" class="form-control" id="tiempo_demora" placeholder="Tiempo Demora">@error('tiempo_demora') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
                     </div>
 
                 </form>

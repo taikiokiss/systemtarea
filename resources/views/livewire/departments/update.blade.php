@@ -12,7 +12,7 @@
                 <form>
 					<input type="hidden" wire:model="selected_id">
             <div class="form-group">
-                <input wire:model="namedt" type="text" class="form-control" id="namedt" placeholder="Nombre">@error('namedt') <span class="error text-danger">{{ $message }}</span> @enderror
+                <input wire:model="namedt" type="text" class="form-control" id="namedt" placeholder="Nombre">@error('namedt') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
             </div>
 
                 </form>

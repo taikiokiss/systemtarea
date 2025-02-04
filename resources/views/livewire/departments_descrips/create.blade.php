@@ -28,11 +28,11 @@
                     </div>
 
                     <div class="form-group">
-                        <input wire:model.defer="subtarea_descrip" type="text" class="form-control" id="subtarea_descrip" placeholder="Descripción de tarea">@error('subtarea_descrip') <span class="error text-danger">{{ $message }}</span> @enderror
+                        <input wire:model.defer="subtarea_descrip" type="text" class="form-control" id="subtarea_descrip" placeholder="Descripción de tarea">@error('subtarea_descrip') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="form-group">
-                        <input wire:model.defer="tiempo_demora" type="number" class="form-control" id="tiempo_demora" placeholder="Dias">@error('tiempo_demora') <span class="error text-danger">{{ $message }}</span> @enderror
+                        <input wire:model.defer="tiempo_demora" type="number" class="form-control" id="tiempo_demora" placeholder="Dias">@error('tiempo_demora') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
                     </div>
 
                 </form>

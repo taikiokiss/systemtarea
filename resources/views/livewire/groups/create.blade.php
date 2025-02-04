@@ -12,7 +12,7 @@
 				<form>
             <div class="form-group">
                 <label for="name"></label>
-                <input wire:model="name" type="text" class="form-control" id="name" placeholder="Nombre">@error('name') <span class="error text-danger">{{ $message }}</span> @enderror
+                <input wire:model="name" type="text" class="form-control" id="name" placeholder="Nombre">@error('name') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
             </div>
 
 
@@ -24,13 +24,13 @@
                         <option value="{{ $option->id }}">{{ $option->cedula }} | {{ $option->last_name }} {{ $option->name }}</option>
                     @endforeach
                 </select>
-                @error('jefe_grupo') <span class="error text-danger">{{ $message }}</span> @enderror
+                @error('jefe_grupo') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
             </div>
 
 
             <div class="form-group">
                 <label for="miembro_grupo"></label>
-                <input wire:model="miembro_grupo" type="text" class="form-control" id="miembro_grupo" placeholder="Miembro Grupo">@error('miembro_grupo') <span class="error text-danger">{{ $message }}</span> @enderror
+                <input wire:model="miembro_grupo" type="text" class="form-control" id="miembro_grupo" placeholder="Miembro Grupo">@error('miembro_grupo') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
             </div>
 
                 </form>

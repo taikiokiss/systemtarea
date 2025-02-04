@@ -12,11 +12,11 @@
 				<form>
             <div class="form-group">
                 <label for="name"></label>
-                <input wire:model="name" type="text" class="form-control" id="name" placeholder="Name">@error('name') <span class="error text-danger">{{ $message }}</span> @enderror
+                <input wire:model="name" type="text" class="form-control" id="name" placeholder="Name">@error('name') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
             </div>
             <div class="form-group">
                 <label for="guard_name"></label>
-                <input wire:model="guard_name" type="text" class="form-control" id="guard_name" placeholder="Guard Name">@error('guard_name') <span class="error text-danger">{{ $message }}</span> @enderror
+                <input wire:model="guard_name" type="text" class="form-control" id="guard_name" placeholder="Guard Name">@error('guard_name') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
             </div>
 
                 </form>
