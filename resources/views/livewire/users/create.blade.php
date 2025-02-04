@@ -12,22 +12,22 @@
 				<form>
             <div class="form-group">
                 <label for="name"></label>
-                <input wire:model="name" type="text" class="form-control" id="name" placeholder="Nombre">@error('name') <span class="error text-danger">{{ $message }}</span> @enderror
+                <input wire:model="name" type="text" class="form-control" id="name" placeholder="Nombre">@error('name') <span style="font-size: 1rem; position: relative;" class="error text-danger">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">
                 <label for="last_name"></label>
-                <input wire:model="last_name" type="text" class="form-control" id="last_name" placeholder="Apellido">@error('last_name') <span class="error text-danger">{{ $message }}</span> @enderror
+                <input wire:model="last_name" type="text" class="form-control" id="last_name" placeholder="Apellido">@error('last_name') <span style="font-size: 1rem; position: relative;" class="error text-danger">{{ $message }}</span> @enderror
             </div>            
 
             <div class="form-group">
                 <label for="cedula"></label>
-                <input wire:model="cedula" type="number" maxlength="10" wire:keydown="limitarCedula" class="form-control" id="cedula" placeholder="Cedula">@error('cedula') <span class="error text-danger">{{ $message }}</span> @enderror
+                <input wire:model="cedula" type="number" maxlength="10" wire:keydown="limitarCedula" class="form-control" id="cedula" placeholder="Cedula">@error('cedula') <span style="font-size: 1rem; position: relative;" class="error text-danger">{{ $message }}</span> @enderror
             </div>  
 
             <div class="form-group">
                 <label for="email"></label>
-                <input wire:model="email" type="text" class="form-control" id="email" placeholder="Email">@error('email') <span class="error text-danger">{{ $message }}</span> @enderror
+                <input wire:model="email" type="text" class="form-control" id="email" placeholder="Email">@error('email') <span style="font-size: 1rem; position: relative;" class="error text-danger">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">
@@ -38,7 +38,7 @@
                         <option value="{{ $option->id }}">{{ $option->namedt }}</option>
                     @endforeach
                 </select>
-                @error('department') <span class="error text-danger">{{ $message }}</span> @enderror
+                @error('department') <span style="font-size: 1rem; position: relative;" class="error text-danger">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">
@@ -49,7 +49,7 @@
                         <option value="{{ $option->id }}">{{ $option->name }}</option>
                     @endforeach
                 </select>
-                @error('grupo') <span class="error text-danger">{{ $message }}</span> @enderror
+                @error('grupo') <span style="font-size: 1rem; position: relative;" class="error text-danger">{{ $message }}</span> @enderror
             </div>
 
             <div class="form-group">

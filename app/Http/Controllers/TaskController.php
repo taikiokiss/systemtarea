@@ -213,6 +213,7 @@ class TaskController extends Controller
         Mail::to($email_info[0]->email_Asignado)
             ->cc($email_info[0]->email_Solicita)
             ->send(new NuevaTarea($tasks->id, $files));
+            
 
         $notificationa=array(
             'message' => 'Tarea creada con éxito',

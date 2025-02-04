@@ -7,7 +7,7 @@
         <div class="col-sm-6 login-section-wrapper">
           <div class="login-wrapper my-auto">
           <div class="brand-wrapper text-center">
-            <img src="/assets1/images/logo.png" alt="logo" class="logo" style="height: 100px;">
+            <img src="/assets1/images/logo.png" alt="logo" class="logo">
             <!--h1 class="login-title">TAREAS</h1-->
           </div>
             <br><br>
