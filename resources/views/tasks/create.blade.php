@@ -55,7 +55,7 @@
                             <label for="asunto" class="col-form-label text-md-left">{{ __('Asunto') }}</label>
                                 <input id="asunto" type="text" class="form-control @error('asunto') is-invalid @enderror" name="asunto" onkeyup="this.value = this.value.toUpperCase();" value="{{ old('asunto') }}"  autocomplete="asunto" autofocus >
                                 @error('asunto')
-                                    <span class="invalid-feedback" style="font-size: 1rem; position: relative;" role="alert">
+                                    <span class="invalid-feedback"  role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
