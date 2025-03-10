@@ -10,17 +10,17 @@
             </div>
            <div class="modal-body">
 				<form>
-                    
+
                     <div class="form-group row">
                         <div class="col-md-12">
                         <label class="col-form-label text-md-left">{{ __('Nombre de equipo') }}</label>
-                            <select  wire:model.defer="name" id="name" class="form-control" name="name" >
-                            </select>
+                        <input wire:model.defer="name" type="text" class="form-control" id="name" placeholder="Nombre del equipo">@error('name') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
+
                         </div>
                         <div class="col-md-12">
-                        <label class="col-form-label text-md-left">{{ __('Departamento') }}</label>
+                        <label class="col-form-label text-md-left">{{ __('Tipo de equipo') }}</label>
                             <select  wire:model.defer="type" id="type" class="form-control" name="type">
-                                <option hidden value="">Tipo de equipo:</option>
+                                <option hidden value="">- - - - - - </option>
                                 @foreach ($types as $tipos_obj)
                                     <option value="{{ $tipos_obj->id }}">{{ $tipos_obj->name }}</option>
                                 @endforeach
@@ -33,23 +33,23 @@
                     </div>
 
                     <div class="form-group">
-                        <input wire:model.defer="modelo" type="number" class="form-control" id="modelo" placeholder="Dias">@error('modelo') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
+                        <input wire:model.defer="modelo" type="text" class="form-control" id="modelo" placeholder="Modelo del equipo">@error('modelo') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
                     </div>
 
                     <div class="form-group row">
                         <div class="col-md-12">
-                        <label class="col-form-label text-md-left">{{ __('Departamento') }}</label>
+                        <label class="col-form-label text-md-left">{{ __('Ubicacion del equipo') }}</label>
                             <select  wire:model.defer="type" id="type" class="form-control" name="type">
-                                <option hidden value="">Ubicacion de equipo:</option>
-                                @foreach ($location as $ubicacion)
+                                <option hidden value=""> - - - - - - - </option>
+                                @foreach ($locations as $ubicacion)
                                     <option value="{{ $ubicacion->id }}">{{ $ubicacion->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-12">
                         <label class="col-form-label text-md-left">{{ __('Descripcion del equipo') }}</label>
-                            <select  wire:model.defer="description" id="description" class="form-control" name="description" >
-                            </select>
+                        <input wire:model.defer="description" type="text" class="form-control" id="description" placeholder="Descripcion del equipo">@error('description') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
+
                         </div>
                     </div>
 
