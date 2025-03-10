@@ -81,18 +81,21 @@ class Inventorys extends Component
         
         $this->resetInput();
 		$this->emit('closeModal');
-		session()->flash('message', 'Group Successfully created.');
+		session()->flash('message', 'Successfully created.');
     }
 
     public function edit($id)
     {
         $record = Inventory::findOrFail($id);
-
+        
         $this->selected_id = $id; 
-		$this->name = $record-> name;
-		$this->jefe_grupo = $record-> jefe_grupo;
-		$this->miembro_grupo = $record-> miembro_grupo;
-
+        $this->name =$record-> name;
+        $this->type =$record-> type;
+        $this->serial =$record-> serial;
+        $this->modelo =$record-> modelo;
+        $this->location =$record-> location;
+        $this->description =$record-> description;
+        $this->estado =$record-> estado;
 		
         $this->updateMode = true;
     }
@@ -100,20 +103,25 @@ class Inventorys extends Component
     public function update()
     {
         $this->validate([
-		'name' => 'required',
+		  'name' => 'required',
         ]);
 
         if ($this->selected_id) {
 			$record = Inventory::find($this->selected_id);
-            $record->update([ 
-			'name' => $this-> name,
-			'jefe_grupo' => $this-> jefe_grupo,
-			'miembro_grupo' => $this-> miembro_grupo
+            $record->update([
+
+                'name' => $this-> name,
+                'type' => $this-> type,
+                'serial' => $this-> serial,
+                'modelo' => $this-> ,modelo,
+                'location' => $this-> location,
+                'description' => $this-> description,
+
             ]);
 
             $this->resetInput();
             $this->updateMode = false;
-			session()->flash('message', 'Group Successfully updated.');
+			session()->flash('message', 'Successfully updated.');
         }
     }
 
