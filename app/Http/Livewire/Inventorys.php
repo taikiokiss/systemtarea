@@ -31,13 +31,11 @@ class Inventorys extends Component
 
         return view('livewire.inventorys.view', [
             'inventorys' => DB::table('inventorys')
-                ->join('users', 'users.id', '=', 'inventorys.jefe_grupo')
-                ->join('persons', 'persons.id', '=', 'users.persona_id')
-                ->select('inventorys.id as idg','inventorys.name as nombregrupo','inventorys.miembro_grupo as miembrogrupo','persons.*','inventorys.estado as estado')
+                ->join('types', 'types.id', '=', 'inventorys.type')
+                ->join('locations', 'locations.id', '=', 'inventorys.location')
+                ->select('inventorys.id as idg','inventorys.name as nombre','inventorys.miembro_grupo','locations.name as loca_name','types.name as type_name','inventorys.estado as estado')
                 ->where(function ($query) use ($keyWord) {
                     $query->where('inventorys.name', 'LIKE', $keyWord)
-                          ->orWhere('inventorys.jefe_grupo', 'LIKE', $keyWord)
-                          ->orWhere('inventorys.miembro_grupo', 'LIKE', $keyWord);
                 })
                 ->paginate(10),
             'users' => $list_user,
@@ -54,10 +52,12 @@ class Inventorys extends Component
 	
     private function resetInput()
     {		
-		$this->name = null;
-		$this->jefe_grupo = null;
-		$this->miembro_grupo = null;
-        $this->estado = null;
+        $this->name = null; 
+        $this->type = null; 
+        $this->serial = null; 
+        $this->modelo = null; 
+        $this->location = null; 
+        $this->description = null; 
 
     }
 
@@ -68,9 +68,13 @@ class Inventorys extends Component
         ]);
 
         Inventory::create([ 
-			'name' => $this-> name,
-			'jefe_grupo' => $this-> jefe_grupo,
-			'miembro_grupo' => $this-> miembro_grupo,
+
+            'name' => $this-> name,
+            'type' => $this-> type,
+            'serial' => $this-> serial,
+            'modelo' => $this-> ,modelo,
+            'location' => $this-> location,
+            'description' => $this-> description,
             'estado' => 'ACTIVO'
 
         ]);
