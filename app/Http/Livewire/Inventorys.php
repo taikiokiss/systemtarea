@@ -24,7 +24,10 @@ class Inventorys extends Component
         $list_user = DB::table('users')
             ->Join('persons', 'persons.id', 'users.persona_id')
                 ->select('users.*','persons.*')
-                ->get(); 
+                ->get();
+
+        $tipo = Type::where('estado', 'ACTIVO')->get();
+        $ubicacion = Location::where('estado', 'ACTIVO')->get();
 
         return view('livewire.inventorys.view', [
             'inventorys' => DB::table('inventorys')
@@ -38,6 +41,8 @@ class Inventorys extends Component
                 })
                 ->paginate(10),
             'users' => $list_user,
+            'types' => $tipo,
+            'locations' => $ubicacion,
         ]);
     }
 	

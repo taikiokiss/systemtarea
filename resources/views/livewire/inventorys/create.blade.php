@@ -45,31 +45,3 @@
     </div>
 </div>
 
-
-<script>
-    $(document).ready(function() {
-        // Al cargar la página, el segundo select estará desactivado
-        $('#usuario_asignado').prop('disabled', true);
-
-        // Cuando se seleccione un valor en el primer select, se activará el segundo select y se llenará con los valores correspondientes
-        $('#departments_id').change(function() {
-            var departamento = $(this).val();
-            if (departamento !== '') {
-                $('#usuario_asignado').prop('disabled', false);
-                $('#usuario_asignado').html('<option value="">Cargando...</option>');
-                var opciones = @json($datos['opciones']);
-                var options = '<option value="">Seleccione una opción</option>';
-                opciones.forEach(function(opcion) {
-                    if (opcion.idpersondepar == departamento) { // <--- aquí se hace la comparación por id de departamento
-                        options += '<option value="' + opcion.idperson + '">' + opcion.last_name +' '+ opcion.name +  '</option>'; // <--- se utiliza id y nombre del usuario
-                    }
-                });
-                $('#usuario_asignado').html(options);
-            } else {
-                $('#usuario_asignado').prop('disabled', true);
-                $('#usuario_asignado').html('<option value="">Seleccione una opción</option>');
-            }
-        });
-
-    });
-</script>
