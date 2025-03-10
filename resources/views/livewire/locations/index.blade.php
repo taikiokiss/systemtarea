@@ -14,5 +14,5 @@
         </div>
     </div>
 </section>
-@livewire('types')
+@livewire('locations')
 @endsection

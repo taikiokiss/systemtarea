@@ -14,7 +14,8 @@ class Inventorys extends Component
     use WithPagination;
 
 	protected $paginationTheme = 'bootstrap';
-    public $selected_id, $keyWord, $name, $jefe_grupo, $miembro_grupo, $estado;
+    public $selected_id, $keyWord, $name, $type, $serial, $modelo, $location, $description, $estado;
+
     public $updateMode = false;
 
     public function render()
@@ -35,7 +36,7 @@ class Inventorys extends Component
                 ->join('locations', 'locations.id', '=', 'inventorys.location')
                 ->select('inventorys.id as idg','inventorys.name as nombre','inventorys.miembro_grupo','locations.name as loca_name','types.name as type_name','inventorys.estado as estado')
                 ->where(function ($query) use ($keyWord) {
-                    $query->where('inventorys.name', 'LIKE', $keyWord)
+                    $query->where('inventorys.name', 'LIKE', $keyWord);
                 })
                 ->paginate(10),
             'users' => $list_user,
@@ -72,7 +73,7 @@ class Inventorys extends Component
             'name' => $this-> name,
             'type' => $this-> type,
             'serial' => $this-> serial,
-            'modelo' => $this-> ,modelo,
+            'modelo' => $this-> modelo,
             'location' => $this-> location,
             'description' => $this-> description,
             'estado' => 'ACTIVO'
@@ -113,7 +114,7 @@ class Inventorys extends Component
                 'name' => $this-> name,
                 'type' => $this-> type,
                 'serial' => $this-> serial,
-                'modelo' => $this-> ,modelo,
+                'modelo' => $this-> modelo,
                 'location' => $this-> location,
                 'description' => $this-> description,
 

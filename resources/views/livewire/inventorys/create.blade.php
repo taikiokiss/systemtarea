@@ -10,29 +10,47 @@
             </div>
            <div class="modal-body">
 				<form>
+                    
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                        <label class="col-form-label text-md-left">{{ __('Nombre de equipo') }}</label>
+                            <select  wire:model.defer="name" id="name" class="form-control" name="name" >
+                            </select>
+                        </div>
+                        <div class="col-md-12">
+                        <label class="col-form-label text-md-left">{{ __('Departamento') }}</label>
+                            <select  wire:model.defer="type" id="type" class="form-control" name="type">
+                                <option hidden value="">Tipo de equipo:</option>
+                                @foreach ($types as $tipos_obj)
+                                    <option value="{{ $tipos_obj->id }}">{{ $tipos_obj->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input wire:model.defer="serial" type="text" class="form-control" id="serial" placeholder="Serial del equipo">@error('serial') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
+                    </div>
+
+                    <div class="form-group">
+                        <input wire:model.defer="modelo" type="number" class="form-control" id="modelo" placeholder="Dias">@error('modelo') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
+                    </div>
+
                     <div class="form-group row">
                         <div class="col-md-12">
                         <label class="col-form-label text-md-left">{{ __('Departamento') }}</label>
-                            <select  wire:model.defer="departments_id" id="departments_id" class="form-control" name="departments_id">
-                                <option hidden value="">Selecciona el departamento</option>
-                                @foreach ($datos['departma'] as $departm)
-                                    <option value="{{ $departm->id }}">{{ $departm->namedt }}</option>
+                            <select  wire:model.defer="type" id="type" class="form-control" name="type">
+                                <option hidden value="">Ubicacion de equipo:</option>
+                                @foreach ($location as $ubicacion)
+                                    <option value="{{ $ubicacion->id }}">{{ $ubicacion->name }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="col-md-12">
-                        <label class="col-form-label text-md-left">{{ __('Usuario encargado') }}</label>
-                            <select  wire:model.defer="usuario_asignado" id="usuario_asignado" class="form-control" name="usuario_asignado" >
+                        <label class="col-form-label text-md-left">{{ __('Descripcion del equipo') }}</label>
+                            <select  wire:model.defer="description" id="description" class="form-control" name="description" >
                             </select>
                         </div>
-                    </div>
-
-                    <div class="form-group">
-                        <input wire:model.defer="subtarea_descrip" type="text" class="form-control" id="subtarea_descrip" placeholder="Descripción de tarea">@error('subtarea_descrip') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
-                    </div>
-
-                    <div class="form-group">
-                        <input wire:model.defer="tiempo_demora" type="number" class="form-control" id="tiempo_demora" placeholder="Dias">@error('tiempo_demora') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
                     </div>
 
                 </form>

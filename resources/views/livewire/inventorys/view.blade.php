@@ -15,8 +15,8 @@
 				</div>
 				
 				<div class="card-body">
-						@include('livewire.departments_descrips.create')
-						@include('livewire.departments_descrips.update')
+						@include('livewire.inventorys.create')
+						@include('livewire.inventorys.update')
 					<div class="table-responsive">
 						<table class="table table-bordered table-striped table-sm" style="font-size:12px; color: black">
 							<thead class="thead">
@@ -31,7 +31,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								@foreach($Departments_descrips as $row)
+								@foreach($inventorys as $row)
 								<tr>
 									<td>{{ $loop->iteration }}</td> 
 									<td>{{ $row->nombredepartamento }}</td>
@@ -64,7 +64,7 @@
 								@endforeach
 							</tbody>
 						</table>						
-						{{ $Departments_descrips->links() }}
+						{{ $inventorys->links() }}
 						</div>
 				</div>
 			</div>
