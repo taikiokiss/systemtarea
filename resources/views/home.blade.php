@@ -9,7 +9,7 @@
 			<div class="card-body">
 				<hr>
 
-					<div class="row w-100">
+					<!--div class="row w-100">
 
 
                         <div class="col-xl-3 col-md-6 mb-4">
@@ -86,10 +86,8 @@
 
 
 
-                        <!-- Content Column -->
                         <div class="col-lg-12 col-md-6 mb-4">
 
-                            <!-- Project Card Example -->
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
                                     <h6 class="m-0 font-weight-bold text-primary">CALIFICACIÓN DE EFICIENCIA </h6>
@@ -129,7 +127,7 @@
 
 
 
-                    </div>			
+                    </div-->			
 			</div>
 		</div>
 	</div>

@@ -17,7 +17,6 @@ use App\Models\Departments_descrip;
 class ReporteController extends Controller
 {
 
-    
     public function report_resumido(Request $request){
 
         $Usuario = $request->get('usuario');

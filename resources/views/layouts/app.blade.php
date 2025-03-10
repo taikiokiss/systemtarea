@@ -93,21 +93,25 @@
                       <div class="bg-white py-2 collapse-inner rounded">
                             @role('SUPER-ADMIN')
                                 <a class="collapse-item" href="{{url('/mail-settings')}}">Correo</a> 
-                                <a class="collapse-item" href="{{url('/logs-admin-view-system')}}">Visor Logs</a> 
+                                <a class="collapse-item" href="{{url('/logs-admin-view-system')}}">Visor Logs</a>
+                                <a class="collapse-item" href="{{url('/users')}}">Usuarios</a> 
                             @endrole
-
-                            <a class="collapse-item" href="{{url('/users')}}">Usuarios</a> 
                             <!--a class="collapse-item" href="{{url('/roles')}}">Admi. Roles</a-->
                             <!--a class="collapse-item" href="{{url('/permissions')}}">Admi. Permisos</a-->
                             <!--Nav Bar Hooks - Do not delete!!-->
-                            <a href="{{ url('/departments_descrip') }}" class="collapse-item"> Departamentos - Tareas</a>
+                            <!--a href="{{ url('/departments_descrip') }}" class="collapse-item"> Departamentos - Tareas</a>
                             <a href="{{ url('/groups') }}" class="collapse-item">Grupos</a>
-                            <a href="{{ url('/departments') }}" class="collapse-item">Departamentos</a>
+                            <a href="{{ url('/departments') }}" class="collapse-item">Departamentos</a-->
+                            <a class="collapse-item" href="{{url('/types')}}">Tipos</a> 
+                            <a class="collapse-item" href="{{url('/locations')}}">Ubicacion</a> 
+                            <a class="collapse-item" href="{{url('/inventorys')}}">Inventario</a> 
+
                       </div>
                   </div>
                 </li>
             @endrole
 
+            <!--
             @role('ADMINISTRADOR|USUARIO|SUPER-ADMIN')
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFooda6"
@@ -143,7 +147,7 @@
                 </li>
 
             @endrole
-
+            -->
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
 

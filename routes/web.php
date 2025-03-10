@@ -43,6 +43,9 @@ Route::middleware(['auth'])->group(function () {
 	Route::view('roles', 'livewire.roles.index')->middleware('role:ADMINISTRADOR|SUPER-ADMIN');
 	Route::view('users', 'livewire.users.index')->middleware('role:ADMINISTRADOR|SUPER-ADMIN');
 	Route::view('departments_descrip', 'livewire.departments_descrips.index')->middleware('role:ADMINISTRADOR|SUPER-ADMIN');
+	Route::view('inventorys', 'livewire.inventorys.index')->middleware('role:ADMINISTRADOR|SUPER-ADMIN');
+	Route::view('types', 'livewire.types.index')->middleware('role:ADMINISTRADOR|SUPER-ADMIN');
+	Route::view('locations', 'livewire.locations.index')->middleware('role:ADMINISTRADOR|SUPER-ADMIN');
 
 });
 
