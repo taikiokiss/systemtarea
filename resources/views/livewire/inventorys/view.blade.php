@@ -22,10 +22,9 @@
 							<thead class="thead">
 								<tr>
 									<td width="20px">#</td> 
-									<th width="120px">Departamento</th>
-									<th width="200px">Descripcion de tarea</th>
-									<th width="200px">Usuario Asignado</th>
-									<th width="20px">Tiempo</th>
+									<th width="120px">Nombre</th>
+									<th width="200px">Ubicacion</th>
+									<th width="200px">Tipo</th>
 									<th width="20px">Estado</th>
 									<td width="100px"></td>
 								</tr>
@@ -34,26 +33,25 @@
 								@foreach($inventorys as $row)
 								<tr>
 									<td>{{ $loop->iteration }}</td> 
-									<td>{{ $row->nombredepartamento }}</td>
-									<td>{{ $row->subtarea_descrip }}</td>
-									<td>{{ $row->last_name }} {{ $row->name }}</td>
-									<td>{{ $row->tiempo_demora }} DIAS</td>
+									<td>{{ $row->nombre }}</td>
+									<td>{{ $row->loca_name }}</td>
+									<td>{{ $row->type_name }}</td>
 									<td>{{ $row->estado }}</td>
 									<td>
 
 		                              <div class="text-center">
 		                                <div class="btn-group">
-											<a data-toggle="modal" data-target="#updateModal" class="btn btn-sm btn-primary" wire:click="edit({{$row->id}})" style="font-size:12px;">
+											<a data-toggle="modal" data-target="#updateModal" class="btn btn-sm btn-primary" wire:click="edit({{$row->idg}})" style="font-size:12px;">
 												<i class="fa fa-edit"></i> 
 												Editar 
 											</a>
 												@if($row->estado == 'INACTIVO')
-													<a class="btn btn-sm btn-success" onclick="confirm('¿Esta de acuerdo en habilitar este registro con id {{$row->id}}?')||event.stopImmediatePropagation()" wire:click="habilitar({{$row->id}})" style="font-size:12px;">
+													<a class="btn btn-sm btn-success" onclick="confirm('¿Esta de acuerdo en habilitar este registro con id {{$row->idg}}?')||event.stopImmediatePropagation()" wire:click="habilitar({{$row->idg}})" style="font-size:12px;">
 														<i class="fa fa-toggle-on"></i> 
 														Habilitar 
 													</a>
 												@else
-													<a class="btn btn-sm btn-danger" onclick="confirm('¿Esta de acuerdo en eliminar este registro con id {{$row->id}}?')||event.stopImmediatePropagation()" wire:click="destroy({{$row->id}})" style="font-size:12px;">
+													<a class="btn btn-sm btn-danger" onclick="confirm('¿Esta de acuerdo en eliminar este registro con id {{$row->idg}}?')||event.stopImmediatePropagation()" wire:click="destroy({{$row->idg}})" style="font-size:12px;">
 														<i class="fa fa-toggle-off"></i> 
 														Deshabilitar 
 													</a>

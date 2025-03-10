@@ -39,7 +39,7 @@
                     <div class="form-group row">
                         <div class="col-md-12">
                         <label class="col-form-label text-md-left">{{ __('Ubicacion del equipo') }}</label>
-                            <select  wire:model.defer="type" id="type" class="form-control" name="type">
+                            <select  wire:model.defer="location" id="location" class="form-control" name="location">
                                 <option hidden value=""> - - - - - - - </option>
                                 @foreach ($locations as $ubicacion)
                                     <option value="{{ $ubicacion->id }}">{{ $ubicacion->name }}</option>

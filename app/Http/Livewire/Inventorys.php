@@ -7,7 +7,9 @@ use Livewire\WithPagination;
 use App\Models\Type;
 use App\Models\Location;
 use App\Models\User;
+use App\Models\Inventory;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class Inventorys extends Component
 {
@@ -34,7 +36,7 @@ class Inventorys extends Component
             'inventorys' => DB::table('inventorys')
                 ->join('types', 'types.id', '=', 'inventorys.type')
                 ->join('locations', 'locations.id', '=', 'inventorys.location')
-                ->select('inventorys.id as idg','inventorys.name as nombre','inventorys.miembro_grupo','locations.name as loca_name','types.name as type_name','inventorys.estado as estado')
+                ->select('inventorys.id as idg','inventorys.name as nombre','locations.name as loca_name','types.name as type_name','inventorys.estado as estado')
                 ->where(function ($query) use ($keyWord) {
                     $query->where('inventorys.name', 'LIKE', $keyWord);
                 })
@@ -75,7 +77,8 @@ class Inventorys extends Component
             'serial' => $this-> serial,
             'modelo' => $this-> modelo,
             'location' => $this-> location,
-            'description' => $this-> description,
+            'description' => $this-> description,   
+            'user_create' => Auth::id(),
             'estado' => 'ACTIVO'
 
         ]);

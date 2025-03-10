@@ -18,7 +18,7 @@ class Locations extends Component
     {
 		$keyWord = '%'.$this->keyWord .'%';
         return view('livewire.locations.view', [
-                'Locations' => Location::latest()
+                'locations' => Location::latest()
                         ->where(function ($query) use ($keyWord) {
                             $query->where('name', 'LIKE', '%'.$keyWord.'%');
                         })
