@@ -28,6 +28,18 @@
                         </div>
                     </div>
 
+                    <div class="form-group row">
+
+                        <div class="col-md-12">
+                            <label for="attachment" class="col-form-label text-md-left">{{ __('Archivos Adjuntos') }} 
+                            </label>
+                            <div class="container col-md-12">
+                                <input wire:model.defer="file" type="file" class="form-control" id="attachment" name="file[]" placeholder="Sube una foto" multiple>@error('file') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
+                    </div>
+
+
                     <div class="form-group">
                         <input wire:model.defer="serial" type="text" class="form-control" id="serial" placeholder="Serial del equipo">@error('serial') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
                     </div>

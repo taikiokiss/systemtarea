@@ -83,6 +83,9 @@ class Inventorys extends Component
 
         ]);
         
+
+
+        
         $this->resetInput();
 		$this->emit('closeModal');
 		session()->flash('message', 'Successfully created.');
