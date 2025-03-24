@@ -10,13 +10,16 @@ use App\Models\User;
 use App\Models\Inventory;
 use DB;
 use Illuminate\Support\Facades\Auth;
-
+use Livewire\WithFileUploads;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 class Inventorys extends Component
 {
     use WithPagination;
-
+    use WithFileUploads;
+ 
 	protected $paginationTheme = 'bootstrap';
-    public $selected_id, $keyWord, $name, $type, $serial, $modelo, $location, $description, $estado;
+    public $selected_id, $keyWord, $name, $file = '', $type, $serial, $modelo, $location, $description, $estado;
 
     public $updateMode = false;
 
@@ -67,25 +70,32 @@ class Inventorys extends Component
     public function store()
     {
         $this->validate([
-		'name' => 'required',
+		      'name' => 'required',
+              //'file.*' => 'image|max:1024',
         ]);
+
+        /*$filePaths = [];
+
+        if (!empty($this->file)) {
+            foreach ($this->file as $file) {
+                $path = $file->storeAs('/fotos',''.$file->getClientOriginalName());
+                $filePaths[] = '/storage/' . $path; 
+            }
+        }*/
 
         Inventory::create([ 
-
-            'name' => $this-> name,
-            'type' => $this-> type,
-            'serial' => $this-> serial,
-            'modelo' => $this-> modelo,
-            'location' => $this-> location,
-            'description' => $this-> description,   
+            'name' => $this->name,
+            'file' => 'VACIO',
+            //'file' => json_encode($filePaths), // Guarda las rutas como JSON
+            'type' => $this->type,
+            'serial' => $this->serial,
+            'modelo' => $this->modelo,
+            'location' => $this->location,
+            'description' => $this->description,   
             'user_create' => Auth::id(),
             'estado' => 'ACTIVO'
-
         ]);
-        
 
-
-        
         $this->resetInput();
 		$this->emit('closeModal');
 		session()->flash('message', 'Successfully created.');
@@ -97,6 +107,7 @@ class Inventorys extends Component
         
         $this->selected_id = $id; 
         $this->name =$record-> name;
+        //$this->file =$record-> file;
         $this->type =$record-> type;
         $this->serial =$record-> serial;
         $this->modelo =$record-> modelo;

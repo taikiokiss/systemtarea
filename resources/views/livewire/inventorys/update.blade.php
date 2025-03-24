@@ -27,7 +27,6 @@
                         <label for="description">Descripcion</label>
                         <input wire:model="description" type="text" class="form-control" id="description">@error('description') <span class="error text-danger" style="font-size: 1rem; position: relative;">{{ $message }}</span> @enderror
                     </div>
-
                 </form>
             </div>
             <div class="modal-footer">
