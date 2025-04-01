@@ -4,7 +4,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h4 style="display:inline;">Iventario - (Listado)</h4>
+            <h4 style="display:inline;">Inventario - (Listado)</h4>
             <div class="btn-group float-right">
                 <div class="btn btn-sm btn-primary" data-toggle="modal" data-target="#createDataModal">
                     <i class="fa fa-plus"></i>  Agregar

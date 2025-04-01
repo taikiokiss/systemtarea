@@ -43,6 +43,8 @@ class Inventorys extends Component
                 ->where(function ($query) use ($keyWord) {
                     $query->where('inventorys.name', 'LIKE', $keyWord);
                 })
+                ->where('inventorys.estado', 'ACTIVO') // Agregando filtro por estado
+                ->orderBy('inventorys.id', 'desc') // Agregando orden descendente
                 ->paginate(10),
             'users' => $list_user,
             'types' => $tipo,
